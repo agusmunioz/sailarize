@@ -6,8 +6,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.github.sailarize.resource.SailConstants;
 import com.github.sailarize.resource.SailResource;
+import com.github.sailarize.resource.SailTags;
 import com.github.sailarize.servlet.RequestHolder;
 
 /**
@@ -18,65 +18,70 @@ import com.github.sailarize.servlet.RequestHolder;
  */
 public class ShortcutBuilder {
 
-    private Set<String> exclude;
+	private static final String AND = "&";
 
-    public ShortcutBuilder() {
+	private static final String EQUALS = "=";
 
-        this.exclude = new HashSet<String>();
-    }
+	private Set<String> exclude;
 
-    /**
-     * Excludes query parameters in the shortcut.
-     * 
-     * @param exclude
-     *            the query parameter names to exclude.
-     * 
-     * @return this builder for further build.
-     */
-    public ShortcutBuilder exclude(String... exclude) {
+	public ShortcutBuilder() {
 
-        for (String param : exclude) {
-            this.exclude.add(param);
-        }
+		this.exclude = new HashSet<String>();
+	}
 
-        return this;
-    }
+	/**
+	 * Excludes query parameters in the shortcut.
+	 * 
+	 * @param exclude
+	 *            the query parameter names to exclude.
+	 * 
+	 * @return this builder for further build.
+	 */
+	public ShortcutBuilder exclude(String... exclude) {
 
-    /**
-     * Builds the shortcut field in the resource.
-     * 
-     * @param resource
-     *            the sail resource.
-     */
-    public void build(SailResource resource) {
+		for (String param : exclude) {
+			this.exclude.add(param);
+		}
 
-        this.build(resource, RequestHolder.get());
-    }
+		return this;
+	}
 
-    /**
-     * Builds the shortcut field in the resource.
-     * 
-     * @param resource
-     *            the sail resource.
-     * 
-     * @param request
-     *            an HTTP request with the query parameters to include in the
-     *            shortcut.
-     */
-    public void build(SailResource resource, HttpServletRequest request) {
+	/**
+	 * Builds the shortcut field in the resource.
+	 * 
+	 * @param resource
+	 *            the sail resource.
+	 */
+	public void build(SailResource resource) {
 
-        StringBuilder shortcut = new StringBuilder();
+		this.build(resource, RequestHolder.get());
+	}
 
-        for (Entry<String, String[]> filter : request.getParameterMap()
-                .entrySet()) {
+	/**
+	 * Builds the shortcut field in the resource.
+	 * 
+	 * @param resource
+	 *            the sail resource.
+	 * 
+	 * @param request
+	 *            an HTTP request with the query parameters to include in the
+	 *            shortcut.
+	 */
+	public void build(SailResource resource, HttpServletRequest request) {
 
-            if (!this.exclude.contains(filter.getKey())) {
-                shortcut.append(filter.getKey()).append("=")
-                        .append(filter.getValue()[0].toString()).append("&");
-            }
+		StringBuilder shortcut = new StringBuilder();
 
-        }
+		for (Entry<String, String[]> filter : request.getParameterMap().entrySet()) {
 
-        resource.meta(SailConstants.SHORTCUT, shortcut.toString());
-    }
+			if (!this.exclude.contains(filter.getKey())) {
+
+				for (String value : filter.getValue()) {
+					shortcut.append(AND).append(filter.getKey()).append(EQUALS).append(value);
+				}
+			}
+
+		}
+
+		resource.meta(SailTags.SHORTCUT, shortcut.toString());
+	}
 }

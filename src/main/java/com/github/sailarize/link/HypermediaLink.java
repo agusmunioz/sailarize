@@ -3,9 +3,6 @@ package com.github.sailarize.link;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.github.sailarize.utils.ToStringBuilder;
 
 /**
@@ -14,7 +11,6 @@ import com.github.sailarize.utils.ToStringBuilder;
  * @author agusmunioz
  * 
  */
-@JsonInclude(Include.NON_NULL)
 public class HypermediaLink {
 
     private String id;
@@ -175,7 +171,6 @@ public class HypermediaLink {
      * 
      * @return a map with the extra data.
      */
-    @JsonAnyGetter
     public Map<String, String> getData() {
 
         return data;

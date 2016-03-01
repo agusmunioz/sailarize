@@ -19,11 +19,11 @@ public class MediaTypeBuilder {
 
             SailResourceList<?> list = (SailResourceList<?>) resource;
 
-            if (list.getVersion() != null) {
-                return mediaType(list.getVersion());
+            if (list.version() != null) {
+                return mediaType(list.version());
             }
 
-            type = list.getResourceType();
+            type = list.resourceType();
         }
 
         return getType(type);

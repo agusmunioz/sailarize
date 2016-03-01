@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.github.sailarize.resource.SailConstants;
+import com.github.sailarize.resource.SailTags;
 import com.github.sailarize.resource.SailResource;
 
 public class HeaderBuilder {
@@ -59,6 +59,6 @@ public class HeaderBuilder {
      */
     public void build(SailResource resource) {
 
-        resource.meta(SailConstants.HEADERS, this.headers);
+        resource.meta(SailTags.HEADERS, this.headers);
     }
 }

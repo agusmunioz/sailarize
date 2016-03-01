@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.github.sailarize.utils.ToStringBuilder;
 
 /**
@@ -15,7 +13,6 @@ import com.github.sailarize.utils.ToStringBuilder;
  * @author agusmunioz
  * 
  */
-@JsonInclude(Include.NON_NULL)
 public class Form {
 
     private String id;

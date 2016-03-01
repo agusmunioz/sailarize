@@ -12,6 +12,7 @@ import com.github.sailarize.i18n.Titles;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.link.RelBuilder;
 import com.github.sailarize.resource.SailResource;
+import com.github.sailarize.resource.SailTags;
 import com.github.sailarize.servlet.RequestHolder;
 import com.github.sailarize.url.Filter;
 import com.github.sailarize.utils.ToStringBuilder;
@@ -32,7 +33,7 @@ public class FacetBuilder {
 	/**
 	 * Rel prefix for clean links.
 	 */
-	public static final String CLEAN = "clean";
+	public static final String CLEAN = "clean" + SailTags.KEY;
 
 	private String name;
 

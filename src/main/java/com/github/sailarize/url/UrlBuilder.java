@@ -105,7 +105,7 @@ public class UrlBuilder {
         Class<? extends SailResource> type = resource.getClass();
 
         if (SailResourceList.class.isAssignableFrom(type)) {
-            type = ((SailResourceList<?>) resource).getResourceType();
+            type = ((SailResourceList<?>) resource).resourceType();
         }
 
         StringBuilder builder = new StringBuilder(url(type, values));

@@ -6,7 +6,7 @@ package com.github.sailarize.resource;
  * @author agusmunioz
  * 
  */
-public interface SailConstants {
+public interface SailTags {
 
     /**
      * Sail special character.
@@ -16,17 +16,17 @@ public interface SailConstants {
     /**
      * Key for links.
      */
-    String LINKS_KEY = KEY + "links";
+    String LINKS = KEY + "links";
 
     /**
      * Key for forms.
      */
-    String FORMS_KEY = KEY + "forms";
+    String FORMS = KEY + "forms";
 
     /**
      * Key for images.
      */
-    String IMG_KEY = KEY + "images";
+    String IMG = KEY + "images";
 
     /**
      * Header field.

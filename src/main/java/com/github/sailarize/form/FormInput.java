@@ -1,7 +1,5 @@
 package com.github.sailarize.form;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.github.sailarize.utils.ToStringBuilder;
 
 /**
@@ -88,7 +86,6 @@ public class FormInput {
      * 
      * @return the id.
      */
-    @JsonInclude(Include.NON_NULL)
     public String getId() {
 
         return id;
@@ -152,7 +149,6 @@ public class FormInput {
      * 
      * @return the mask or null if not set.
      */
-    @JsonInclude(Include.NON_NULL)
     public String getMask() {
 
         return mask;
