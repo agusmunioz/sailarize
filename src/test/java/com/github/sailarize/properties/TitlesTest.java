@@ -1,4 +1,4 @@
-package com.github.sailarize.i18n;
+package com.github.sailarize.properties;
 
 import java.util.Locale;
 
