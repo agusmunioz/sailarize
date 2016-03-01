@@ -2,7 +2,9 @@ package com.github.sailarize.link;
 
 import java.util.Collection;
 
+import com.github.sailarize.http.Http;
 import com.github.sailarize.mediatype.MediaTypeBuilder;
+import com.github.sailarize.properties.Hosts;
 import com.github.sailarize.resource.SailResource;
 import com.github.sailarize.url.Filter;
 import com.github.sailarize.url.QueryString;
@@ -218,13 +220,16 @@ public class LinkBuilder {
 	 * original.
 	 * 
 	 * @param host
-	 *            the link host
+	 *            the link host or the key in sail/hosts.properties
 	 * 
 	 * @return the {@link LinkBuilder} for continuing building.
 	 */
 	public LinkBuilder host(String host) {
 
-		this.link.setHref(UrlBuilder.host(link.getHref(), host));
+		String property = Hosts.get(host);
+
+		this.link.setHref(UrlBuilder.host(link.getHref(), (property == null ? host : property)));
+
 		return this;
 	}
 
@@ -236,7 +241,8 @@ public class LinkBuilder {
 	 */
 	public LinkBuilder https() {
 
-		this.link.setHref(UrlBuilder.protocol(link.getHref(), "https"));
+		this.link.setHref(UrlBuilder.protocol(link.getHref(), Http.HTTPS));
+		
 		return this;
 	}
 
@@ -265,7 +271,7 @@ public class LinkBuilder {
 	 */
 	public LinkBuilder http() {
 
-		this.link.setHref(UrlBuilder.protocol(link.getHref(), "http"));
+		this.link.setHref(UrlBuilder.protocol(link.getHref(), Http.HTTP));
 		return this;
 	}
 

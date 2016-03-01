@@ -5,6 +5,8 @@ import java.util.Locale;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.github.sailarize.properties.Titles;
+
 /**
  * Unit test for {@link Titles}.
  * 

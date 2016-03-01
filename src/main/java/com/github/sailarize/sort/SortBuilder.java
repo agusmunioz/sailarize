@@ -7,9 +7,9 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.github.sailarize.i18n.Titles;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.link.RelBuilder;
+import com.github.sailarize.properties.Titles;
 import com.github.sailarize.resource.SailResource;
 import com.github.sailarize.servlet.RequestHolder;
 import com.github.sailarize.url.Filter;
