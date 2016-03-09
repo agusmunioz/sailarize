@@ -1,0 +1,18 @@
+{
+    "href":"www.sailarize.com/alink",
+    "rel":"rel",
+    "title":"aTitle",
+    "type":"application/vnd.sail+json;version=1.0",
+    "headers":[
+        {
+            "name":"one",
+            "value":"1"
+        },
+        {
+            "name":"two",
+            "value":"2"
+        }
+    ],
+    "data-one":"1",
+    "data-two":"2"
+}

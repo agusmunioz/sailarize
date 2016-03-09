@@ -1,0 +1,26 @@
+{
+    "id":"form",
+    "action":"www.sailarize.com/forms",
+    "method":"PATCH",
+    "title":"Title",
+    "headers":[
+        {
+            "name":"one",
+            "value":"1"
+        },
+        {
+            "name":"two",
+            "value":"2"
+        }
+    ],
+    "inputs":[
+        {
+            "name":"a.field",
+            "value":null
+        },
+        {
+            "name":"another.field",
+            "value":null
+        }
+    ]
+}

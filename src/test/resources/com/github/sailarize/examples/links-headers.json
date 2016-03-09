@@ -1,0 +1,14 @@
+{
+    "href":"www.sailarize.com/alink",
+    "rel":"rel",
+    "headers":[
+        {
+            "name":"one",
+            "value":"1"
+        },
+        {
+            "name":"two",
+            "value":"2"
+        }
+    ]
+}

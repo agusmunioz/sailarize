@@ -1,0 +1,16 @@
+{
+    "id":"1",
+    "name":"Agus",
+    "age":34,
+    "#meta":{
+        "aMeta":"123",
+        "anotherMeta":"456"
+    },
+    "#links":[
+        {
+            "href":"/persons/1",
+            "rel":"self",
+            "type":"application/vnd.sail+json"
+        }
+    ]
+}

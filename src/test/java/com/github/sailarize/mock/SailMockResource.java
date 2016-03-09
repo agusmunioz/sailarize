@@ -1,4 +1,4 @@
-package com.github.sailarize.test.mock;
+package com.github.sailarize.mock;
 
 import com.github.sailarize.resource.SailResource;
 import com.github.sailarize.resource.Path;

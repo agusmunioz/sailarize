@@ -1,0 +1,15 @@
+{
+    "id":"form",
+    "action":"www.sailarize.com/forms",
+    "method":"PATCH",
+    "inputs":[
+        {
+            "name":"a.field",
+            "value":null
+        },
+        {
+            "name":"another.field",
+            "value":null
+        }
+    ]
+}

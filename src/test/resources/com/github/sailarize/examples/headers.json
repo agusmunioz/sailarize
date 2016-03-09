@@ -1,0 +1,10 @@
+[
+    {
+        "name":"header1",
+        "value":"aValue1"
+    },
+    {
+        "name":"header2",
+        "value":"aValue2"
+    }
+]

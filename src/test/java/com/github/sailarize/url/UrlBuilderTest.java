@@ -3,12 +3,12 @@ package com.github.sailarize.url;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.github.sailarize.mock.AnotherMockResource;
+import com.github.sailarize.mock.EmptyUrlResource;
+import com.github.sailarize.mock.NotAnnotatedResource;
+import com.github.sailarize.mock.SailMockResource;
+import com.github.sailarize.mock.SailTemplateMockResource;
 import com.github.sailarize.resource.Path;
-import com.github.sailarize.test.mock.AnotherMockResource;
-import com.github.sailarize.test.mock.EmptyUrlResource;
-import com.github.sailarize.test.mock.NotAnnotatedResource;
-import com.github.sailarize.test.mock.SailMockResource;
-import com.github.sailarize.test.mock.SailTemplateMockResource;
 
 /**
  * Unit test for {@link UrlBuilder}.
