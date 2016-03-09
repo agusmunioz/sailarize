@@ -10,10 +10,25 @@
 	<description>A Java library for building Sail resources</description>
 	<url>https://github.com/agusmunioz/sailarize</url>
 
+	<developers>
+		<developer>
+			<name>Agustin Muñoz</name>
+			<id>agusmunioz</id>
+			<url>https://github.com/agusmunioz</url>
+		</developer>
+	</developers>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+
+	<scm>
+		<url>https://github.com/agusmunioz/sailarize</url>
+		<connection>scm:git:git://github.com/agusmunioz/sailarize.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/despegar/cp-ui.git</developerConnection>
+		<tag>master</tag>
+	</scm>
 
 	<dependencies>
 		<dependency>
