@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.github.sailarize.form.FormBuilder;
 import com.github.sailarize.form.FormInput;
 import com.github.sailarize.form.Template;
+import com.github.sailarize.form.ValueInput;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.resource.SailResource;
 import com.github.sailarize.servlet.RequestHolder;
@@ -76,7 +77,7 @@ public class FacetFormBuilder {
 	 */
 	public FacetFormBuilder number(String name) {
 
-		this.inputs.add(new FormInput(name));
+		this.inputs.add(new ValueInput(name));
 		return this;
 	}
 
@@ -90,7 +91,7 @@ public class FacetFormBuilder {
 	 */
 	public FacetFormBuilder text(String name) {
 
-		this.inputs.add(new FormInput(name));
+		this.inputs.add(new ValueInput(name));
 		return this;
 	}
 
@@ -104,7 +105,7 @@ public class FacetFormBuilder {
 	 */
 	public FacetFormBuilder text(String name, Object value) {
 
-		this.inputs.add(new FormInput(name, value));
+		this.inputs.add(new ValueInput(name, value));
 		return this;
 	}
 
@@ -187,8 +188,7 @@ public class FacetFormBuilder {
 	 */
 	public FacetFormBuilder filter(HttpServletRequest request) {
 
-		for (Entry<String, String[]> filter : request.getParameterMap()
-				.entrySet()) {
+		for (Entry<String, String[]> filter : request.getParameterMap().entrySet()) {
 
 			for (String value : filter.getValue()) {
 				this.filter(filter.getKey(), value);
@@ -209,27 +209,20 @@ public class FacetFormBuilder {
 	 */
 	public void build(SailResource resource) {
 
-		resource.add(
-				FormBuilder.get(resource).id(this.id).title(this.title)
-						.inputs(this.inputs)
-						.filters(this.option.compatibles(this.filters)).build(),
-				FacetBuilder.GROUP);
+		resource.add(FormBuilder.get(resource).id(this.id).title(this.title).inputs(this.inputs)
+				.filters(this.option.compatibles(this.filters)).build(), FacetBuilder.GROUP);
 
 		Template template = Template.template(this.option.getValue());
 
 		for (Filter clean : this.applied) {
 
-			String rel = FacetBuilder.CLEAN
-					+ template.eval(this.cleanRel,
-							clean.getValue().replace(" ", "_"));
+			String rel = FacetBuilder.CLEAN + template.eval(this.cleanRel, clean.getValue().replace(" ", "_"));
 
 			String title = template.eval(this.cleanTitle, clean.getValue());
 
 			resource.add(
-					new LinkBuilder(resource, rel)
-							.filters(Collector.reject(this.filters, clean))
-							.title(title).build(), FacetBuilder.GROUP,
-					this.option.getFacet());
+					new LinkBuilder(resource, rel).filters(Collector.reject(this.filters, clean)).title(title).build(),
+					FacetBuilder.GROUP, this.option.getFacet());
 		}
 
 	}

@@ -3,10 +3,9 @@ package com.github.sailarize.form;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
+import com.github.sailarize.http.Header;
 import com.github.sailarize.http.Http;
 import com.github.sailarize.resource.SailResource;
 import com.github.sailarize.url.Filter;
@@ -44,7 +43,7 @@ public class FormBuilder {
 
 	private String dateMask = "yyyy-MM-dd";
 
-	private Map<String, String> headers;
+	private Collection<Header> headers;
 
 	/**
 	 * Creates an initialized {@link FormBuilder}.
@@ -216,7 +215,7 @@ public class FormBuilder {
 	 */
 	public FormBuilder number(String name) {
 
-		FormInput input = new FormInput(name);
+		ValueInput input = new ValueInput(name);
 		this.inputs.add(input);
 		return this;
 	}
@@ -234,12 +233,18 @@ public class FormBuilder {
 	 */
 	public FormBuilder number(String name, Number value) {
 
-		FormInput input = new FormInput(name);
+		ValueInput input = new ValueInput(name);
 		input.setValue(value);
 		this.inputs.add(input);
 		return this;
 	}
 
+	public FormBuilder input(FormInput input){
+		this.inputs.add(input);
+		return this;
+	}
+	
+	
 	/**
 	 * Adds a text input in the form with a specific value pre-set.
 	 * 
@@ -253,7 +258,7 @@ public class FormBuilder {
 	 */
 	public FormBuilder text(String name, String value) {
 
-		FormInput input = new FormInput(name);
+		ValueInput input = new ValueInput(name);
 		input.setValue(value);
 		this.inputs.add(input);
 		return this;
@@ -269,7 +274,7 @@ public class FormBuilder {
 	 */
 	public FormBuilder text(String name) {
 
-		FormInput input = new FormInput(name);
+		ValueInput input = new ValueInput(name);
 		this.inputs.add(input);
 		return this;
 	}
@@ -297,7 +302,7 @@ public class FormBuilder {
 	 */
 	public FormBuilder date(String name) {
 
-		FormInput input = new FormInput(name);
+		ValueInput input = new ValueInput(name);
 		input.setMask(this.dateMask);
 		this.inputs.add(input);
 		return this;
@@ -313,7 +318,7 @@ public class FormBuilder {
 	 */
 	public FormBuilder date(String name, Date value) {
 
-		FormInput input = new FormInput(name);
+		ValueInput input = new ValueInput(name);
 		input.setValue(new SimpleDateFormat(this.dateMask).format(value));
 		input.setMask(this.dateMask);
 		this.inputs.add(input);
@@ -330,7 +335,7 @@ public class FormBuilder {
 	 */
 	public FormBuilder list(String name) {
 
-		FormInput input = new FormInput(name);
+		ValueInput input = new ValueInput(name);
 		input.setValue(new String[] {});
 		this.inputs.add(input);
 		return this;
@@ -350,6 +355,7 @@ public class FormBuilder {
 
 		return this;
 	}
+
 
 	/**
 	 * Adds a filter to all facet links.
@@ -404,10 +410,10 @@ public class FormBuilder {
 	public FormBuilder header(String name, Object value) {
 
 		if (this.headers == null) {
-			this.headers = new HashMap<String, String>();
+			this.headers = new LinkedList<Header>();
 		}
 
-		this.headers.put(name, value.toString());
+		this.headers.add(new Header(name, value.toString()));
 
 		return this;
 	}
@@ -415,7 +421,7 @@ public class FormBuilder {
 	public FormBuilder noHeaders() {
 
 		if (this.headers == null) {
-			this.headers = new HashMap<String, String>();
+			this.headers = new LinkedList<Header>();
 		} else {
 			this.headers.clear();
 		}

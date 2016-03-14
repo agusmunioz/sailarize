@@ -59,8 +59,8 @@ public abstract class FormSerializationTest {
 		form.setId("form");
 		form.setMethod(Http.PATCH);
 		form.setAction("www.sailarize.com/forms");
-		form.add(new FormInput("a.field"));
-		form.add(new FormInput("another.field"));
+		form.add(new ValueInput("a.field"));
+		form.add(new ValueInput("another.field"));
 
 		String resource = this.serialize(form);
 
@@ -100,8 +100,8 @@ public abstract class FormSerializationTest {
 		form.setTitle("Title");
 		form.addHeader("one", "1");
 		form.addHeader("two", "2");
-		form.add(new FormInput("a.field"));
-		form.add(new FormInput("another.field"));
+		form.add(new ValueInput("a.field"));
+		form.add(new ValueInput("another.field"));
 
 		String resource = this.serialize(form);
 

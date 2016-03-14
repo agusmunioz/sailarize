@@ -1,8 +1,11 @@
 package com.github.sailarize.link;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
+import com.github.sailarize.http.Header;
 import com.github.sailarize.utils.ToStringBuilder;
 
 /**
@@ -21,7 +24,7 @@ public class HypermediaLink {
 
 	private String type;
 
-	private Map<String, String> headers;
+	private Collection<Header> headers;
 
 	private Map<String, String> data;
 
@@ -120,9 +123,20 @@ public class HypermediaLink {
 	 * 
 	 * @return the headers or null if no header was added.
 	 */
-	public Map<String, String> getHeaders() {
+	public Collection<Header> getHeaders() {
 
 		return headers;
+	}
+
+	/**
+	 * Sets the list of headers that must be used when navigating the link.
+	 * 
+	 * @param headers
+	 *            the collection of headers.
+	 */
+	public void setHeaders(Collection<Header> headers) {
+
+		this.headers = headers;
 	}
 
 	/**
@@ -137,10 +151,10 @@ public class HypermediaLink {
 	public void addHeader(String name, Object value) {
 
 		if (this.headers == null) {
-			this.headers = new HashMap<String, String>();
+			this.headers = new LinkedList<Header>();
 		}
 
-		this.headers.put(name, value.toString());
+		this.headers.add(new Header(name, value.toString()));
 	}
 
 	/**
