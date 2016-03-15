@@ -4,12 +4,12 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * Models a {@link FormInput} with selection options for input the value.
+ * Models a {@link FormInput} with selection options for the input value.
  * 
  * @author agusmunioz
  *
  */
-public class SelectInput extends FormInput {
+public abstract class SelectInput extends FormInput {
 
 	private Collection<Option> options;
 
@@ -62,4 +62,5 @@ public class SelectInput extends FormInput {
 		return this;
 	}
 
+	public abstract <T> T behave(SelectBehavioural<T> behavioural);
 }

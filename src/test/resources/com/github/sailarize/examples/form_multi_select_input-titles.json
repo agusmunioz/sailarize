@@ -1,0 +1,13 @@
+{
+    "name":"input.field",
+    "multilect":[
+        {
+            "title":"Red",
+            "value":"RED"
+        },
+        {
+            "title":"Blue",
+            "value":"BLUE"
+        }
+    ]
+}

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Locale;
 
 import com.github.sailarize.properties.Titles;
+import com.sun.javafx.binding.StringFormatter;
 
 /**
  * Facilitates the build of {@link SelectInput} and {@link Option}.
@@ -14,30 +15,45 @@ import com.github.sailarize.properties.Titles;
  */
 public class SelectBuilder {
 
-	private static final String TITLE_KEY_PREFIX = "select.";
+	private static final String TITLE_KEY = "select.%s.%s";
 
-	private String name;
+	private SelectInput input;
 
 	private Collection<Option> options;
 
 	private Locale locale;
 
-	private SelectBuilder(String name) {
-		this.name = name;
+	private SelectBuilder(SelectInput input) {
+		this.input = input;
 		this.options = new LinkedList<Option>();
 	}
 
 	/**
-	 * Creates and initializes a {@link SelectBuilder}.
+	 * Creates and initializes a {@link SelectBuilder} for building a
+	 * {@link SelectInput} in Single mode.
 	 * 
 	 * @param name
 	 *            the select name.
 	 * 
 	 * @return the builder.
 	 */
-	public static SelectBuilder select(String name) {
+	public static SelectBuilder single(String name) {
 
-		return new SelectBuilder(name);
+		return new SelectBuilder(new SingleSelectInput(name));
+	}
+
+	/**
+	 * Creates and initializes a {@link SelectBuilder} for building a
+	 * {@link SelectInput} in multiple mode.
+	 * 
+	 * @param name
+	 *            the select name.
+	 * 
+	 * @return the builder.
+	 */
+	public static SelectBuilder multi(String name) {
+
+		return new SelectBuilder(new MultilectInput(name));
 	}
 
 	/**
@@ -54,7 +70,9 @@ public class SelectBuilder {
 	 */
 	public SelectBuilder option(String value, String title) {
 
-		return this.option(new Option(this.title(title), value));
+		String i18n = this.title(title);
+
+		return this.option(new Option(i18n == null ? title : i18n, value));
 	}
 
 	/**
@@ -99,9 +117,9 @@ public class SelectBuilder {
 
 		for (String value : values) {
 
-			StringBuilder key = new StringBuilder(TITLE_KEY_PREFIX).append(this.name).append(".").append(value);
+			String key = StringFormatter.format(TITLE_KEY, this.input.getName(), value).get();
 
-			this.option(new Option(this.title(key.toString()), value));
+			this.option(new Option(this.title(key), value));
 		}
 
 		return this;
@@ -113,21 +131,24 @@ public class SelectBuilder {
 	 * @param key
 	 *            the title key.
 	 * 
-	 * @return the title or the key if no title is found.
+	 * @return the title or null if not found.
 	 */
 	private String title(String key) {
 
-		String title = (locale == null) ? Titles.get(key) : Titles.get(key, locale);
+		return (this.locale == null) ? Titles.get(key) : Titles.get(key, this.locale);
 
-		return (title == null) ? key : title;
 	}
 
+	/**
+	 * Builds the select input.
+	 * 
+	 * @return the input.
+	 */
 	public SelectInput build() {
 
-		SelectInput select = new SelectInput(this.name);
-		select.setOptions(this.options);
+		this.input.setOptions(this.options);
 
-		return select;
+		return this.input;
 	}
 
 }

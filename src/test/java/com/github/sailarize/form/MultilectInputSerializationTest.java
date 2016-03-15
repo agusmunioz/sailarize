@@ -8,12 +8,12 @@ import com.github.sailarize.asserts.AssertSerialization;
 
 /**
  * Test that any serialization implementation must run (extend) in order to
- * ensure a valid serialization of a {@link SelectInput}.
+ * ensure a valid serialization of a {@link MultilectInput}.
  * 
  * @author agusmunioz
  *
  */
-public abstract class SelectInputSerializationTest {
+public abstract class MultilectInputSerializationTest {
 
 	/**
 	 * Test for a select input with minimum information.
@@ -21,13 +21,13 @@ public abstract class SelectInputSerializationTest {
 	@Test
 	public void base() {
 
-		SelectInput input = new SelectInput("input.field");
+		MultilectInput input = new MultilectInput("input.field");
 		input.setOptions(Arrays.asList(new Option(null, "RED"), new Option(null, "BLUE")));
 
 		String resource = this.serialize(input);
 
 		AssertSerialization.assertEquals("Unexpected serialization of a select input with a list of options.",
-				"form_select_input-base", resource);
+				"form_multi_select_input-base", resource);
 
 	}
 
@@ -37,13 +37,13 @@ public abstract class SelectInputSerializationTest {
 	@Test
 	public void titles() {
 
-		SelectInput input = new SelectInput("input.field");
+		MultilectInput input = new MultilectInput("input.field");
 		input.setOptions(Arrays.asList(new Option("Red", "RED"), new Option("Blue", "BLUE")));
 
 		String resource = this.serialize(input);
 
 		AssertSerialization.assertEquals("Unexpected serialization of a select input with value and titles.",
-				"form_select_input-titles", resource);
+				"form_multi_select_input-titles", resource);
 
 	}
 
@@ -53,15 +53,15 @@ public abstract class SelectInputSerializationTest {
 	@Test
 	public void full() {
 
-		SelectInput input = new SelectInput("input.field");
+		MultilectInput input = new MultilectInput("input.field");
 		input.setOptions(Arrays.asList(new Option("Red", "RED"), new Option("Blue", "BLUE")));
 		input.setId("aSelect");
 		
 		String resource = this.serialize(input);
 
-		AssertSerialization.assertEquals("Unexpected serialization of a form input with id.", "form_select_input-full",
+		AssertSerialization.assertEquals("Unexpected serialization of a form input with id.", "form_multi_select_input-full",
 				resource);
 	}
 
-	protected abstract String serialize(SelectInput input);
+	protected abstract String serialize(MultilectInput input);
 }
