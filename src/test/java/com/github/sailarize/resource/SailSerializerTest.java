@@ -5,11 +5,13 @@ import org.junit.Test;
 import com.github.sailarize.asserts.AssertSerialization;
 import com.github.sailarize.form.FormBuilder;
 import com.github.sailarize.link.LinkBuilder;
+import com.github.sailarize.media.Image;
+import com.github.sailarize.media.Video;
 import com.github.sailarize.mock.PersonMock;
 
 /**
- * Test that any serialization implementation must run (extend) in order to ensure a
- * valid serialization of a {@link SailResource}.
+ * Test that any serialization implementation must run (extend) in order to
+ * ensure a valid serialization of a {@link SailResource}.
  * 
  * @author agusmunioz
  *
@@ -86,6 +88,45 @@ public abstract class SailSerializerTest {
 	}
 
 	/**
+	 * Test the serialization of a resource with images.
+	 */
+	@Test
+	public void images() {
+
+		PersonMock person = new PersonMock("1", "Agus", 34);
+
+		for (int i = 1; i <= 2; i++) {
+			Image image = new Image("/images/" + i, "" + i);
+			image.setType("png");
+			person.add(image);
+		}
+
+		String resource = this.serialize(person);
+
+		AssertSerialization.assertEquals("Unexpected resource with images serialization", "person_images", resource);
+
+	}
+
+	/**
+	 * Test the serialization of a resource with videos.
+	 */
+	@Test
+	public void videos() {
+
+		PersonMock person = new PersonMock("1", "Agus", 34);
+
+		for (int i = 1; i <= 2; i++) {
+			Video video = new Video("" + i, "/videos/" + i);
+			person.add(video);
+		}
+
+		String resource = this.serialize(person);
+
+		AssertSerialization.assertEquals("Unexpected resource with vide serialization", "person_videos", resource);
+
+	}
+
+	/**
 	 * Test the serialization of a resource with links, forms and meta.
 	 */
 	@Test
@@ -106,6 +147,15 @@ public abstract class SailSerializerTest {
 		person.meta("aMeta", "123");
 
 		person.meta("anotherMeta", "456");
+
+		for (int i = 1; i <= 2; i++) {
+			Image image = new Image("/images/" + i, "" + i);
+			image.setType("png");
+			person.add(image);
+
+			Video video = new Video("" + i, "/videos/" + i);
+			person.add(video);
+		}
 
 		String resource = this.serialize(person);
 

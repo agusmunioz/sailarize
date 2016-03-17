@@ -1,0 +1,22 @@
+{
+    "id":"1",
+    "name":"Agus",
+    "age":34,
+    "#links":[
+        {
+            "href":"/persons/1",
+            "rel":"self",
+            "type":"application/vnd.sail+json"
+        }
+    ],
+    "#videos":[
+        {
+            "href":"/videos/1",
+            "rel":"1"
+        },
+        {
+            "href":"/videos/2",
+            "rel":"2"
+        }
+    ]
+}

@@ -55,5 +55,27 @@
                 }
             ]
         }
+    ],
+    "#images":[
+        {
+            "href":"/images/1",
+            "rel":"1",
+            "type":"image/png"
+        },
+        {
+            "href":"/images/2",
+            "rel":"2",
+            "type":"image/png"
+        }
+    ],
+    "#videos":[
+        {
+            "href":"/videos/1",
+            "rel":"1"
+        },
+        {
+            "href":"/videos/2",
+            "rel":"2"
+        }
     ]
 }

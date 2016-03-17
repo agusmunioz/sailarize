@@ -9,6 +9,7 @@ import com.github.sailarize.form.Form;
 import com.github.sailarize.link.HypermediaLink;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.media.Image;
+import com.github.sailarize.media.Video;
 import com.github.sailarize.url.UrlBuilder;
 import com.github.sailarize.utils.ToStringBuilder;
 
@@ -30,13 +31,16 @@ public abstract class SailResource {
 
 	private Map<String, Collection<Form>> forms;
 
+	private Map<String, Collection<Image>> images;
+
+	private Map<String, Collection<Video>> videos;
+	
 	/**
 	 * Creates a {@link SailResource}.
 	 * 
 	 */
 	protected SailResource() {
 
-		this.links = new LinkedHashMap<String, Collection<HypermediaLink>>();
 	}
 
 	/**
@@ -95,6 +99,10 @@ public abstract class SailResource {
 	 */
 	public void add(HypermediaLink link, String... groups) {
 
+		if (this.links == null) {
+			this.links = new LinkedHashMap<String, Collection<HypermediaLink>>();
+		}
+
 		this.group(this.links, link, SailTags.LINKS, groups);
 	}
 
@@ -138,17 +146,59 @@ public abstract class SailResource {
 	}
 
 	/**
-	 * Adds an image link to the resource.
+	 * Adds an image to the resource.
 	 * 
 	 * @param image
 	 *            the image to link to.
 	 * 
 	 * @param groups
-	 *            the groups the link must be added to.
+	 *            the groups the iamge must be added to.
 	 */
 	public void add(Image image, String... groups) {
 
-		this.group(this.links, image.getLink(), SailTags.IMG, groups);
+		if (this.images == null) {
+			this.images = new LinkedHashMap<String, Collection<Image>>();
+		}
+
+		this.group(this.images, image, SailTags.IMG, groups);
+	}
+
+	/**
+	 * Gets the images grouped.
+	 * 
+	 * @return the map of images or null if no image is added.
+	 */
+	public final Map<String, Collection<Image>> getImages() {
+		return images;
+	}
+
+	
+	/**
+	 * Adds a video to the resource.
+	 * 
+	 * @param video
+	 *            the video to link to.
+	 * 
+	 * @param groups
+	 *            the groups the video must be added to.
+	 */
+	public void add(Video video, String... groups) {
+
+		if (this.videos == null) {
+			this.videos = new LinkedHashMap<String, Collection<Video>>();
+		}
+
+		this.group(this.videos, video, SailTags.VIDEO, groups);
+	}
+	
+	
+	/**
+	 * Gets the videos grouped.
+	 * 
+	 * @return the map of videos or null if no image is added.
+	 */
+	public Map<String, Collection<Video>> getVideos() {
+		return videos;
 	}
 
 	/**
@@ -169,6 +219,18 @@ public abstract class SailResource {
 	protected final void setId(String id) {
 
 		this.id = id;
+	}
+
+	/**
+	 * Disables any Sail feature in order to return a plain JSON. Sets every
+	 * hypermedia content in null in order to not being serialized.
+	 */
+	public void unsail() {
+		this.meta = null;
+		this.links = null;
+		this.forms = null;
+		this.images = null;
+
 	}
 
 	/**
