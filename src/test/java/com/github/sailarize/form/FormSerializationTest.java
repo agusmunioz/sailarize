@@ -1,5 +1,7 @@
 package com.github.sailarize.form;
 
+import java.util.HashMap;
+
 import org.junit.Test;
 
 import com.github.sailarize.asserts.AssertSerialization;
@@ -88,6 +90,25 @@ public abstract class FormSerializationTest {
 	}
 
 	/**
+	 * Test the serialization of a form with body.
+	 */
+	@Test
+	public void body() {
+
+		Form form = new Form();
+		form.setId("form");
+		form.setMethod(Http.POST);
+		form.setAction("www.sailarize.com/forms");
+		HashMap<String, String> body = new HashMap<String, String>();
+		body.put("id", "234234");
+		form.setBody(body);
+
+		String resource = this.serialize(form);
+
+		AssertSerialization.assertEquals("Unexpected serialization of a form with body", "forms-body", resource);
+	}
+
+	/**
 	 * Test the serialization of a full form.
 	 */
 	@Test
@@ -100,6 +121,9 @@ public abstract class FormSerializationTest {
 		form.setTitle("Title");
 		form.addHeader("one", "1");
 		form.addHeader("two", "2");
+		HashMap<String, String> body = new HashMap<String, String>();
+		body.put("id", "234234");
+		form.setBody(body);
 		form.add(new ValueInput("a.field"));
 		form.add(new ValueInput("another.field"));
 

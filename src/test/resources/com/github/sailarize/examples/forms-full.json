@@ -13,6 +13,9 @@
             "value":"2"
         }
     ],
+    "body":{
+        "id":"234234"
+    },
     "inputs":[
         {
             "name":"a.field",
