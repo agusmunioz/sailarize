@@ -201,12 +201,15 @@ public class PageBuilder {
 	 * 
 	 * @param list
 	 *            the resource where to add all the links.
+	 * @param values
+	 *            any value used to replace in the list url if a template is
+	 *            used.
 	 */
-	public void build(SailResource list) {
+	public void build(SailResource list, Object... values) {
 
 		if (this.page > 1) {
 
-			LinkBuilder builder = new LinkBuilder(list, PageConstants.PREVIOUS_REL).title(this.getPrevious())
+			LinkBuilder builder = new LinkBuilder(list, PageConstants.PREVIOUS_REL, values).title(this.getPrevious())
 					.filter(PageConstants.PAGE_PARAM, Integer.toString(this.page - 1))
 					.filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters);
 
@@ -215,7 +218,7 @@ public class PageBuilder {
 
 		if (this.page * this.size < this.total) {
 
-			LinkBuilder builder = new LinkBuilder(list, PageConstants.NEXT_REL).title(this.getNext())
+			LinkBuilder builder = new LinkBuilder(list, PageConstants.NEXT_REL, values).title(this.getNext())
 					.filter(PageConstants.PAGE_PARAM, Integer.toString(this.page + 1))
 					.filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters);
 
@@ -226,8 +229,8 @@ public class PageBuilder {
 
 			for (Integer page : this.shortcuts) {
 
-				LinkBuilder builder = new LinkBuilder(list, this.shortcutRel(page)).title(this.shortcutTitle(page))
-						.filter(PageConstants.PAGE_PARAM, page.toString())
+				LinkBuilder builder = new LinkBuilder(list, this.shortcutRel(page), values)
+						.title(this.shortcutTitle(page)).filter(PageConstants.PAGE_PARAM, page.toString())
 						.filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters);
 
 				list.add(builder.build(), PageConstants.GROUP);

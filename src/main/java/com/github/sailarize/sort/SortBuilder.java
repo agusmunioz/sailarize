@@ -263,16 +263,20 @@ public class SortBuilder {
 	 * 
 	 * @param list
 	 *            a resource modeling a list or resources.
+	 * 
+	 * @param values
+	 *            any value used to replace in the list url if a template is
+	 *            used.
 	 */
-	public void build(SailResource list) {
+	public void build(SailResource list, Object... values) {
 
 		int index = 0;
 
 		for (SortOption option : this.options) {
 
 			LinkBuilder builder = new LinkBuilder(list,
-					RelBuilder.rel(SortConstants.REL, option.getValue(), option.getDirection())).filters(this.filters)
-							.filter(SortConstants.SORT_BY, option.getValue())
+					RelBuilder.rel(SortConstants.REL, option.getValue(), option.getDirection()), values)
+							.filters(this.filters).filter(SortConstants.SORT_BY, option.getValue())
 							.filter(SortConstants.SORT_DIRECTION, option.getDirection())
 							.title(this.getTitle(option, index));
 

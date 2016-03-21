@@ -5,43 +5,70 @@ import com.github.sailarize.resource.SailResourceList;
 import com.github.sailarize.resource.Version;
 import com.github.sailarize.utils.Annotations;
 
+/**
+ * Helps to create a resource media type.
+ * 
+ * @author agusmunioz
+ *
+ */
 public class MediaTypeBuilder {
 
-    public static final String SAIL_MEDIA = "application/vnd.sail+json";
+	public static final String SAIL_MEDIA = "application/vnd.sail+json";
 
-    private static final String VERSION_PARAM = ";version=";
+	private static final String VERSION_PARAM = ";version=";
 
-    public static String getType(SailResource resource) {
+	/**
+	 * Builds the resource media type.
+	 * 
+	 * @param resource
+	 *            the sail resource.
+	 * @return the media type.
+	 */
+	public static String build(SailResource resource) {
 
-        Class<? extends SailResource> type = resource.getClass();
+		Class<? extends SailResource> type = resource.getClass();
 
-        if (type.equals(SailResourceList.class)) {
+		if (type.equals(SailResourceList.class)) {
 
-            SailResourceList<?> list = (SailResourceList<?>) resource;
+			SailResourceList<?> list = (SailResourceList<?>) resource;
 
-            if (list.version() != null) {
-                return mediaType(list.version());
-            }
+			if (list.version() != null) {
+				return mediaType(list.version());
+			}
 
-            type = list.resourceType();
-        }
+			type = list.resourceType();
+		}
 
-        return getType(type);
-    }
+		return build(type);
+	}
 
-    public static String getType(Class<? extends SailResource> resourceType) {
+	/**
+	 * Builds the resource class media type.
+	 * 
+	 * @param resourceType
+	 *            the sail resource type.
+	 * 
+	 * @return the media type.
+	 */
+	public static String build(Class<? extends SailResource> resourceType) {
 
-        Version annotation = Annotations.search(resourceType, Version.class);
+		Version annotation = Annotations.search(resourceType, Version.class);
 
-        if (annotation != null) {
-            return mediaType(annotation.value());
-        }
+		if (annotation != null) {
+			return mediaType(annotation.value());
+		}
 
-        return SAIL_MEDIA;
-    }
+		return SAIL_MEDIA;
+	}
 
-    private static String mediaType(String version) {
+	private static String mediaType(String version) {
 
-        return SAIL_MEDIA + VERSION_PARAM + version;
-    }
+		StringBuilder builder = new StringBuilder(SAIL_MEDIA);
+
+		if (version != null && !version.isEmpty()) {
+			builder.append(VERSION_PARAM).append(version);
+		}
+
+		return builder.toString();
+	}
 }

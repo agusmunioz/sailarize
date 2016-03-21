@@ -62,7 +62,6 @@ public class FormBuilder {
 		this.action = url;
 		this.id = id;
 		this.method = method;
-		this.inputs = new LinkedList<FormInput>();
 	}
 
 	/**
@@ -215,9 +214,8 @@ public class FormBuilder {
 	 */
 	public FormBuilder number(String name) {
 
-		ValueInput input = new ValueInput(name);
-		this.inputs.add(input);
-		return this;
+		return this.input(new ValueInput(name));
+
 	}
 
 	/**
@@ -235,16 +233,26 @@ public class FormBuilder {
 
 		ValueInput input = new ValueInput(name);
 		input.setValue(value);
+		return this.input(input);
+	}
+
+	/**
+	 * Adds an input to the form.
+	 * 
+	 * @param input the input.
+	 * 
+	 * @return
+	 */
+	public FormBuilder input(FormInput input) {
+
+		if (this.inputs == null) {
+			this.inputs = new LinkedList<FormInput>();
+		}
+
 		this.inputs.add(input);
 		return this;
 	}
 
-	public FormBuilder input(FormInput input){
-		this.inputs.add(input);
-		return this;
-	}
-	
-	
 	/**
 	 * Adds a text input in the form with a specific value pre-set.
 	 * 
@@ -260,8 +268,7 @@ public class FormBuilder {
 
 		ValueInput input = new ValueInput(name);
 		input.setValue(value);
-		this.inputs.add(input);
-		return this;
+		return this.input(input);
 	}
 
 	/**
@@ -274,9 +281,7 @@ public class FormBuilder {
 	 */
 	public FormBuilder text(String name) {
 
-		ValueInput input = new ValueInput(name);
-		this.inputs.add(input);
-		return this;
+		return this.input(new ValueInput(name));
 	}
 
 	/**
@@ -304,8 +309,7 @@ public class FormBuilder {
 
 		ValueInput input = new ValueInput(name);
 		input.setMask(this.dateMask);
-		this.inputs.add(input);
-		return this;
+		return this.input(input);
 	}
 
 	/**
@@ -321,8 +325,7 @@ public class FormBuilder {
 		ValueInput input = new ValueInput(name);
 		input.setValue(new SimpleDateFormat(this.dateMask).format(value));
 		input.setMask(this.dateMask);
-		this.inputs.add(input);
-		return this;
+		return this.input(input);
 	}
 
 	/**
@@ -337,8 +340,7 @@ public class FormBuilder {
 
 		ValueInput input = new ValueInput(name);
 		input.setValue(new String[] {});
-		this.inputs.add(input);
-		return this;
+		return this.input(input);
 	}
 
 	/**
@@ -355,7 +357,6 @@ public class FormBuilder {
 
 		return this;
 	}
-
 
 	/**
 	 * Adds a filter to all facet links.

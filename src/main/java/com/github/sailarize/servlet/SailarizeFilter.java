@@ -22,6 +22,8 @@ import com.github.sailarize.url.PathHolder;
  */
 public class SailarizeFilter implements Filter {
 
+	private static final String SLASH = "/";
+
 	private String path;
 
 	private Boolean holdRequest = Boolean.TRUE;
@@ -35,19 +37,18 @@ public class SailarizeFilter implements Filter {
 			this.path = "";
 		}
 
-		if (!this.path.isEmpty() && !this.path.startsWith("/")) {
-			this.path = "/" + this.path;
+		if (!this.path.isEmpty() && !this.path.startsWith(SLASH)) {
+			this.path = SLASH + this.path;
 		}
 
 		if (config.getInitParameter("holdRequest") != null) {
-			this.holdRequest = Boolean.valueOf(config
-					.getInitParameter("holdRequest"));
+			this.holdRequest = Boolean.valueOf(config.getInitParameter("holdRequest"));
 		}
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
@@ -77,13 +78,8 @@ public class SailarizeFilter implements Filter {
 	 */
 	private String getPath(HttpServletRequest request) {
 
-		String scheme = request.getScheme() + "://";
-
-		String domain = request.getHeader("host");
-
-		String context = request.getContextPath();
-
-		return scheme + domain + context + this.path;
+		return new StringBuilder(request.getScheme()).append("://").append(request.getHeader("host"))
+				.append(request.getContextPath()).append(this.path).toString();
 	}
 
 	@Override

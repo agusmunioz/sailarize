@@ -2,6 +2,7 @@ package com.github.sailarize.media;
 
 import com.github.sailarize.link.HypermediaLink;
 import com.github.sailarize.link.LinkBuilder;
+import com.github.sailarize.utils.ToStringBuilder;
 
 public class Image {
 
@@ -95,6 +96,12 @@ public class Image {
         this.tags = tags;
     }
 
+    @Override
+	public String toString() {
+
+		return ToStringBuilder.toString(this);
+	}
+    
     /**
      * Gets the hypermedia link for this image.
      * 

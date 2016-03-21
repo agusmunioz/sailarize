@@ -57,7 +57,7 @@ public class LinkBuilder {
 	public LinkBuilder(Class<? extends SailResource> resourceType, String rel, Object... values) {
 
 		this(UrlBuilder.url(resourceType, values), rel);
-		this.link.setType(MediaTypeBuilder.getType(resourceType));
+		this.link.setType(MediaTypeBuilder.build(resourceType));
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class LinkBuilder {
 	public LinkBuilder(SailResource resource, String rel, Object... values) {
 
 		this(UrlBuilder.url(resource, values), rel);
-		this.link.setType(MediaTypeBuilder.getType(resource));
+		this.link.setType(MediaTypeBuilder.build(resource));
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class LinkBuilder {
 	public LinkBuilder(SailResource source, Class<? extends SailResource> destination, String rel) {
 
 		this(UrlBuilder.url(source, destination), rel);
-		this.link.setType(MediaTypeBuilder.getType(destination));
+		this.link.setType(MediaTypeBuilder.build(destination));
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class LinkBuilder {
 	public LinkBuilder(SailResource source, SailResource destination, String rel) {
 
 		this(UrlBuilder.url(source, destination), rel);
-		this.link.setType(MediaTypeBuilder.getType(destination));
+		this.link.setType(MediaTypeBuilder.build(destination));
 	}
 
 	/**

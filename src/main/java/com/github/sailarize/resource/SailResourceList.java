@@ -23,7 +23,7 @@ public class SailResourceList<T extends SailResource> extends SailResource {
 
 	private Class<T> resourceType;
 
-	private Collection<T> resources;
+	private Collection<T> items;
 
 	private String version;
 
@@ -45,7 +45,7 @@ public class SailResourceList<T extends SailResource> extends SailResource {
 
 		super();
 		this.resourceType = resourceType;
-		this.resources = new LinkedList<T>();
+		this.items = new LinkedList<T>();
 
 		LinkBuilder builder = new LinkBuilder(this, "self", values);
 
@@ -119,20 +119,20 @@ public class SailResourceList<T extends SailResource> extends SailResource {
 	 * 
 	 * @return the resources.
 	 */
-	public Collection<T> getResources() {
+	public Collection<T> getItems() {
 
-		return resources;
+		return items;
 	}
 
 	/**
 	 * Sets the list of resources.
 	 * 
-	 * @param resources
+	 * @param items
 	 *            a collection of resources.
 	 */
-	public void setResources(Collection<T> resources) {
+	public void setItems(Collection<T> items) {
 
-		this.resources = resources;
+		this.items = items;
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class SailResourceList<T extends SailResource> extends SailResource {
 	 */
 	public void add(T resource) {
 
-		this.resources.add(resource);
+		this.items.add(resource);
 	}
 
 	/**
@@ -168,7 +168,7 @@ public class SailResourceList<T extends SailResource> extends SailResource {
 
 		// TODO: revisar para que se usaba.
 		for (HypermediaLink link : this.getLinks().get(SailTags.LINKS)) {
-			link.setType(MediaTypeBuilder.getType(this));
+			link.setType(MediaTypeBuilder.build(this));
 		}
 	}
 

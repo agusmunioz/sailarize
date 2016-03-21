@@ -10,7 +10,6 @@ import com.github.sailarize.link.HypermediaLink;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.media.Image;
 import com.github.sailarize.media.Video;
-import com.github.sailarize.url.UrlBuilder;
 import com.github.sailarize.utils.ToStringBuilder;
 
 /**
@@ -34,7 +33,7 @@ public abstract class SailResource {
 	private Map<String, Collection<Image>> images;
 
 	private Map<String, Collection<Video>> videos;
-	
+
 	/**
 	 * Creates a {@link SailResource}.
 	 * 
@@ -169,10 +168,10 @@ public abstract class SailResource {
 	 * @return the map of images or null if no image is added.
 	 */
 	public final Map<String, Collection<Image>> getImages() {
+
 		return images;
 	}
 
-	
 	/**
 	 * Adds a video to the resource.
 	 * 
@@ -190,14 +189,14 @@ public abstract class SailResource {
 
 		this.group(this.videos, video, SailTags.VIDEO, groups);
 	}
-	
-	
+
 	/**
 	 * Gets the videos grouped.
 	 * 
 	 * @return the map of videos or null if no image is added.
 	 */
 	public Map<String, Collection<Video>> getVideos() {
+
 		return videos;
 	}
 
@@ -222,37 +221,22 @@ public abstract class SailResource {
 	}
 
 	/**
+	 * Removes the links.
+	 */
+	public void unlink() {
+		this.links = null;
+	}
+
+	/**
 	 * Disables any Sail feature in order to return a plain JSON. Sets every
-	 * hypermedia content in null in order to not being serialized.
+	 * Hypermedia content in null so is not serialized.
 	 */
 	public void unsail() {
 		this.meta = null;
 		this.links = null;
 		this.forms = null;
 		this.images = null;
-
-	}
-
-	/**
-	 * Configures the resource's path by overriding the default. The self link
-	 * is updated.
-	 * 
-	 * @param path
-	 *            a URL path that could contain variables.
-	 * 
-	 * @param values
-	 *            path variable values
-	 */
-	public void overridePath(String path, Object... values) {
-
-		// TODO: revisar el override.
-		for (HypermediaLink link : this.getLinks().get(SailTags.LINKS)) {
-
-			if (SELF.equals(link.getRel())) {
-				link.setHref(UrlBuilder.url(path, values));
-				return;
-			}
-		}
+		this.videos = null;
 	}
 
 	/**

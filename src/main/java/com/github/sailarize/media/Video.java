@@ -2,6 +2,7 @@ package com.github.sailarize.media;
 
 import com.github.sailarize.link.HypermediaLink;
 import com.github.sailarize.link.LinkBuilder;
+import com.github.sailarize.utils.ToStringBuilder;
 
 /**
  * Models the information of a video.
@@ -88,6 +89,12 @@ public class Video {
 		this.title = title;
 	}
 
+	@Override
+	public String toString() {
+
+		return ToStringBuilder.toString(this);
+	}
+	
 	/**
 	 * Gets the hypermedia link for this video.
 	 * 
