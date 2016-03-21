@@ -45,6 +45,8 @@ public class FormBuilder {
 
 	private Collection<Header> headers;
 
+	private Object body;
+
 	/**
 	 * Creates an initialized {@link FormBuilder}.
 	 * 
@@ -239,7 +241,8 @@ public class FormBuilder {
 	/**
 	 * Adds an input to the form.
 	 * 
-	 * @param input the input.
+	 * @param input
+	 *            the input.
 	 * 
 	 * @return
 	 */
@@ -431,6 +434,19 @@ public class FormBuilder {
 	}
 
 	/**
+	 * Configures the form body.
+	 * 
+	 * @param body
+	 *            a body.
+	 * 
+	 * @return the builder for further build.
+	 */
+	public FormBuilder body(Object body) {
+		this.body = body;
+		return this;
+	}
+
+	/**
 	 * Builds the form with what it was configured previously
 	 * 
 	 * @return the form.
@@ -450,6 +466,7 @@ public class FormBuilder {
 		form.setTitle(this.title);
 		form.setInputs(this.inputs);
 		form.setHeaders(this.headers);
+		form.setBody(this.body);
 
 		return form;
 	}

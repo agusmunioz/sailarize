@@ -24,6 +24,8 @@ public class Form {
 
 	private Collection<Header> headers;
 
+	private Object body;
+
 	private Collection<FormInput> inputs;
 
 	/**
@@ -147,6 +149,25 @@ public class Form {
 		}
 
 		this.headers.add(new Header(name, value.toString()));
+	}
+
+	/**
+	 * Gets the unmodifiable body to submit with the form.
+	 * 
+	 * @return the body.
+	 */
+	public Object getBody() {
+		return body;
+	}
+
+	/**
+	 * Sets the unmodifiable body to submit with the form.
+	 * 
+	 * @param body
+	 *            an object representing the body.
+	 */
+	public void setBody(Object body) {
+		this.body = body;
 	}
 
 	/**
