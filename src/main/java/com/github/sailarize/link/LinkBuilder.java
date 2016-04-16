@@ -145,7 +145,7 @@ public class LinkBuilder {
 	 */
 	public LinkBuilder(SailResource resource, String path, String rel) {
 
-		this(UrlBuilder.url(resource, path), rel);
+		this(new StringBuilder(UrlBuilder.url(resource)).append("/").append(path).toString(), rel);
 	}
 
 	/**
@@ -242,7 +242,7 @@ public class LinkBuilder {
 	public LinkBuilder https() {
 
 		this.link.setHref(UrlBuilder.protocol(link.getHref(), Http.HTTPS));
-		
+
 		return this;
 	}
 

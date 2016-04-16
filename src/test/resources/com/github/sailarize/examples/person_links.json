@@ -4,11 +4,6 @@
     "age":34,
     "#links":[
         {
-            "href":"/persons/1",
-            "rel":"self",
-            "type":"application/vnd.sail+json"
-        },
-        {
             "href":"/persons/2",
             "rel":"wife",
             "type":"application/vnd.sail+json"

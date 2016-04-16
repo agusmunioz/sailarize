@@ -8,9 +8,9 @@ public class Image {
 
     private String url;
 
-    private Float height;
+    private Integer height;
 
-    private Float width;
+    private Integer width;
 
     private String title;
 
@@ -36,22 +36,22 @@ public class Image {
         this.url = url;
     }
 
-    public Float getHeight() {
+    public Integer getHeight() {
 
         return height;
     }
 
-    public void setHeight(Float height) {
+    public void setHeight(Integer height) {
 
         this.height = height;
     }
 
-    public Float getWidth() {
+    public Integer getWidth() {
 
         return width;
     }
 
-    public void setWidth(Float width) {
+    public void setWidth(Integer width) {
 
         this.width = width;
     }

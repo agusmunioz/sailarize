@@ -56,7 +56,6 @@ public abstract class SailResource {
 
 		this();
 		this.id = id;
-		this.add((new LinkBuilder(this, SELF, values)).build());
 	}
 
 	/**
@@ -75,6 +74,16 @@ public abstract class SailResource {
 		}
 
 		this.meta.put(field, value);
+	}
+
+	/**
+	 * Configures the self link.
+	 * 
+	 * @param values
+	 *            if the URL is a template, this are the values for replacing.
+	 */
+	public void self(Object... values) {
+		this.add((new LinkBuilder(this, SELF, values)).build());
 	}
 
 	/**

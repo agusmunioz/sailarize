@@ -34,6 +34,20 @@ public abstract class SailSerializerTest {
 	}
 
 	/**
+	 * Test the serialization of a base resource with a self link.
+	 */
+	@Test
+	public void self() {
+
+		PersonMock person = new PersonMock("1", "Agus", 34);
+		person.self();
+		String resource = this.serialize(person);
+
+		AssertSerialization.assertEquals("Unexpected base resource serialization", "person_self", resource);
+
+	}
+	
+	/**
 	 * Test the serialization of a resource with several links.
 	 */
 	@Test

@@ -1,5 +1,6 @@
 package com.github.sailarize.properties;
 
+import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -21,11 +22,17 @@ public class Hosts {
 	 * 
 	 * @return the host or null if the key or the properties file is not found.
 	 */
-	public static String get(String key) {
+	public static String get(String key, String... args) {
 
 		try {
 
-			return ResourceBundle.getBundle(BASE_NAME).getString(key);
+			String value = ResourceBundle.getBundle(BASE_NAME).getString(key);
+
+			if (args == null || args.length == 0) {
+				return value;
+			}
+
+			return MessageFormat.format(value, (Object[]) args);
 
 		} catch (MissingResourceException e) {
 			return null;
