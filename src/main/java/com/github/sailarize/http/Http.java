@@ -9,7 +9,7 @@ package com.github.sailarize.http;
 public interface Http {
 
 	/**
-	 * http protocol. 
+	 * http protocol.
 	 */
 	String HTTP = "http";
 
@@ -18,23 +18,28 @@ public interface Http {
 	 */
 	String HTTPS = "https";
 
-    /**
-     * POST verb.
-     */
-    String POST = "POST";
+	/**
+	 * POST verb.
+	 */
+	String POST = "POST";
 
-    /**
-     * PATCH verb.
-     */
-    String PATCH = "PATCH";
+	/**
+	 * PATCH verb.
+	 */
+	String PATCH = "PATCH";
 
-    /**
-     * DELETE verb.
-     */
-    String DELETE = "DELETE";
+	/**
+	 * DELETE verb.
+	 */
+	String DELETE = "DELETE";
 
-    /**
-     * GET verb.
-     */
-    String GET = "GET";
+	/**
+	 * GET verb.
+	 */
+	String GET = "GET";
+
+	/**
+	 * PUT verb.
+	 */
+	String PUT = "PUT";
 }
