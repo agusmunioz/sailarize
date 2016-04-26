@@ -53,7 +53,7 @@ public class SelectBuilder {
 	 */
 	public static SelectBuilder multi(String name) {
 
-		return new SelectBuilder(new MultilectInput(name));
+		return new SelectBuilder(new MultiSelectInput(name));
 	}
 
 	/**

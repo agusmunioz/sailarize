@@ -1,6 +1,6 @@
 {
     "name":"input.field",
-    "multilect":[
+    "multiselect":[
         {
             "title":"Red",
             "value":"RED"

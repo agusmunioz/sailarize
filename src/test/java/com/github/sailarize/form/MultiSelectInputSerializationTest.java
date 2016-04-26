@@ -8,12 +8,12 @@ import com.github.sailarize.asserts.AssertSerialization;
 
 /**
  * Test that any serialization implementation must run (extend) in order to
- * ensure a valid serialization of a {@link MultilectInput}.
+ * ensure a valid serialization of a {@link MultiSelectInput}.
  * 
  * @author agusmunioz
  *
  */
-public abstract class MultilectInputSerializationTest {
+public abstract class MultiSelectInputSerializationTest {
 
 	/**
 	 * Test for a select input with minimum information.
@@ -21,7 +21,7 @@ public abstract class MultilectInputSerializationTest {
 	@Test
 	public void base() {
 
-		MultilectInput input = new MultilectInput("input.field");
+		MultiSelectInput input = new MultiSelectInput("input.field");
 		input.setOptions(Arrays.asList(new Option(null, "RED"), new Option(null, "BLUE")));
 
 		String resource = this.serialize(input);
@@ -37,7 +37,7 @@ public abstract class MultilectInputSerializationTest {
 	@Test
 	public void titles() {
 
-		MultilectInput input = new MultilectInput("input.field");
+		MultiSelectInput input = new MultiSelectInput("input.field");
 		input.setOptions(Arrays.asList(new Option("Red", "RED"), new Option("Blue", "BLUE")));
 
 		String resource = this.serialize(input);
@@ -53,7 +53,7 @@ public abstract class MultilectInputSerializationTest {
 	@Test
 	public void full() {
 
-		MultilectInput input = new MultilectInput("input.field");
+		MultiSelectInput input = new MultiSelectInput("input.field");
 		input.setOptions(Arrays.asList(new Option("Red", "RED"), new Option("Blue", "BLUE")));
 		input.setId("aSelect");
 		
@@ -63,5 +63,5 @@ public abstract class MultilectInputSerializationTest {
 				resource);
 	}
 
-	protected abstract String serialize(MultilectInput input);
+	protected abstract String serialize(MultiSelectInput input);
 }

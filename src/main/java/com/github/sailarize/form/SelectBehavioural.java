@@ -22,13 +22,13 @@ public interface SelectBehavioural<T> {
 	T single(SingleSelectInput select);
 
 	/**
-	 * Behaves based on a {@link MultilectInput} select.
+	 * Behaves based on a {@link MultiSelectInput} select.
 	 * 
 	 * @param select
 	 *            the select input.
 	 * 
 	 * @return the result of behaving based on a multilect.
 	 */
-	T multilect(MultilectInput select);
+	T multiselect(MultiSelectInput select);
 
 }

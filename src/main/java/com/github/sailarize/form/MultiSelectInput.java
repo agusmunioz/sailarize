@@ -6,22 +6,22 @@ package com.github.sailarize.form;
  * @author agusmunioz
  *
  */
-public class MultilectInput extends SelectInput {
+public class MultiSelectInput extends SelectInput {
 
 	/**
-	 * Creates an initialized {@link MultilectInput}.
+	 * Creates an initialized {@link MultiSelectInput}.
 	 * 
 	 * @param name
 	 *            the input name.
 	 */
-	public MultilectInput(String name) {
+	public MultiSelectInput(String name) {
 		super(name);
 	}
 
 	@Override
 	public <T> T behave(SelectBehavioural<T> behavioural) {
 
-		return behavioural.multilect(this);
+		return behavioural.multiselect(this);
 	}
 
 }
