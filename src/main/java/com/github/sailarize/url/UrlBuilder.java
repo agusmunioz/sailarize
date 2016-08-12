@@ -18,206 +18,207 @@ import com.github.sailarize.utils.Annotations;
  */
 public class UrlBuilder {
 
-    private static final String SLASH = "/";
+	private static final String PROTOCOL_LIMIT = "://";
 
-    /**
-     * Pattern for matching variables in the template.
-     */
-    private static Pattern PATH_VARIABLE_PATTERN = Pattern
-            .compile("\\{\\w+\\}");
+	private static final String SLASH = "/";
 
-    /**
-     * Builds a URL by appending the host and replacing any variable in the
-     * path.
-     * 
-     * @param path
-     *            a path that could have variables.
-     * 
-     * @param values
-     *            the path variables values.
-     * 
-     * @return the URL.
-     */
-    public static String url(String path, Object... values) {
+	/**
+	 * Pattern for matching variables in the template.
+	 */
+	private static Pattern PATH_VARIABLE_PATTERN = Pattern.compile("\\{\\w+\\}");
 
-        if (values.length > 0) {
+	/**
+	 * Builds a URL by appending the host and replacing any variable in the
+	 * path.
+	 * 
+	 * @param path
+	 *            a path that could have variables.
+	 * 
+	 * @param values
+	 *            the path variables values.
+	 * 
+	 * @return the URL.
+	 */
+	public static String url(String path, Object... values) {
 
-            Matcher matcher = PATH_VARIABLE_PATTERN.matcher(path);
+		if (values.length > 0) {
 
-            int index = 0;
+			Matcher matcher = PATH_VARIABLE_PATTERN.matcher(path);
 
-            while (matcher.find() && index < values.length) {
+			int index = 0;
 
-                String variable = matcher.group();
+			while (matcher.find() && index < values.length) {
 
-                path = path.replace(variable, values[index++].toString());
+				String variable = matcher.group();
 
-            }
-        }
+				path = path.replace(variable, values[index++].toString());
 
-        return PathHolder.get() + path;
-    }
+			}
+		}
 
-    /**
-     * Creates the URL of a list of resources. E.g /users
-     * 
-     * @param resourceClass
-     *            the resources class.
-     * 
-     * @param values
-     *            Path variable values if the resource's Path is a template.
-     * 
-     * @return the URL as {@link String}
-     */
-    public static String url(Class<? extends SailResource> resourceClass,
-            Object... values) {
+		return PathHolder.get() + path;
+	}
 
-        Path path = Annotations.search(resourceClass, Path.class);
+	/**
+	 * Creates the URL of a list of resources. E.g /users
+	 * 
+	 * @param resourceClass
+	 *            the resources class.
+	 * 
+	 * @param values
+	 *            Path variable values if the resource's Path is a template.
+	 * 
+	 * @return the URL as {@link String}
+	 */
+	public static String url(Class<? extends SailResource> resourceClass, Object... values) {
 
-        if (path == null || path.value().isEmpty()) {
+		Path path = Annotations.search(resourceClass, Path.class);
 
-            StringBuilder builder = new StringBuilder("The resource class ")
-                    .append(resourceClass.getName())
-                    .append(" is not annotated with @")
-                    .append(Path.class.getName())
-                    .append(" or the Path value is empty");
+		if (path == null || path.value().isEmpty()) {
 
-            throw new UrlBuildException(builder.toString());
-        }
+			StringBuilder builder = new StringBuilder("The resource class ").append(resourceClass.getName())
+					.append(" is not annotated with @").append(Path.class.getName())
+					.append(" or the Path value is empty");
 
-        return url(path.value(), values);
+			throw new UrlBuildException(builder.toString());
+		}
 
-    }
+		return url(path.value(), values);
 
-    /**
-     * Builds a specific resource URL.
-     * 
-     * @param resource
-     *            a specific resource.
-     * 
-     * @param values
-     *            Path variable values if the resource's Path is a template.
-     * 
-     * @return the URL as {@link String}
-     */
-    public static String url(SailResource resource, Object... values) {
+	}
 
-        Class<? extends SailResource> type = resource.getClass();
+	/**
+	 * Builds a specific resource URL.
+	 * 
+	 * @param resource
+	 *            a specific resource.
+	 * 
+	 * @param values
+	 *            Path variable values if the resource's Path is a template.
+	 * 
+	 * @return the URL as {@link String}
+	 */
+	public static String url(SailResource resource, Object... values) {
 
-        if (SailResourceList.class.isAssignableFrom(type)) {
-            type = ((SailResourceList<?>) resource).resourceType();
-        }
+		Class<? extends SailResource> type = resource.getClass();
 
-        StringBuilder builder = new StringBuilder(url(type, values));
+		if (SailResourceList.class.isAssignableFrom(type)) {
+			type = ((SailResourceList<?>) resource).resourceType();
+		}
 
-        if (resource.getId() != null) {
-            builder.append(SLASH).append(resource.getId());
-        }
+		StringBuilder builder = new StringBuilder(url(type, values));
 
-        return builder.toString();
+		if (resource.getId() != null) {
+			builder.append(SLASH).append(resource.getId());
+		}
 
-    }
+		return builder.toString();
 
-    /**
-     * Builds a URL representing a relationship between a resource and a list o
-     * resources. E.g /users/1/phones
-     * 
-     * @param resource
-     *            the resource owner of the relationship.
-     * 
-     * @param targetResource
-     *            the class of resources related to the resource owner of the
-     *            relationship.
-     * 
-     * @return a URL as {@link String}
-     */
-    public static String url(SailResource resource,
-            Class<? extends SailResource> targetResource) {
+	}
 
-        StringBuilder builder = new StringBuilder(url(resource));
+	/**
+	 * Builds a URL representing a relationship between a resource and a list o
+	 * resources. E.g /users/1/phones
+	 * 
+	 * @param resource
+	 *            the resource owner of the relationship.
+	 * 
+	 * @param targetResource
+	 *            the class of resources related to the resource owner of the
+	 *            relationship.
+	 * 
+	 * @return a URL as {@link String}
+	 */
+	public static String url(SailResource resource, Class<? extends SailResource> targetResource) {
 
-        builder.append(url(targetResource).replace(PathHolder.get(), ""));
+		StringBuilder builder = new StringBuilder(url(resource));
 
-        return builder.toString();
+		builder.append(url(targetResource).replace(PathHolder.get(), ""));
 
-    }
+		return builder.toString();
 
-    /**
-     * Builds a URL representing a relationship between two resources. E.g
-     * /users/1/cars/2
-     * 
-     * @param resource
-     *            the resource owner of the relationship.
-     * 
-     * @param targetResource
-     *            the resource at the other side of the relationship.
-     * 
-     * @return a URL as {@link String}
-     */
-    public static String url(SailResource resource, SailResource targetResource) {
+	}
 
-        StringBuilder builder = new StringBuilder(url(resource));
+	/**
+	 * Builds a URL representing a relationship between two resources. E.g
+	 * /users/1/cars/2
+	 * 
+	 * @param resource
+	 *            the resource owner of the relationship.
+	 * 
+	 * @param targetResource
+	 *            the resource at the other side of the relationship.
+	 * 
+	 * @return a URL as {@link String}
+	 */
+	public static String url(SailResource resource, SailResource targetResource) {
 
-        builder.append(url(targetResource).replace(PathHolder.get(), ""));
+		StringBuilder builder = new StringBuilder(url(resource));
 
-        return builder.toString();
+		builder.append(url(targetResource).replace(PathHolder.get(), ""));
 
-    }
+		return builder.toString();
 
-    /**
-     * Sets the host to the URL. In case the URL already has a host, it changes.
-     * 
-     * @param url
-     *            a URL or path as string.
-     * 
-     * @param host
-     *            the new host.
-     * 
-     * @return an URL with the new host.
-     */
-    public static String host(String url, String host) {
+	}
 
-        try {
+	/**
+	 * Sets the host to the URL. In case the URL already has a host, it changes.
+	 * 
+	 * @param url
+	 *            a URL or path as string.
+	 * 
+	 * @param host
+	 *            the new host.
+	 * 
+	 * @return an URL with the new host.
+	 */
+	public static String host(String url, String host) {
 
-            URL wrapper = new URL(url);
+		try {
 
-            String replace = wrapper.getHost();
+			URL wrapper = new URL(url);
 
-            if (wrapper.getPort() != -1) {
-                replace += ":" + wrapper.getPort();
-            }
+			String replace = wrapper.getHost();
 
-            return url.replaceFirst(replace, host);
+			if (wrapper.getPort() != -1) {
+				replace += ":" + wrapper.getPort();
+			}
 
-        } catch (MalformedURLException e) {
+			return url.replaceFirst(replace, host);
 
-            return host + url;
-        }
-    }
+		} catch (MalformedURLException e) {
 
-    /**
-     * Sets the protocol to the URL. In case the URL already has a protocol, it
-     * changes.
-     * 
-     * @param url
-     *            a url as string.
-     * 
-     * @param protocol
-     *            the new host.
-     * 
-     * @return an URL with the new protocol or an empty string if the url is not
-     *         valid.
-     */
-    public static String protocol(String url, String protocol) {
+			return host + url;
+		}
+	}
 
-        try {
+	/**
+	 * Sets the protocol to the URL. In case the URL already has a protocol, it
+	 * changes.
+	 * 
+	 * @param url
+	 *            a url as string.
+	 * 
+	 * @param protocol
+	 *            the new host.
+	 * 
+	 * @return an URL with the new protocol or an empty string if the url is not
+	 *         valid.
+	 */
+	public static String protocol(String url, String protocol) {
 
-            return url.replaceFirst(new URL(url).getProtocol(), protocol);
+		try {
 
-        } catch (MalformedURLException e) {
+			if (url.contains(PROTOCOL_LIMIT)) {
+				return url.replaceFirst(new URL(url).getProtocol(), protocol);
+			}
 
-            return "";
-        }
-    }
+			return new StringBuilder(protocol).append(PROTOCOL_LIMIT).append(url).toString();
+
+		} catch (MalformedURLException e) {
+
+			return "";
+		}
+	}
 
 }

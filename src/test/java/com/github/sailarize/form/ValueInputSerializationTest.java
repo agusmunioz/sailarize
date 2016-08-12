@@ -74,6 +74,21 @@ public abstract class ValueInputSerializationTest {
 
 	}
 
+	/**
+	 * Test for a form input with a mask.
+	 */
+	@Test
+	public void title() {
+
+		ValueInput input = new ValueInput("input.field");
+		input.setTitle("Title");
+
+		String resource = this.serialize(input);
+
+		AssertSerialization.assertEquals("Unexpected serialization of a form input with a mask.", "form_value_input-title",
+				resource);
+
+	}
 
 	/**
 	 * Test for a complete form input.
@@ -84,6 +99,7 @@ public abstract class ValueInputSerializationTest {
 		ValueInput input = new ValueInput("input.field");
 		input.setId("field");
 		input.setValue(3);
+		input.setTitle("Title");
 		input.setMask("dd/MM/yyyy");
 
 		String resource = this.serialize(input);

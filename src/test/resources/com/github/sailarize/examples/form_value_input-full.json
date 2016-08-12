@@ -1,6 +1,7 @@
 {
     "id":"field",
     "name":"input.field",
+    "title":"Title",
     "value":3,
     "mask":"dd/MM/yyyy"
 }

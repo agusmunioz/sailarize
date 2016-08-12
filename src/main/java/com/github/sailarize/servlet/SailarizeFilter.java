@@ -1,6 +1,9 @@
 package com.github.sailarize.servlet;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -10,6 +13,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import com.github.sailarize.http.Header;
+import com.github.sailarize.http.HeaderHolder;
+import com.github.sailarize.url.HostHeaderResolver;
+import com.github.sailarize.url.HostResolver;
 import com.github.sailarize.url.PathHolder;
 
 /**
@@ -22,11 +29,23 @@ import com.github.sailarize.url.PathHolder;
  */
 public class SailarizeFilter implements Filter {
 
+	private static final String RELATIVE = "relative";
+
 	private static final String SLASH = "/";
 
 	private String path;
 
 	private Boolean holdRequest = Boolean.TRUE;
+
+	private HostResolver hostResolver;
+
+	/**
+	 * The list of headers that must be added in all links and forms except in
+	 * cross-domain cases.
+	 */
+	private Collection<String> headers;
+
+	private String hypermedia;
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
@@ -44,6 +63,17 @@ public class SailarizeFilter implements Filter {
 		if (config.getInitParameter("holdRequest") != null) {
 			this.holdRequest = Boolean.valueOf(config.getInitParameter("holdRequest"));
 		}
+
+		if (config.getInitParameter("headers") != null) {
+			this.headers = Arrays.asList(config.getInitParameter("headers").split(","));
+		}
+
+		if (config.getInitParameter("hypermedia") != null) {
+			this.hypermedia = config.getInitParameter("hypermedia");
+		}
+
+		this.hostResolver = this.getHostResolver(config.getInitParameter("hostResolver"));
+
 	}
 
 	@Override
@@ -58,13 +88,13 @@ public class SailarizeFilter implements Filter {
 
 		PathHolder.set(this.getPath(httpRequest));
 
+		if (headers != null) {
+			HeaderHolder.set(this.headers(httpRequest));
+		}
+
 		chain.doFilter(request, response);
 
-		PathHolder.clean();
-
-		if (this.holdRequest) {
-			RequestHolder.clean();
-		}
+		this.clean();
 	}
 
 	/**
@@ -78,14 +108,87 @@ public class SailarizeFilter implements Filter {
 	 */
 	private String getPath(HttpServletRequest request) {
 
-		return new StringBuilder(request.getScheme()).append("://").append(request.getHeader("host"))
-				.append(request.getContextPath()).append(this.path).toString();
+		StringBuilder builder = new StringBuilder();
+
+		if (!RELATIVE.equals(this.hypermedia)) {
+			builder.append(request.getScheme()).append("://").append(this.hostResolver.resolve(request));
+		}
+
+		return builder.append(request.getContextPath()).append(this.path).toString();
+	}
+
+	/**
+	 * Extracts the list of headers that must be added in all links and forms.
+	 * 
+	 * @param request
+	 *            the current http request.
+	 * 
+	 * @return the list of headers.
+	 */
+	private Collection<Header> headers(HttpServletRequest request) {
+
+		Collection<Header> retain = new LinkedList<Header>();
+
+		for (String header : this.headers) {
+
+			String value = request.getHeader(header);
+
+			if (value != null) {
+				retain.add(new Header(header, value));
+			}
+		}
+
+		return retain;
+	}
+
+	/**
+	 * Builds the host resolver.
+	 * 
+	 * @param type
+	 *            a fully qualified class name that implements
+	 *            {@link HostResolver}.
+	 * 
+	 * @return the host resolver.
+	 * 
+	 * @throws ServletException
+	 *             if there was an error when instantiating the host resolver
+	 */
+	private HostResolver getHostResolver(String type) throws ServletException {
+
+		if (type != null) {
+
+			try {
+
+				return (HostResolver) Class.forName(type).newInstance();
+
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+
+		}
+
+		return new HostHeaderResolver();
+	}
+
+	/**
+	 * Cleans all ThreadLocals
+	 */
+	private void clean() {
+
+		PathHolder.clean();
+
+		if (this.headers != null) {
+			HeaderHolder.clean();
+		}
+
+		if (this.holdRequest) {
+			RequestHolder.clean();
+		}
 	}
 
 	@Override
 	public void destroy() {
-		PathHolder.clean();
-		RequestHolder.clean();
+		this.clean();
 	}
 
 }

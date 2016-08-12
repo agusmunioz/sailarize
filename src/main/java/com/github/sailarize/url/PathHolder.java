@@ -3,7 +3,8 @@ package com.github.sailarize.url;
 /**
  * 
  * Holder for the Web Application path used in API links. It uses
- * {@link ThreadLocal}.
+ * {@link ThreadLocal} so {@link PathHolder#clean()} must be used in order to
+ * properly clean the TreadLocal.
  * 
  * @author agusmunioz
  * 

@@ -2,10 +2,13 @@ package com.github.sailarize.link;
 
 import java.util.Collection;
 
+import com.github.sailarize.http.Header;
+import com.github.sailarize.http.HeaderHolder;
 import com.github.sailarize.http.Http;
 import com.github.sailarize.mediatype.MediaTypeBuilder;
 import com.github.sailarize.properties.Hosts;
 import com.github.sailarize.resource.SailResource;
+import com.github.sailarize.url.Domain;
 import com.github.sailarize.url.Filter;
 import com.github.sailarize.url.QueryString;
 import com.github.sailarize.url.UrlBuilder;
@@ -301,6 +304,16 @@ public class LinkBuilder {
 
 		if (this.query != null) {
 			this.link.setHref(this.link.getHref() + this.query);
+		}
+
+		if (!Domain.cross(link.getHref())) {
+
+			Collection<Header> headers = HeaderHolder.get();
+
+			for (Header header : headers) {
+				link.add(header);
+			}
+
 		}
 
 		return this.link;

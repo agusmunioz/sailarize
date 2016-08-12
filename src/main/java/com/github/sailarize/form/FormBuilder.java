@@ -6,8 +6,10 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import com.github.sailarize.http.Header;
+import com.github.sailarize.http.HeaderHolder;
 import com.github.sailarize.http.Http;
 import com.github.sailarize.resource.SailResource;
+import com.github.sailarize.url.Domain;
 import com.github.sailarize.url.Filter;
 import com.github.sailarize.url.QueryString;
 import com.github.sailarize.url.UrlBuilder;
@@ -467,6 +469,15 @@ public class FormBuilder {
 		form.setInputs(this.inputs);
 		form.setHeaders(this.headers);
 		form.setBody(this.body);
+
+		if (!Domain.cross(form.getAction())) {
+
+			Collection<Header> headers = HeaderHolder.get();
+
+			for (Header header : headers) {
+				form.add(header);
+			}
+		}
 
 		return form;
 	}

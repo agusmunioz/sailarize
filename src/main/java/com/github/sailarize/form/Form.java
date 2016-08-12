@@ -152,6 +152,20 @@ public class Form {
 	}
 
 	/**
+	 * Adds a header to the form in order to be used when submitting the form.
+	 * 
+	 * @param header
+	 *            the header.
+	 */
+	public void add(Header header) {
+		if (this.headers == null) {
+			this.headers = new LinkedList<Header>();
+		}
+
+		this.headers.add(header);
+	}
+
+	/**
 	 * Gets the unmodifiable body to submit with the form.
 	 * 
 	 * @return the body.
@@ -215,4 +229,5 @@ public class Form {
 
 		return ToStringBuilder.toString(this);
 	}
+
 }

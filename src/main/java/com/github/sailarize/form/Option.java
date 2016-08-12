@@ -6,9 +6,9 @@ public class Option {
 
 	private String title;
 
-	private String value;
+	private Object value;
 
-	public Option(String title, String value) {
+	public Option(String title, Object value) {
 		this.title = title;
 		this.value = value;
 	}
@@ -21,11 +21,11 @@ public class Option {
 		this.title = title;
 	}
 
-	public String getValue() {
+	public Object getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	public void setValue(Object value) {
 		this.value = value;
 	}
 

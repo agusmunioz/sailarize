@@ -8,6 +8,8 @@ public abstract class FormInput {
 
 	private String name;
 
+	private String title;
+
 	/**
 	 * Creates an initialized {@link FormInput}.
 	 * 
@@ -64,6 +66,14 @@ public abstract class FormInput {
 	public void setName(String name) {
 
 		this.name = name;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Override

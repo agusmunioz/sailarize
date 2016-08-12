@@ -157,6 +157,15 @@ public class HypermediaLink {
 		this.headers.add(new Header(name, value.toString()));
 	}
 
+	public void add(Header header) {
+
+		if (this.headers == null) {
+			this.headers = new LinkedList<Header>();
+		}
+
+		this.headers.add(header);
+	}
+
 	/**
 	 * Gets the link extra data. Not required, could be null.
 	 * 
@@ -190,5 +199,4 @@ public class HypermediaLink {
 
 		return ToStringBuilder.toString(this);
 	}
-
 }

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Locale;
 
 import com.github.sailarize.properties.Titles;
-import com.sun.javafx.binding.StringFormatter;
+
 
 /**
  * Facilitates the build of {@link SelectInput} and {@link Option}.
@@ -117,9 +117,26 @@ public class SelectBuilder {
 
 		for (String value : values) {
 
-			String key = StringFormatter.format(TITLE_KEY, this.input.getName(), value).get();
+			String key = String.format(TITLE_KEY, this.input.getName(), value);
 
 			this.option(new Option(this.title(key), value));
+		}
+
+		return this;
+	}
+
+	/**
+	 * Adds a list of options to the select.
+	 * 
+	 * @param options
+	 *            the select options.
+	 * 
+	 * @return the builder.
+	 */
+	public SelectBuilder options(Collection<Option> options) {
+
+		for (Option option : options) {
+			this.option(option);
 		}
 
 		return this;

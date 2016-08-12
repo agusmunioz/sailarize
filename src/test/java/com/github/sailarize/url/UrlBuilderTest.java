@@ -249,11 +249,11 @@ public class UrlBuilderTest {
     @Test
     public void protocolSet() {
 
-        String url = "/api/resource/2";
+        String url = "www.api.sail/resource/2";
 
         String protocol = "https";
 
-        String expected = "";
+        String expected = "https://www.api.sail/resource/2";
 
         Assert.assertEquals("Unexpected protocol replacement.", expected,
                 UrlBuilder.protocol(url, protocol));

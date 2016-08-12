@@ -20,6 +20,9 @@ public class Hosts {
 	 * @param key
 	 *            the host key in the properties file.
 	 * 
+	 * @param args
+	 *            for variable values in the host value.
+	 * 
 	 * @return the host or null if the key or the properties file is not found.
 	 */
 	public static String get(String key, String... args) {
