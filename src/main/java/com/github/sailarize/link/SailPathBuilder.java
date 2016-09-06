@@ -1,5 +1,6 @@
 package com.github.sailarize.link;
 
+import java.util.Collection;
 import java.util.LinkedList;
 
 /**
@@ -89,6 +90,15 @@ public class SailPathBuilder {
 		return this;
 	}
 
+	public SailPathBuilder at(Collection<String> keys) {
+
+		StringBuilder builder = new StringBuilder("@[").append(String.join(",", keys)).append("]");
+
+		this.fields.add(builder.toString());
+
+		return this;
+	}
+
 	public SailPathBuilder filter(SailPathFilter filter) {
 		this.fields.add(filter.toString());
 		return this;
@@ -106,4 +116,5 @@ public class SailPathBuilder {
 		link.setHref(PROTOCOL + String.join(".", this.fields));
 		return link;
 	}
+
 }
