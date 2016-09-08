@@ -107,6 +107,9 @@ public abstract class SailResource {
 	 */
 	public void add(HypermediaLink link, String... groups) {
 
+		if (link == null){
+			return;
+		}
 		if (this.links == null) {
 			this.links = new LinkedHashMap<String, Collection<HypermediaLink>>();
 		}
@@ -136,6 +139,9 @@ public abstract class SailResource {
 	 */
 	public void add(Form form, String... groups) {
 
+		if (form == null){
+			return;
+		}
 		if (this.forms == null) {
 			this.forms = new LinkedHashMap<String, Collection<Form>>();
 		}
@@ -164,6 +170,9 @@ public abstract class SailResource {
 	 */
 	public void add(Image image, String... groups) {
 
+		if (image == null) {
+			return;
+		}
 		if (this.images == null) {
 			this.images = new LinkedHashMap<String, Collection<Image>>();
 		}
@@ -192,6 +201,9 @@ public abstract class SailResource {
 	 */
 	public void add(Video video, String... groups) {
 
+		if (video == null){
+			return;
+		}
 		if (this.videos == null) {
 			this.videos = new LinkedHashMap<String, Collection<Video>>();
 		}
