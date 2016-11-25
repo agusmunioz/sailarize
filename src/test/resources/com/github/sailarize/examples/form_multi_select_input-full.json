@@ -1,14 +1,21 @@
 {
-    "id":"aSelect",
-    "name":"input.field",
-    "multiselect":[
+    "id": "aSelect",
+    "name": "input.field",
+    "title": "Title",
+    "multiselect": [
         {
-            "title":"Red",
-            "value":"RED"
+            "title": "Red",
+            "value": "RED",
+            "selected": true
         },
         {
-            "title":"Blue",
-            "value":"BLUE"
+            "title": "Blue",
+            "value": "BLUE",
+            "selected": false
+        },
+        {
+            "title": "Green",
+            "value": "GREEN"
         }
     ]
 }

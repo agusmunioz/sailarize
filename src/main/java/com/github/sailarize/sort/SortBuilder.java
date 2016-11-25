@@ -277,8 +277,11 @@ public class SortBuilder {
 			LinkBuilder builder = new LinkBuilder(list,
 					RelBuilder.rel(SortConstants.REL, option.getValue(), option.getDirection()), values)
 							.filters(this.filters).filter(SortConstants.SORT_BY, option.getValue())
-							.filter(SortConstants.SORT_DIRECTION, option.getDirection())
 							.title(this.getTitle(option, index));
+
+			if (option.getDirection() != null && !option.getDirection().isEmpty()) {
+				builder.filter(SortConstants.SORT_DIRECTION, option.getDirection());
+			}
 
 			list.add(builder.build(), SortConstants.GROUP);
 

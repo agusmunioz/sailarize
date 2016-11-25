@@ -6,7 +6,6 @@ import java.util.Locale;
 
 import com.github.sailarize.properties.Titles;
 
-
 /**
  * Facilitates the build of {@link SelectInput} and {@link Option}.
  * 
@@ -70,7 +69,7 @@ public class SelectBuilder {
 	 */
 	public SelectBuilder option(String value, String title) {
 
-		String i18n = this.title(title);
+		String i18n = this.i18nTitle(title);
 
 		return this.option(new Option(i18n == null ? title : i18n, value));
 	}
@@ -119,7 +118,7 @@ public class SelectBuilder {
 
 			String key = String.format(TITLE_KEY, this.input.getName(), value);
 
-			this.option(new Option(this.title(key), value));
+			this.option(new Option(this.i18nTitle(key), value));
 		}
 
 		return this;
@@ -143,6 +142,21 @@ public class SelectBuilder {
 	}
 
 	/**
+	 * Configures the select title. If locale is set, then it uses title as a
+	 * key for searching in sail/titles properties files, if not set or the key
+	 * is absent, it uses title as the title.
+	 * 
+	 * @param title
+	 *            the title or the key in titles* properties files.
+	 * 
+	 * @return the builder.
+	 */
+	public SelectBuilder title(String title) {
+		this.input.setTitle(i18nTitle(title));
+		return this;
+	}
+
+	/**
 	 * Gets the title form properties file.
 	 * 
 	 * @param key
@@ -150,7 +164,7 @@ public class SelectBuilder {
 	 * 
 	 * @return the title or null if not found.
 	 */
-	private String title(String key) {
+	private String i18nTitle(String key) {
 
 		return (this.locale == null) ? Titles.get(key) : Titles.get(key, this.locale);
 

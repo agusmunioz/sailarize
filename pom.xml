@@ -4,7 +4,7 @@
 
 	<groupId>com.github.sail-api</groupId>
 	<artifactId>sailarize</artifactId>
-	<version>1.0.B2</version>
+	<version>1.0.B9</version>
 	<packaging>jar</packaging>
 	<name>sailarize</name>
 	<description>A Java library for building Sail resources</description>
@@ -114,5 +114,14 @@
 			 -->
 		</plugins>
 	</build>
-
+<distributionManagement>
+        <repository>
+            <id>internal</id>
+            <url>http://vmtilcara.servers.despegar.it:8080/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>http://vmtilcara.servers.despegar.it:8080/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

@@ -8,9 +8,25 @@ public class Option {
 
 	private Object value;
 
-	public Option(String title, Object value) {
-		this.title = title;
+	private Boolean selected;
+
+	public Option(Object value) {
 		this.value = value;
+	}
+
+	public Option(String title, Object value) {
+		this(value);
+		this.title = title;
+	}
+
+	public Option(Object value, boolean selected) {
+		this(value);
+		this.selected = selected;
+	}
+
+	public Option(String title, Object value, Boolean selected) {
+		this(title, value);
+		this.selected = selected;
 	}
 
 	public String getTitle() {
@@ -27,6 +43,14 @@ public class Option {
 
 	public void setValue(Object value) {
 		this.value = value;
+	}
+
+	public Boolean getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Boolean selected) {
+		this.selected = selected;
 	}
 
 	@Override

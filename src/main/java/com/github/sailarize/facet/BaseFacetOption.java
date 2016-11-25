@@ -17,177 +17,194 @@ import com.github.sailarize.utils.ToStringBuilder;
  */
 public abstract class BaseFacetOption implements FacetOption {
 
-    private String facet;
+	private String facet;
 
-    private String name;
+	private String name;
 
-    private String value;
+	private String value;
 
-    private String title;
+	private String title;
 
-    private Map<String, Object> data;
+	private Map<String, Object> data;
 
-    /**
-     * Creates an initialized {@link BaseFacetOption}.
-     * 
-     * @param facet
-     *            the facet name this option belongs to.
-     * 
-     * @param value
-     *            the option value.
-     */
-    public BaseFacetOption(String facet, String value) {
+	/**
+	 * Creates an initialized {@link BaseFacetOption}.
+	 * 
+	 * @param facet
+	 *            the facet name this option belongs to.
+	 * 
+	 * @param value
+	 *            the option value.
+	 */
+	public BaseFacetOption(String facet, String value) {
 
-        this.facet = facet;
-        this.name = value;
-        this.value = value;
-    }
+		this.facet = facet;
+		this.name = value;
+		this.value = value;
+	}
 
-    @Override
-    public String getFacet() {
+	/**
+	 * Creates an initialized {@link BaseFacetOption}.
+	 * 
+	 * @param facet
+	 *            the facet name this option belongs to.
+	 * 
+	 * @param value
+	 *            the option value.
+	 * 
+	 * @param title
+	 *            the option title.
+	 */
+	public BaseFacetOption(String facet, String value, String title) {
+		this(facet, value);
+		this.title = title;
+	}
 
-        return facet;
-    }
+	@Override
+	public String getFacet() {
 
-    /**
-     * Sets the facet name this option belongs to.
-     * 
-     * @param name
-     *            the facet name.
-     */
-    public void setFacet(String name) {
+		return facet;
+	}
 
-        this.facet = name;
-    }
+	/**
+	 * Sets the facet name this option belongs to.
+	 * 
+	 * @param name
+	 *            the facet name.
+	 */
+	public void setFacet(String name) {
 
-    @Override
-    public String getName() {
+		this.facet = name;
+	}
 
-        return name;
-    }
+	@Override
+	public String getName() {
 
-    /**
-     * Sets the option name.
-     * 
-     * @param name
-     *            the name.
-     */
-    public void setName(String name) {
+		return name;
+	}
 
-        this.name = name;
-    }
+	/**
+	 * Sets the option name.
+	 * 
+	 * @param name
+	 *            the name.
+	 */
+	public void setName(String name) {
 
-    @Override
-    public String getValue() {
+		this.name = name;
+	}
 
-        return this.value;
-    }
+	@Override
+	public String getValue() {
 
-    /**
-     * Sets the option value.
-     * 
-     * @param value
-     *            the value.
-     */
-    public void setValue(String value) {
+		return this.value;
+	}
 
-        this.value = value;
-    }
+	/**
+	 * Sets the option value.
+	 * 
+	 * @param value
+	 *            the value.
+	 */
+	public void setValue(String value) {
 
-    @Override
-    public String getTitle() {
+		this.value = value;
+	}
 
-        return this.title;
-    }
+	@Override
+	public String getTitle() {
 
-    /**
-     * Sets the option title.
-     * 
-     * @param title
-     *            the title.
-     */
-    public void setTitle(String title) {
+		return this.title;
+	}
 
-        this.title = title;
-    }
+	/**
+	 * Sets the option title.
+	 * 
+	 * @param title
+	 *            the title.
+	 */
+	public void setTitle(String title) {
 
-    @Override
-    public Map<String, Object> getData() {
+		this.title = title;
+	}
 
-        return this.data;
-    }
+	@Override
+	public Map<String, Object> getData() {
 
-    /**
-     * Sets the option extra data.
-     * 
-     * @param data
-     *            any extra data to be added in the link.
-     */
-    public void setData(Map<String, Object> data) {
+		return this.data;
+	}
 
-        this.data = data;
-    }
+	/**
+	 * Sets the option extra data.
+	 * 
+	 * @param data
+	 *            any extra data to be added in the link.
+	 */
+	public void setData(Map<String, Object> data) {
 
-    /**
-     * Adds a specific extra data to the facet option.
-     * 
-     * @param name
-     *            the extra data name.
-     * @param value
-     *            the extra data value.
-     */
-    public void addData(String name, Object value) {
+		this.data = data;
+	}
 
-        if (this.data == null) {
-            this.data = new HashMap<String, Object>();
-        }
+	/**
+	 * Adds a specific extra data to the facet option.
+	 * 
+	 * @param name
+	 *            the extra data name.
+	 * @param value
+	 *            the extra data value.
+	 */
+	public void addData(String name, Object value) {
 
-        this.data.put(name, value);
-    }
+		if (this.data == null) {
+			this.data = new HashMap<String, Object>();
+		}
 
-    @Override
-    public boolean isApplied(Collection<Filter> filters) {
+		this.data.put(name, value);
+	}
 
-        if (filters == null) {
-            return false;
-        }
+	@Override
+	public boolean isApplied(Collection<Filter> filters) {
 
-        return filters.contains(new Filter(this.getFacet(), this.getValue()));
-    }
+		if (filters == null) {
+			return false;
+		}
 
-    @Override
-    public Collection<Filter> compatibles(Collection<Filter> filters) {
+		return filters.contains(new Filter(this.getFacet(), this.getValue()));
+	}
 
-        Collection<Filter> compatibles = new LinkedList<Filter>();
+	@Override
+	public Collection<Filter> compatibles(Collection<Filter> filters) {
 
-        for (Filter filter : filters) {
+		Collection<Filter> compatibles = new LinkedList<Filter>();
 
-            if (this.isCompatible(filter)) {
-                compatibles.add(filter);
-            }
-        }
+		for (Filter filter : filters) {
 
-        return compatibles;
-    }
+			if (this.isCompatible(filter)) {
+				compatibles.add(filter);
+			}
+		}
 
-    public void apply(Collection<Filter> filters) {
+		return compatibles;
+	}
 
-        filters.add(new Filter(this.getFacet(), this.getValue()));
-    }
+	public void apply(Collection<Filter> filters) {
 
-    /**
-     * Determines if a filter is compatible with this facet option.
-     * 
-     * @param fiter
-     *            the filter to evaluate compatibility.
-     * 
-     * @return if it is compatible or not.
-     */
-    protected abstract boolean isCompatible(Filter fiter);
+		filters.add(new Filter(this.getFacet(), this.getValue()));
+	}
 
-    @Override
-    public String toString() {
+	/**
+	 * Determines if a filter is compatible with this facet option.
+	 * 
+	 * @param fiter
+	 *            the filter to evaluate compatibility.
+	 * 
+	 * @return if it is compatible or not.
+	 */
+	protected abstract boolean isCompatible(Filter fiter);
 
-        return ToStringBuilder.toString(this);
-    }
+	@Override
+	public String toString() {
+
+		return ToStringBuilder.toString(this);
+	}
 }

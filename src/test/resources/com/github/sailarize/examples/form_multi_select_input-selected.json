@@ -1,0 +1,12 @@
+{
+    "name": "input.field",
+    "multiselect": [
+        {
+            "value": "RED",
+            "selected": true
+        },
+        {
+            "value": "BLUE"
+        }
+    ]
+}

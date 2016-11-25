@@ -286,7 +286,7 @@ public class FacetBuilder {
 			title = Titles.get("facets." + option.getFacet() + "." + option.getValue());
 		}
 
-		return title;
+		return (title == null) ? option.getTitle() : title;
 	}
 
 	/**

@@ -1,0 +1,12 @@
+{
+    "name": "input.field",
+    "select": [
+        {
+            "value": "RED",
+            "selected": true
+        },
+        {
+            "value": "BLUE"
+        }
+    ]
+}
