@@ -114,14 +114,4 @@
 			 -->
 		</plugins>
 	</build>
-<distributionManagement>
-        <repository>
-            <id>internal</id>
-            <url>http://vmtilcara.servers.despegar.it:8080/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://vmtilcara.servers.despegar.it:8080/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>
