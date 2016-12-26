@@ -1,0 +1,11 @@
+{
+    "name":"input.field",
+    "cloneselect":[
+        {
+            "value":"RED"
+        },
+        {
+            "value":"BLUE"
+        }
+    ]
+}

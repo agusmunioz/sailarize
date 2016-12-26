@@ -9,7 +9,7 @@ package com.github.sailarize.form;
  * @param <T>
  *            the type of the behaviour result.
  */
-public interface SelectBehavioural<T> {
+public interface SelectBehavioral<T> {
 
 	/**
 	 * Behaves based on a {@link SingleSelctInput} select.
@@ -27,8 +27,18 @@ public interface SelectBehavioural<T> {
 	 * @param select
 	 *            the select input.
 	 * 
-	 * @return the result of behaving based on a multilect.
+	 * @return the result of behaving based on a multiselect.
 	 */
 	T multiselect(MultiSelectInput select);
+
+	/**
+	 * Behaves based on a {@link CloneSelectInput} select.
+	 * 
+	 * @param select
+	 *            the select input.
+	 * 
+	 * @return the result of behaving based on a cloneselect.
+	 */
+	T cloneselect(CloneSelectInput cloneSelect);
 
 }

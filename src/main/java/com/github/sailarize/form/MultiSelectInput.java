@@ -19,7 +19,7 @@ public class MultiSelectInput extends SelectInput {
 	}
 
 	@Override
-	public <T> T behave(SelectBehavioural<T> behavioural) {
+	public <T> T behave(SelectBehavioral<T> behavioural) {
 
 		return behavioural.multiselect(this);
 	}

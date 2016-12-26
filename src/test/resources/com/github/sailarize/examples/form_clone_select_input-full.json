@@ -1,0 +1,22 @@
+{
+    "id": "aSelect",
+    "name": "input.field",
+    "title": "Title",
+    "min": 0,
+    "max": 5,
+    "start": 2,
+    "cloneselect": [
+        {
+            "title": "Red",
+            "value": "RED"
+        },
+        {
+            "title": "Blue",
+            "value": "BLUE"
+        },
+        {
+            "title": "Green",
+            "value": "GREEN"
+        }
+    ]
+}

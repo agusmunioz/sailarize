@@ -1,0 +1,17 @@
+{
+    "name": "input.field",
+    "min": 0,
+    "max": 5,
+    "start": 2,
+    "cloneselect": [
+        {
+            "value": "RED"
+        },
+        {
+            "value": "BLUE"
+        },
+        {
+            "value": "GREEN"
+        }
+    ]
+}

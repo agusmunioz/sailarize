@@ -62,5 +62,5 @@ public abstract class SelectInput extends FormInput {
 		return this;
 	}
 
-	public abstract <T> T behave(SelectBehavioural<T> behavioural);
+	public abstract <T> T behave(SelectBehavioral<T> behavioural);
 }
