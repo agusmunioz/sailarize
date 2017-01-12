@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.github.sailarize.http.Header;
 import com.github.sailarize.http.HeaderHolder;
+import com.github.sailarize.properties.Titles;
 import com.github.sailarize.url.HostHeaderResolver;
 import com.github.sailarize.url.HostResolver;
 import com.github.sailarize.url.PathHolder;
@@ -72,6 +73,10 @@ public class SailarizeFilter implements Filter {
 			this.hypermedia = config.getInitParameter("hypermedia");
 		}
 
+		if (config.getInitParameter("encoding") != null) {
+			Titles.encoding(config.getInitParameter("encoding"));
+		}
+		
 		this.hostResolver = this.getHostResolver(config.getInitParameter("hostResolver"));
 
 	}

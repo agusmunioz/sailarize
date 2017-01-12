@@ -1,5 +1,6 @@
 package com.github.sailarize.properties;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -21,6 +22,17 @@ import java.util.ResourceBundle;
 public class Titles {
 
 	private static final String BASE_NAME = "sail/titles";
+
+	private static String ENCODING;
+
+	/**
+	 * Configures the expected encoding for titles.
+	 * 
+	 * @param encoding
+	 */
+	public static void encoding(String encoding) {
+		ENCODING = encoding;
+	}
 
 	/**
 	 * Gets an I18N title.
@@ -44,9 +56,18 @@ public class Titles {
 				}
 			});
 
-			return bundle.getString(key);
+			String title = bundle.getString(key);
+
+			if (ENCODING == null || ENCODING.isEmpty()) {
+
+				return title;
+			}
+
+			return new String(title.getBytes(), ENCODING);
 
 		} catch (MissingResourceException e) {
+			return null;
+		} catch (UnsupportedEncodingException e) {
 			return null;
 		}
 	}
