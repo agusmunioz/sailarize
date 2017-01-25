@@ -252,8 +252,7 @@ public class PageBuilder {
 			list.add(builder.build(), PageConstants.GROUP);
 		}
 
-		Integer lastPage = new BigDecimal(this.total).divide(new BigDecimal(this.size)).setScale(0, RoundingMode.UP)
-				.intValue();
+		Integer lastPage = new BigDecimal(this.total).divide(new BigDecimal(this.size), RoundingMode.UP).intValue();
 
 		if (this.page.compareTo(lastPage) < 1) {
 
