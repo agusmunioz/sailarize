@@ -237,7 +237,7 @@ public class FacetBuilder {
 	 * @param list
 	 *            the resource where to add all the facet links.
 	 */
-	public void build(SailResource list) {
+	public void build(SailResource list, Object... values) {
 
 		int index = 0;
 
@@ -253,7 +253,8 @@ public class FacetBuilder {
 				option.apply(filters);
 			}
 
-			LinkBuilder builder = new LinkBuilder(list, rel).title(this.getTitle(option, index)).filters(filters);
+			LinkBuilder builder = new LinkBuilder(list, rel, values).title(this.getTitle(option, index))
+					.filters(filters);
 
 			this.addData(builder, option, index);
 

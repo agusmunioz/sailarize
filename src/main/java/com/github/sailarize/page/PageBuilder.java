@@ -1,5 +1,7 @@
 package com.github.sailarize.page;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Locale;
@@ -36,6 +38,10 @@ public class PageBuilder {
 	private Collection<Filter> filters;
 
 	private Locale locale;
+
+	private Integer first;
+
+	private Integer last;
 
 	private PageBuilder(Integer page) {
 
@@ -137,6 +143,36 @@ public class PageBuilder {
 	}
 
 	/**
+	 * Configures when a link to the first page must be included.
+	 * 
+	 * @param since
+	 *            the page number since a link to the first page must be
+	 *            included.
+	 * 
+	 * @return the builder for further build.
+	 */
+	public PageBuilder first(Integer since) {
+
+		this.first = since;
+		return this;
+	}
+
+	/**
+	 * Configures when a link to the last page must be included.
+	 * 
+	 * @param since
+	 *            the page number since a link to the last page must be
+	 *            included.
+	 * 
+	 * @return the builder for further build.
+	 */
+	public PageBuilder last(Integer since) {
+
+		this.last = since;
+		return this;
+	}
+
+	/**
 	 * Adds a filter (query parameter) to the pagination links.
 	 * 
 	 * @param name
@@ -216,7 +252,10 @@ public class PageBuilder {
 			list.add(builder.build(), PageConstants.GROUP);
 		}
 
-		if (this.page * this.size < this.total) {
+		Integer lastPage = new BigDecimal(this.total).divide(new BigDecimal(this.size)).setScale(0, RoundingMode.UP)
+				.intValue();
+
+		if (this.page.compareTo(lastPage) < 1) {
 
 			LinkBuilder builder = new LinkBuilder(list, PageConstants.NEXT_REL, values).title(this.getNext())
 					.filter(PageConstants.PAGE_PARAM, Integer.toString(this.page + 1))
@@ -237,6 +276,23 @@ public class PageBuilder {
 			}
 		}
 
+		if (this.first != null && this.first.compareTo(this.page) < 0) {
+
+			LinkBuilder builder = new LinkBuilder(list, PageConstants.FIRST_REL, values).title("")
+					.filter(PageConstants.PAGE_PARAM, Integer.toString(1))
+					.filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters);
+
+			list.add(builder.build(), PageConstants.GROUP);
+		}
+
+		if (this.last != null && this.last.compareTo(this.page) > 0) {
+
+			LinkBuilder builder = new LinkBuilder(list, PageConstants.LAST_REL, values).title("")
+					.filter(PageConstants.PAGE_PARAM, Integer.toString(lastPage))
+					.filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters);
+
+			list.add(builder.build(), PageConstants.GROUP);
+		}
 	}
 
 	/**

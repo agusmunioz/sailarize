@@ -42,4 +42,14 @@ public interface PageConstants {
 	 * Key for 'previous' link title in properties files.
 	 */
 	String PREVIOUS_TITLE = "pagination.previous";
+
+	/**
+	 * Key for 'first page' link title in properties files.
+	 */
+	String FIRST_REL = "first";
+
+	/**
+	 * Key for 'last page' link title in properties files.
+	 */
+	String LAST_REL = "last";
 }

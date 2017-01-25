@@ -110,6 +110,19 @@ public class FacetFormBuilder {
 	}
 
 	/**
+	 * Configures the form id.
+	 * 
+	 * @param id
+	 *            the id.
+	 * 
+	 * @return the builder.
+	 */
+	public FacetFormBuilder id(String id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
 	 * Configures the form title.
 	 * 
 	 * @param title
