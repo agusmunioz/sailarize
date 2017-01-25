@@ -49,6 +49,10 @@ public class FacetBuilder {
 
 	private Map<String, Object[]> data;
 
+	private boolean all = false;
+
+	private String allTitle;
+
 	private FacetBuilder(String name) {
 
 		this.name = name;
@@ -232,12 +236,38 @@ public class FacetBuilder {
 	}
 
 	/**
+	 * Configures the all link to be built in the facet group link.
+	 * 
+	 * @param title
+	 *            the all link title.
+	 */
+	public FacetBuilder all(String title) {
+		this.all = true;
+		this.allTitle = title;
+		return this;
+	}
+
+	/**
 	 * Builds the facet links for each options and add them to the resource.
 	 * 
 	 * @param list
 	 *            the resource where to add all the facet links.
 	 */
 	public void build(SailResource list, Object... values) {
+
+		if (this.all) {
+
+			Collection<Filter> allFilters = new LinkedList<Filter>();
+
+			for (Filter filter : this.filters) {
+				if (!filter.getName().equals(this.name)) {
+					allFilters.add(filter);
+				}
+			}
+
+			LinkBuilder builder = new LinkBuilder(list, "all", values).title(this.allTitle).filters(allFilters);
+			list.add(builder.build(), GROUP, this.name);
+		}
 
 		int index = 0;
 
