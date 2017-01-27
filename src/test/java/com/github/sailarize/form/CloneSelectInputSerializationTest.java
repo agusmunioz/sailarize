@@ -1,8 +1,9 @@
 package com.github.sailarize.form;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.sailarize.asserts.AssertSerialization;
@@ -55,8 +56,7 @@ public abstract class CloneSelectInputSerializationTest {
 	public void constraints() {
 
 		CloneSelectInput input = new CloneSelectInput("input.field");
-		input.setOptions(
-				Arrays.asList(new Option("RED"), new Option("BLUE"), new Option("GREEN")));
+		input.setOptions(Arrays.asList(new Option("RED"), new Option("BLUE"), new Option("GREEN")));
 		input.setMin(0);
 		input.setMax(5);
 		input.setStart(2);
@@ -68,16 +68,18 @@ public abstract class CloneSelectInputSerializationTest {
 	}
 
 	/**
-	 * Test for a select input with a selected option. TODO: definir qué es
-	 * selected
-	 * TODO: Define what selected means in a clone select
+	 * Test for a select input with a selected option.
 	 */
 	@Test
-	@Ignore
 	public void selected() {
 
 		CloneSelectInput input = new CloneSelectInput("input.field");
-		input.setOptions(Arrays.asList(new Option("RED", true), new Option("BLUE")));
+		input.setOptions(Arrays.asList(new Option("RED"), new Option("BLUE")));
+
+		Collection<Object> selected = new LinkedList<Object>();
+		selected.add("RED");
+
+		input.setSelected(selected);
 
 		String resource = this.serialize(input);
 
@@ -93,13 +95,19 @@ public abstract class CloneSelectInputSerializationTest {
 	public void full() {
 
 		CloneSelectInput input = new CloneSelectInput("input.field");
-		input.setOptions(Arrays.asList(new Option("Red", "RED"), new Option("Blue", "BLUE"),
-				new Option("Green", "GREEN")));
+		input.setOptions(
+				Arrays.asList(new Option("Red", "RED"), new Option("Blue", "BLUE"), new Option("Green", "GREEN")));
 		input.setId("aSelect");
 		input.setTitle("Title");
 		input.setMin(0);
 		input.setMax(5);
 		input.setStart(2);
+
+		Collection<Object> selected = new LinkedList<Object>();
+		selected.add("RED");
+		selected.add("BLUE");
+
+		input.setSelected(selected);
 
 		String resource = this.serialize(input);
 

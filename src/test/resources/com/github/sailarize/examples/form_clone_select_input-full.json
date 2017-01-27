@@ -5,6 +5,10 @@
     "min": 0,
     "max": 5,
     "start": 2,
+    "selected": [
+        "RED",
+        "BLUE"
+    ],
     "cloneselect": [
         {
             "title": "Red",

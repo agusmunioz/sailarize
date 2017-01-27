@@ -1,5 +1,6 @@
 package com.github.sailarize.form;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Locale;
@@ -25,6 +26,8 @@ public class CloneSelectBuilder {
 	private Collection<Option> options;
 
 	private Locale locale;
+
+	private Object[] selected;
 
 	private CloneSelectBuilder(String name) {
 		this.name = name;
@@ -64,6 +67,18 @@ public class CloneSelectBuilder {
 	 */
 	public CloneSelectBuilder start(Integer start) {
 		this.start = start;
+		return this;
+	}
+
+	/**
+	 * Configures the selected values.
+	 * 
+	 * @param values
+	 *            the values;
+	 */
+	public CloneSelectBuilder selected(Object... values) {
+
+		this.selected = values;
 		return this;
 	}
 
@@ -138,6 +153,10 @@ public class CloneSelectBuilder {
 		select.setMax(this.max);
 		select.setStart(this.start);
 		select.setOptions(this.options);
+
+		if (this.selected != null) {
+			select.setSelected(Arrays.asList(this.selected));
+		}
 
 		return select;
 	}

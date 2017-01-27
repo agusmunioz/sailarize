@@ -1,5 +1,7 @@
 package com.github.sailarize.form;
 
+import java.util.Collection;
+
 /**
  * A select that can be cloned to send a select values multiple times in the
  * same field.
@@ -14,6 +16,8 @@ public class CloneSelectInput extends SelectInput {
 	private Integer max;
 
 	private Integer start;
+
+	private Collection<Object> selected;
 
 	public CloneSelectInput(String name) {
 		super(name);
@@ -47,6 +51,14 @@ public class CloneSelectInput extends SelectInput {
 
 	public void setStart(Integer start) {
 		this.start = start;
+	}
+
+	public Collection<Object> getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Collection<Object> selected) {
+		this.selected = selected;
 	}
 
 }
