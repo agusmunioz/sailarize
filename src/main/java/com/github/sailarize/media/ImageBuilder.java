@@ -1,6 +1,8 @@
 package com.github.sailarize.media;
 
+
 import com.github.sailarize.properties.Hosts;
+import com.github.sailarize.properties.Paths;
 
 /**
  * A builder for {@link Image}.
@@ -58,6 +60,22 @@ public class ImageBuilder {
 		return this;
 	}
 
+	/**
+	 * Configures the image path.
+	 * 
+	 * @param path
+	 * 
+	 * @return
+	 */
+	public ImageBuilder path(String path, String... args) {
+
+		String property = Paths.get(path, args);
+
+		this.path = (property == null ? path : property);
+
+		return this;
+	}
+
 	public ImageBuilder type(String type) {
 		this.type = type;
 		return this;
@@ -80,12 +98,6 @@ public class ImageBuilder {
 
 	public ImageBuilder title(String title) {
 		this.title = title;
-		return this;
-	}
-
-	public ImageBuilder path(String path) {
-
-		this.path = path;
 		return this;
 	}
 
