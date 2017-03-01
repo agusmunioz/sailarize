@@ -8,38 +8,38 @@ package com.github.sailarize.http;
  */
 public interface Http {
 
-	/**
-	 * http protocol.
-	 */
-	String HTTP = "http";
+    /**
+     * http protocol.
+     */
+    String HTTP = "http";
 
-	/**
-	 * https protocol.
-	 */
-	String HTTPS = "https";
+    /**
+     * https protocol.
+     */
+    String HTTPS = "https";
 
-	/**
-	 * POST verb.
-	 */
-	String POST = "POST";
+    /**
+     * POST verb.
+     */
+    String POST = "POST";
 
-	/**
-	 * PATCH verb.
-	 */
-	String PATCH = "PATCH";
+    /**
+     * PATCH verb.
+     */
+    String PATCH = "PATCH";
 
-	/**
-	 * DELETE verb.
-	 */
-	String DELETE = "DELETE";
+    /**
+     * DELETE verb.
+     */
+    String DELETE = "DELETE";
 
-	/**
-	 * GET verb.
-	 */
-	String GET = "GET";
+    /**
+     * GET verb.
+     */
+    String GET = "GET";
 
-	/**
-	 * PUT verb.
-	 */
-	String PUT = "PUT";
+    /**
+     * PUT verb.
+     */
+    String PUT = "PUT";
 }

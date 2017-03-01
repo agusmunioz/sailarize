@@ -11,22 +11,22 @@ import java.util.LinkedList;
  */
 public class Collector {
 
-	/**
-	 * Creates a new collection with the same elements but the rejected one.
-	 * 
-	 * @param elements
-	 *            the complete collection of elements.
-	 * 
-	 * @param reject
-	 *            the element to reject.
-	 * 
-	 * @return a new collection with the same elements but the rejected.
-	 */
-	public static <T> Collection<T> reject(Collection<T> elements, T reject) {
+    /**
+     * Creates a new collection with the same elements but the rejected one.
+     * 
+     * @param elements
+     *            the complete collection of elements.
+     * 
+     * @param reject
+     *            the element to reject.
+     * 
+     * @return a new collection with the same elements but the rejected.
+     */
+    public static <T> Collection<T> reject(Collection<T> elements, T reject) {
 
-		LinkedList<T> collection = new LinkedList<T>(elements);
-		collection.remove(reject);
+        LinkedList<T> collection = new LinkedList<T>(elements);
+        collection.remove(reject);
 
-		return collection;
-	}
+        return collection;
+    }
 }

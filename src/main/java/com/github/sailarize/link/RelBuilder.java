@@ -29,8 +29,7 @@ public class RelBuilder {
 
         if (name == null) {
 
-            throw new IllegalArgumentException(
-                    "name parameter must be provided");
+            throw new IllegalArgumentException("name parameter must be provided");
         }
 
         String rel = name.toString().toLowerCase();
@@ -63,8 +62,7 @@ public class RelBuilder {
      */
     public static String rel(String prefix, Object name, String postFix) {
 
-        return new StringBuilder(rel(prefix, name)).append(
-                StringUtils.capitalize(postFix)).toString();
+        return new StringBuilder(rel(prefix, name)).append(StringUtils.capitalize(postFix)).toString();
     }
 
 }

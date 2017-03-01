@@ -8,7 +8,6 @@ public class StringUtils {
             return word;
         }
 
-        return Character.toUpperCase(word.charAt(0))
-                + word.substring(1).toLowerCase();
+        return Character.toUpperCase(word.charAt(0)) + word.substring(1).toLowerCase();
     }
 }

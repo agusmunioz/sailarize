@@ -19,8 +19,7 @@ public class FilterTest {
 
         Filter filter = new Filter("name", "value");
 
-        Assert.assertTrue("Equals not reflexive for Filter",
-                filter.equals(filter));
+        Assert.assertTrue("Equals not reflexive for Filter", filter.equals(filter));
 
     }
 
@@ -34,8 +33,7 @@ public class FilterTest {
 
         Filter two = new Filter("name", "value");
 
-        Assert.assertTrue("Equals not symetrics",
-                one.equals(two) && two.equals(one));
+        Assert.assertTrue("Equals not symetrics", one.equals(two) && two.equals(one));
 
     }
 
@@ -54,13 +52,9 @@ public class FilterTest {
 
         Filter different = new Filter("hola", "chau");
 
-        Assert.assertTrue("Equals not transitive",
-                one.equals(two) && two.equals(three) && one.equals(three));
+        Assert.assertTrue("Equals not transitive", one.equals(two) && two.equals(three) && one.equals(three));
 
-        Assert.assertTrue(
-                "Equals not transitive",
-                one.equals(two) && !two.equals(different)
-                        && !one.equals(different));
+        Assert.assertTrue("Equals not transitive", one.equals(two) && !two.equals(different) && !one.equals(different));
     }
 
     /**
@@ -86,8 +80,7 @@ public class FilterTest {
 
         Filter two = new Filter(null, null);
 
-        Assert.assertTrue("Filters with  null fields are not equals",
-                one.equals(two));
+        Assert.assertTrue("Filters with  null fields are not equals", one.equals(two));
 
     }
 
@@ -101,8 +94,7 @@ public class FilterTest {
 
         Filter two = new Filter("Chau", "1");
 
-        Assert.assertFalse("Filters with different names are equals",
-                one.equals(two));
+        Assert.assertFalse("Filters with different names are equals", one.equals(two));
 
     }
 
@@ -117,9 +109,7 @@ public class FilterTest {
 
         Filter two = new Filter("Hola", "2");
 
-        Assert.assertFalse(
-                "Filters with different value in value field are equals",
-                one.equals(two));
+        Assert.assertFalse("Filters with different value in value field are equals", one.equals(two));
 
     }
 
@@ -134,9 +124,7 @@ public class FilterTest {
 
         Filter two = new Filter("Chau", "2");
 
-        Assert.assertFalse(
-                "Filters with different values in all fields are equals",
-                one.equals(two));
+        Assert.assertFalse("Filters with different values in all fields are equals", one.equals(two));
 
     }
 
@@ -151,11 +139,9 @@ public class FilterTest {
 
         Filter two = new Filter(null, "2");
 
-        Assert.assertFalse("Filters equals when the second has a null name",
-                one.equals(two));
+        Assert.assertFalse("Filters equals when the second has a null name", one.equals(two));
 
-        Assert.assertFalse("Filters equals when the second has a null name",
-                two.equals(one));
+        Assert.assertFalse("Filters equals when the second has a null name", two.equals(one));
     }
 
     /**
@@ -169,8 +155,7 @@ public class FilterTest {
 
         Filter two = new Filter("Chau", null);
 
-        Assert.assertFalse("Filters equals when the second has a null value",
-                one.equals(two));
+        Assert.assertFalse("Filters equals when the second has a null value", one.equals(two));
 
     }
 
@@ -182,8 +167,7 @@ public class FilterTest {
 
         Filter one = new Filter("Hola", "1");
 
-        Assert.assertFalse("Filter equals to an instace of a different class",
-                one.equals(new Integer(2)));
+        Assert.assertFalse("Filter equals to an instace of a different class", one.equals(new Integer(2)));
     }
 
     /**
@@ -196,8 +180,7 @@ public class FilterTest {
 
         Filter two = new Filter("Hola", "1");
 
-        Assert.assertEquals("Equals instances have different hashCode",
-                one.hashCode(), two.hashCode());
+        Assert.assertEquals("Equals instances have different hashCode", one.hashCode(), two.hashCode());
 
     }
 
@@ -213,8 +196,7 @@ public class FilterTest {
 
         Filter two = new Filter("Chau", "1");
 
-        Assert.assertNotEquals("Different instances have equals hashCode",
-                one.hashCode(), two.hashCode());
+        Assert.assertNotEquals("Different instances have equals hashCode", one.hashCode(), two.hashCode());
 
     }
 }

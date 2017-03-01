@@ -11,64 +11,62 @@ import java.lang.reflect.Modifier;
  */
 public class ToStringBuilder {
 
-	/**
-	 * Creates a pretty print of the object using reflection.
-	 * 
-	 * @param object
-	 *            the object to print.
-	 * 
-	 * @return the object pretty printing.
-	 */
-	public static String toString(Object object) {
+    /**
+     * Creates a pretty print of the object using reflection.
+     * 
+     * @param object
+     *            the object to print.
+     * 
+     * @return the object pretty printing.
+     */
+    public static String toString(Object object) {
 
-		Class<? extends Object> type = object.getClass();
+        Class<? extends Object> type = object.getClass();
 
-		StringBuilder builder = new StringBuilder(type.getSimpleName())
-				.append(": [");
+        StringBuilder builder = new StringBuilder(type.getSimpleName()).append(": [");
 
-		while (type != Object.class) {
+        while (type != Object.class) {
 
-			for (Field field : type.getDeclaredFields()) {
+            for (Field field : type.getDeclaredFields()) {
 
-				if (!Modifier.isStatic(field.getModifiers())) {
+                if (!Modifier.isStatic(field.getModifiers())) {
 
-					field.setAccessible(true);
+                    field.setAccessible(true);
 
-					builder.append(field.getName()).append(": ")
-							.append(getValue(object, field)).append(", ");
+                    builder.append(field.getName()).append(": ").append(getValue(object, field)).append(", ");
 
-				}
-			}
+                }
+            }
 
-			type = type.getSuperclass();
-		}
+            type = type.getSuperclass();
+        }
 
-		int delete = builder.lastIndexOf(",");
+        int delete = builder.lastIndexOf(",");
 
-		if (delete > 0) {
-			builder.delete(delete, delete + 2);
-		}
+        if (delete > 0) {
+            builder.delete(delete, delete + 2);
+        }
 
-		return builder.append("]").toString();
-	}
+        return builder.append("]").toString();
+    }
 
-	/**
-	 * Gets the field value.
-	 * 
-	 * @param object
-	 *            the object where the field is defined.
-	 * @param field
-	 *            the field.
-	 * @return the value or null is there was an error.
-	 */
-	private static Object getValue(Object object, Field field) {
+    /**
+     * Gets the field value.
+     * 
+     * @param object
+     *            the object where the field is defined.
+     * @param field
+     *            the field.
+     * @return the value or null is there was an error.
+     */
+    private static Object getValue(Object object, Field field) {
 
-		try {
+        try {
 
-			return field.get(object);
+            return field.get(object);
 
-		} catch (Exception e) {
-			return null;
-		}
-	}
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

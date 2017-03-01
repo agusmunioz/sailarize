@@ -34,8 +34,7 @@ public class RelBuilderTest {
 
         String expected = "rel";
 
-        Assert.assertEquals("Unexpected rel with no prefix and all upper case",
-                expected, rel);
+        Assert.assertEquals("Unexpected rel with no prefix and all upper case", expected, rel);
     }
 
     /**
@@ -61,8 +60,7 @@ public class RelBuilderTest {
 
         String expected = "prefixRel";
 
-        Assert.assertEquals("Unexpected rel with prefix and all upper case",
-                expected, rel);
+        Assert.assertEquals("Unexpected rel with prefix and all upper case", expected, rel);
     }
 
     /**
@@ -75,8 +73,7 @@ public class RelBuilderTest {
 
         String expected = "a";
 
-        Assert.assertEquals("Unexpected rel with no prefix a one letter",
-                expected, rel);
+        Assert.assertEquals("Unexpected rel with no prefix a one letter", expected, rel);
     }
 
     /**
@@ -90,8 +87,7 @@ public class RelBuilderTest {
 
         String expected = "a";
 
-        Assert.assertEquals("Unexpected rel with no prefix a one letter",
-                expected, rel);
+        Assert.assertEquals("Unexpected rel with no prefix a one letter", expected, rel);
     }
 
     /**
@@ -104,8 +100,7 @@ public class RelBuilderTest {
 
         String expected = "prefixA";
 
-        Assert.assertEquals("Unexpected rel with prefix a one letter",
-                expected, rel);
+        Assert.assertEquals("Unexpected rel with prefix a one letter", expected, rel);
     }
 
     /**
@@ -119,9 +114,7 @@ public class RelBuilderTest {
 
         String expected = "prefixA";
 
-        Assert.assertEquals(
-                "Unexpected rel with prefix a one letter in upper case",
-                expected, rel);
+        Assert.assertEquals("Unexpected rel with prefix a one letter in upper case", expected, rel);
     }
 
     /**

@@ -12,42 +12,42 @@ import org.junit.Assert;
  */
 public class JsonReder {
 
-	private static final String JSON_FOLDER = "/com/github/sailarize/examples/";
+    private static final String JSON_FOLDER = "/com/github/sailarize/examples/";
 
-	/**
-	 * Reads a Json file from classpath and removes any space or new.
-	 * 
-	 * @param file
-	 *            the classpath file name.
-	 *
-	 * @return the Json as a string or null if the file was not found.
-	 */
-	public static String json(String file) {
+    /**
+     * Reads a Json file from classpath and removes any space or new.
+     * 
+     * @param file
+     *            the classpath file name.
+     *
+     * @return the Json as a string or null if the file was not found.
+     */
+    public static String json(String file) {
 
-		try {
+        try {
 
-			InputStream is = JsonReder.class.getResourceAsStream(JSON_FOLDER + file + ".json");
+            InputStream is = JsonReder.class.getResourceAsStream(JSON_FOLDER + file + ".json");
 
-			int ch;
+            int ch;
 
-			StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
 
-			while ((ch = is.read()) != -1) {
+            while ((ch = is.read()) != -1) {
 
-				if (ch != ' ' && ch != '\n') {
-					sb.append((char) ch);
-				}
+                if (ch != ' ' && ch != '\n') {
+                    sb.append((char) ch);
+                }
 
-			}
+            }
 
-			return sb.toString();
+            return sb.toString();
 
-		} catch (Exception e) {
-			Assert.fail("An exception occurred while reading a Json file from classpath. File: " + file
-					+ ". Error: " + e);
-			return null;
-		}
+        } catch (Exception e) {
+            Assert.fail(
+                    "An exception occurred while reading a Json file from classpath. File: " + file + ". Error: " + e);
+            return null;
+        }
 
-	}
+    }
 
 }

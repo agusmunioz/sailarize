@@ -11,28 +11,28 @@ import com.github.sailarize.servlet.RequestHolder;
  */
 public class Domain {
 
-	private static final String PROTOCOL_RELATIVE = "//";
+    private static final String PROTOCOL_RELATIVE = "//";
 
-	/**
-	 * Determines if the URL is cross-domain. That is to say, it references a
-	 * different host/domain.
-	 * 
-	 * @param url
-	 *            the url.
-	 * 
-	 * @return true if it is cross-domain, false otherwise.
-	 */
-	public static boolean cross(String url) {
+    /**
+     * Determines if the URL is cross-domain. That is to say, it references a
+     * different host/domain.
+     * 
+     * @param url
+     *            the url.
+     * 
+     * @return true if it is cross-domain, false otherwise.
+     */
+    public static boolean cross(String url) {
 
-		String target = url;
+        String target = url;
 
-		if (url.startsWith(PROTOCOL_RELATIVE)) {
-			target = url.replaceFirst(PROTOCOL_RELATIVE, "");
+        if (url.startsWith(PROTOCOL_RELATIVE)) {
+            target = url.replaceFirst(PROTOCOL_RELATIVE, "");
 
-		}
+        }
 
-		String domain = (RequestHolder.get() != null) ? RequestHolder.get().getServerName() : "";
+        String domain = (RequestHolder.get() != null) ? RequestHolder.get().getServerName() : "";
 
-		return !target.contains(domain) && !target.startsWith("/");
-	}
+        return !target.contains(domain) && !target.startsWith("/");
+    }
 }

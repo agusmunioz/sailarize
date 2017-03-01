@@ -12,38 +12,38 @@ import com.github.sailarize.url.Filter;
  */
 public class InclusiveFacetOption extends BaseFacetOption {
 
-	/**
-	 * Creates an initialized {@link InclusiveFacetOption}.
-	 * 
-	 * @param facet
-	 *            the facet name this option belongs to.
-	 * @param value
-	 *            the option value.
-	 */
-	public InclusiveFacetOption(String facet, String value) {
+    /**
+     * Creates an initialized {@link InclusiveFacetOption}.
+     * 
+     * @param facet
+     *            the facet name this option belongs to.
+     * @param value
+     *            the option value.
+     */
+    public InclusiveFacetOption(String facet, String value) {
 
-		super(facet, value);
-	}
+        super(facet, value);
+    }
 
-	/**
-	 * Creates an initialized {@link InclusiveFacetOption}.
-	 * 
-	 * @param facet
-	 *            the facet name this option belongs to.
-	 * @param value
-	 *            the option value.
-	 * @param title
-	 *            the option title.
-	 */
-	public InclusiveFacetOption(String facet, String value, String title) {
+    /**
+     * Creates an initialized {@link InclusiveFacetOption}.
+     * 
+     * @param facet
+     *            the facet name this option belongs to.
+     * @param value
+     *            the option value.
+     * @param title
+     *            the option title.
+     */
+    public InclusiveFacetOption(String facet, String value, String title) {
 
-		super(facet, value, title);
-	}
+        super(facet, value, title);
+    }
 
-	@Override
-	protected boolean isCompatible(Filter filter) {
+    @Override
+    protected boolean isCompatible(Filter filter) {
 
-		return !this.getFacet().equals(filter.getName()) || !this.getValue().equals(filter.getValue());
-	}
+        return !this.getFacet().equals(filter.getName()) || !this.getValue().equals(filter.getValue());
+    }
 
 }

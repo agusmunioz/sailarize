@@ -8,44 +8,44 @@ package com.github.sailarize.resource;
  */
 public interface SailTags {
 
-	/**
-	 * Sail special character.
-	 */
-	String KEY = "#";
+    /**
+     * Sail special character.
+     */
+    String KEY = "#";
 
-	/**
-	 * Key for links.
-	 */
-	String LINKS = KEY + "links";
+    /**
+     * Key for links.
+     */
+    String LINKS = KEY + "links";
 
-	/**
-	 * Key for forms.
-	 */
-	String FORMS = KEY + "forms";
+    /**
+     * Key for forms.
+     */
+    String FORMS = KEY + "forms";
 
-	/**
-	 * Key for images.
-	 */
-	String IMG = KEY + "images";
+    /**
+     * Key for images.
+     */
+    String IMG = KEY + "images";
 
-	/**
-	 * Header field.
-	 */
-	String HEADERS = KEY + "headers";
+    /**
+     * Header field.
+     */
+    String HEADERS = KEY + "headers";
 
-	/**
-	 * Key for meta.
-	 */
-	String META = KEY + "meta";
+    /**
+     * Key for meta.
+     */
+    String META = KEY + "meta";
 
-	/**
-	 * Key for videos.
-	 */
-	String VIDEO = KEY + "videos";
+    /**
+     * Key for videos.
+     */
+    String VIDEO = KEY + "videos";
 
-	/**
-	 * Shortcut field.
-	 */
-	String SHORTCUT = KEY + "shortcut";
+    /**
+     * Shortcut field.
+     */
+    String SHORTCUT = KEY + "shortcut";
 
 }

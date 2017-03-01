@@ -11,37 +11,37 @@ package com.github.sailarize.url;
  */
 public class PathHolder {
 
-	private static ThreadLocal<String> PATH = new ThreadLocal<String>();
+    private static ThreadLocal<String> PATH = new ThreadLocal<String>();
 
-	/**
-	 * Sets the current API Path.
-	 * 
-	 * @param path
-	 *            the path.
-	 */
-	public static void set(String path) {
+    /**
+     * Sets the current API Path.
+     * 
+     * @param path
+     *            the path.
+     */
+    public static void set(String path) {
 
-		PATH.set(path);
-	}
+        PATH.set(path);
+    }
 
-	/**
-	 * Gets the current API path.
-	 * 
-	 * @return the path or an empty {@link String} is not set.
-	 */
-	public static String get() {
+    /**
+     * Gets the current API path.
+     * 
+     * @return the path or an empty {@link String} is not set.
+     */
+    public static String get() {
 
-		if (PATH.get() == null) {
-			return "";
-		}
+        if (PATH.get() == null) {
+            return "";
+        }
 
-		return PATH.get();
-	}
+        return PATH.get();
+    }
 
-	/**
-	 * Cleans the {@link ThreadLocal}.
-	 */
-	public static void clean() {
-		PATH.remove();
-	}
+    /**
+     * Cleans the {@link ThreadLocal}.
+     */
+    public static void clean() {
+        PATH.remove();
+    }
 }

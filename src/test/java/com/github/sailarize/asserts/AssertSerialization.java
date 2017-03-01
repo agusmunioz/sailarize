@@ -12,21 +12,20 @@ import com.github.sailarize.test.utils.JsonReder;
  */
 public class AssertSerialization {
 
+    /**
+     * Asserts an object is correctly serialized.
+     * 
+     * @param message
+     *            the message for assertion failure.
+     * @param file
+     *            the file holding the expected json
+     * @param object
+     *            the resource serialized to serialize.
+     */
+    public static void assertEquals(String message, String file, String resource) {
 
-	/**
-	 * Asserts an object is correctly serialized.
-	 * 
-	 * @param message
-	 *            the message for assertion failure.
-	 * @param file
-	 *            the file holding the expected json
-	 * @param object
-	 *            the resource serialized to serialize.
-	 */
-	public static void assertEquals(String message, String file, String resource) {
+        String expected = JsonReder.json(file);
 
-		String expected = JsonReder.json(file);
-
-		Assert.assertEquals(message, expected, resource);
-	}
+        Assert.assertEquals(message, expected, resource);
+    }
 }

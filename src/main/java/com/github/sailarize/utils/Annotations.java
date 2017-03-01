@@ -21,8 +21,7 @@ public class Annotations {
      * 
      * @return the annotation or null if not found.
      */
-    public static <T extends Annotation> T search(Class<?> target,
-            Class<T> annotationClass) {
+    public static <T extends Annotation> T search(Class<?> target, Class<T> annotationClass) {
 
         Class<?> type = target;
 

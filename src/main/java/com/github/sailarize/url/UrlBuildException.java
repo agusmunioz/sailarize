@@ -10,17 +10,17 @@ import com.github.sailarize.resource.Path;
  */
 public class UrlBuildException extends RuntimeException {
 
-	private static final long serialVersionUID = -2611700349949791568L;
+    private static final long serialVersionUID = -2611700349949791568L;
 
-	/**
-	 * Creates an initialized {@link UrlBuildException}.
-	 * 
-	 * @param message
-	 *            the error message.
-	 */
-	public UrlBuildException(String message) {
+    /**
+     * Creates an initialized {@link UrlBuildException}.
+     * 
+     * @param message
+     *            the error message.
+     */
+    public UrlBuildException(String message) {
 
-		super(message);
-	}
+        super(message);
+    }
 
 }

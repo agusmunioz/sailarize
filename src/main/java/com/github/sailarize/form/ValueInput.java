@@ -8,104 +8,104 @@ package com.github.sailarize.form;
  */
 public class ValueInput extends FormInput {
 
-	private Object value;
+    private Object value;
 
-	private String mask;
+    private String mask;
 
-	public ValueInput(String name) {
-		super(name);
-	}
+    public ValueInput(String name) {
+        super(name);
+    }
 
-	/**
-	 * Creates an initialized {@link ValueInput}.
-	 * 
-	 * @param id
-	 *            the input id for direct access.
-	 * 
-	 * @param name
-	 *            the input name, used as the parameter name when submitting.
-	 * 
-	 * @param value
-	 *            the input value.
-	 */
-	public ValueInput(String name, Object value) {
+    /**
+     * Creates an initialized {@link ValueInput}.
+     * 
+     * @param id
+     *            the input id for direct access.
+     * 
+     * @param name
+     *            the input name, used as the parameter name when submitting.
+     * 
+     * @param value
+     *            the input value.
+     */
+    public ValueInput(String name, Object value) {
 
-		this(name);
-		this.value = value;
-	}
+        this(name);
+        this.value = value;
+    }
 
-	/**
-	 * Creates an initialized {@link ValueInput}.
-	 * 
-	 * @param id
-	 *            the input id for direct access.
-	 * 
-	 * @param name
-	 *            the input name, used as the parameter name when submit.
-	 */
-	public ValueInput(String id, String name) {
+    /**
+     * Creates an initialized {@link ValueInput}.
+     * 
+     * @param id
+     *            the input id for direct access.
+     * 
+     * @param name
+     *            the input name, used as the parameter name when submit.
+     */
+    public ValueInput(String id, String name) {
 
-		super(id, name);
-	}
+        super(id, name);
+    }
 
-	/**
-	 * Creates an initialized {@link ValueInput}.
-	 * 
-	 * @param id
-	 *            the input id for direct access.
-	 * 
-	 * @param name
-	 *            the input name, used as the parameter name when submitting.
-	 * 
-	 * @param value
-	 *            the input value.
-	 */
-	public ValueInput(String id, String name, Object value) {
+    /**
+     * Creates an initialized {@link ValueInput}.
+     * 
+     * @param id
+     *            the input id for direct access.
+     * 
+     * @param name
+     *            the input name, used as the parameter name when submitting.
+     * 
+     * @param value
+     *            the input value.
+     */
+    public ValueInput(String id, String name, Object value) {
 
-		this(id, name);
-		this.value = value;
-	}
+        this(id, name);
+        this.value = value;
+    }
 
-	/**
-	 * Gets the input value.
-	 * 
-	 * @return the value.
-	 */
-	public Object getValue() {
+    /**
+     * Gets the input value.
+     * 
+     * @return the value.
+     */
+    public Object getValue() {
 
-		return value;
-	}
+        return value;
+    }
 
-	/**
-	 * Sets the input value.
-	 * 
-	 * @param value
-	 *            a value.
-	 */
-	public void setValue(Object value) {
+    /**
+     * Sets the input value.
+     * 
+     * @param value
+     *            a value.
+     */
+    public void setValue(Object value) {
 
-		this.value = value;
-	}
+        this.value = value;
+    }
 
-	/**
-	 * Gets the input mask used for validating the input value.
-	 * 
-	 * @return the mask or null if not set.
-	 */
-	public String getMask() {
+    /**
+     * Gets the input mask used for validating the input value.
+     * 
+     * @return the mask or null if not set.
+     */
+    public String getMask() {
 
-		return mask;
-	}
+        return mask;
+    }
 
-	/**
-	 * Sets the input mask used for validation the input value.
-	 * 
-	 * @param mask
-	 *            a regular expression.
-	 */
-	public void setMask(String mask) {
+    /**
+     * Sets the input mask used for validation the input value.
+     * 
+     * @param mask
+     *            a regular expression.
+     */
+    public void setMask(String mask) {
 
-		this.mask = mask;
-	}
+        this.mask = mask;
+    }
 
 }

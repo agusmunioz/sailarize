@@ -10,33 +10,33 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class RequestHolder {
 
-	private static ThreadLocal<HttpServletRequest> REQUEST = new ThreadLocal<HttpServletRequest>();
+    private static ThreadLocal<HttpServletRequest> REQUEST = new ThreadLocal<HttpServletRequest>();
 
-	/**
-	 * Gets the current {@link HttpServletRequest}.
-	 * 
-	 * @return the request.
-	 */
-	public static HttpServletRequest get() {
+    /**
+     * Gets the current {@link HttpServletRequest}.
+     * 
+     * @return the request.
+     */
+    public static HttpServletRequest get() {
 
-		return REQUEST.get();
-	}
+        return REQUEST.get();
+    }
 
-	/**
-	 * Sets the current {@link HttpServletRequest}.
-	 * 
-	 * @param request
-	 *            the current request.
-	 */
-	public static void set(HttpServletRequest request) {
-		REQUEST.set(request);
-	}
+    /**
+     * Sets the current {@link HttpServletRequest}.
+     * 
+     * @param request
+     *            the current request.
+     */
+    public static void set(HttpServletRequest request) {
+        REQUEST.set(request);
+    }
 
-	/**
-	 * Cleans the {@link ThreadLocal}.
-	 */
-	public static void clean() {
-		REQUEST.remove();
-	}
+    /**
+     * Cleans the {@link ThreadLocal}.
+     */
+    public static void clean() {
+        REQUEST.remove();
+    }
 
 }

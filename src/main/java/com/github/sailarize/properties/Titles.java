@@ -21,74 +21,74 @@ import java.util.ResourceBundle;
  */
 public class Titles {
 
-	private static final String BASE_NAME = "sail/titles";
+    private static final String BASE_NAME = "sail/titles";
 
-	private static String ENCODING;
+    private static String ENCODING;
 
-	/**
-	 * Configures the expected encoding for titles.
-	 * 
-	 * @param encoding
-	 */
-	public static void encoding(String encoding) {
-		ENCODING = encoding;
-	}
+    /**
+     * Configures the expected encoding for titles.
+     * 
+     * @param encoding
+     */
+    public static void encoding(String encoding) {
+        ENCODING = encoding;
+    }
 
-	/**
-	 * Gets an I18N title.
-	 * 
-	 * @param key
-	 *            the title key in the properties file.
-	 * 
-	 * @param locale
-	 *            for localization.
-	 * 
-	 * @return the title or null if the key or the properties file is not found.
-	 */
-	public static String get(String key, Locale locale) {
+    /**
+     * Gets an I18N title.
+     * 
+     * @param key
+     *            the title key in the properties file.
+     * 
+     * @param locale
+     *            for localization.
+     * 
+     * @return the title or null if the key or the properties file is not found.
+     */
+    public static String get(String key, Locale locale) {
 
-		try {
+        try {
 
-			ResourceBundle bundle = ResourceBundle.getBundle(BASE_NAME, locale, new ResourceBundle.Control() {
-				@Override
-				public Locale getFallbackLocale(String baseName, Locale locale) {
-					return Locale.ROOT;
-				}
-			});
+            ResourceBundle bundle = ResourceBundle.getBundle(BASE_NAME, locale, new ResourceBundle.Control() {
+                @Override
+                public Locale getFallbackLocale(String baseName, Locale locale) {
+                    return Locale.ROOT;
+                }
+            });
 
-			String title = bundle.getString(key);
+            String title = bundle.getString(key);
 
-			if (ENCODING == null || ENCODING.isEmpty()) {
+            if (ENCODING == null || ENCODING.isEmpty()) {
 
-				return title;
-			}
+                return title;
+            }
 
-			return new String(title.getBytes(), ENCODING);
+            return new String(title.getBytes(), ENCODING);
 
-		} catch (MissingResourceException e) {
-			return null;
-		} catch (UnsupportedEncodingException e) {
-			return null;
-		}
-	}
+        } catch (MissingResourceException e) {
+            return null;
+        } catch (UnsupportedEncodingException e) {
+            return null;
+        }
+    }
 
-	/**
-	 * Gets the I18N title from the default properties file
-	 * (classpath:/sail/titles.properties).
-	 * 
-	 * @param key
-	 *            the title key in the properties file.
-	 * 
-	 * @return the title or null if the key or the properties file is not found.
-	 */
-	public static String get(String key) {
+    /**
+     * Gets the I18N title from the default properties file
+     * (classpath:/sail/titles.properties).
+     * 
+     * @param key
+     *            the title key in the properties file.
+     * 
+     * @return the title or null if the key or the properties file is not found.
+     */
+    public static String get(String key) {
 
-		try {
+        try {
 
-			return ResourceBundle.getBundle(BASE_NAME, Locale.ROOT).getString(key);
+            return ResourceBundle.getBundle(BASE_NAME, Locale.ROOT).getString(key);
 
-		} catch (MissingResourceException e) {
-			return null;
-		}
-	}
+        } catch (MissingResourceException e) {
+            return null;
+        }
+    }
 }

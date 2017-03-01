@@ -15,41 +15,41 @@ import com.github.sailarize.url.Filter;
  */
 public class IsolatedFacetOption extends BaseFacetOption {
 
-	private Set<String> retain;
+    private Set<String> retain;
 
-	/**
-	 * Creates an initialized {@link IsolatedFacetOption}.
-	 * 
-	 * @param facet
-	 *            the facet name this option belongs to.
-	 * 
-	 * @param value
-	 *            the option value.
-	 */
-	public IsolatedFacetOption(String facet, String value) {
+    /**
+     * Creates an initialized {@link IsolatedFacetOption}.
+     * 
+     * @param facet
+     *            the facet name this option belongs to.
+     * 
+     * @param value
+     *            the option value.
+     */
+    public IsolatedFacetOption(String facet, String value) {
 
-		super(facet, value);
-		this.retain = new HashSet<String>();
-	}
+        super(facet, value);
+        this.retain = new HashSet<String>();
+    }
 
-	/**
-	 * Sets which filters must be retained in the link.
-	 * 
-	 * @param filters
-	 *            the filters (parameter) names.
-	 */
-	public void retain(String... filters) {
+    /**
+     * Sets which filters must be retained in the link.
+     * 
+     * @param filters
+     *            the filters (parameter) names.
+     */
+    public void retain(String... filters) {
 
-		for (String filter : filters) {
+        for (String filter : filters) {
 
-			retain.add(filter);
-		}
-	}
+            retain.add(filter);
+        }
+    }
 
-	@Override
-	protected boolean isCompatible(Filter filter) {
+    @Override
+    protected boolean isCompatible(Filter filter) {
 
-		return this.retain.contains(filter.getName());
-	}
+        return this.retain.contains(filter.getName());
+    }
 
 }

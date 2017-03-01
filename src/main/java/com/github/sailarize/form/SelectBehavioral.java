@@ -11,34 +11,34 @@ package com.github.sailarize.form;
  */
 public interface SelectBehavioral<T> {
 
-	/**
-	 * Behaves based on a {@link SingleSelctInput} select.
-	 * 
-	 * @param select
-	 *            the select input.
-	 * 
-	 * @return the result of behaving based on a single select.
-	 */
-	T single(SingleSelectInput select);
+    /**
+     * Behaves based on a {@link SingleSelctInput} select.
+     * 
+     * @param select
+     *            the select input.
+     * 
+     * @return the result of behaving based on a single select.
+     */
+    T single(SingleSelectInput select);
 
-	/**
-	 * Behaves based on a {@link MultiSelectInput} select.
-	 * 
-	 * @param select
-	 *            the select input.
-	 * 
-	 * @return the result of behaving based on a multiselect.
-	 */
-	T multiselect(MultiSelectInput select);
+    /**
+     * Behaves based on a {@link MultiSelectInput} select.
+     * 
+     * @param select
+     *            the select input.
+     * 
+     * @return the result of behaving based on a multiselect.
+     */
+    T multiselect(MultiSelectInput select);
 
-	/**
-	 * Behaves based on a {@link CloneSelectInput} select.
-	 * 
-	 * @param select
-	 *            the select input.
-	 * 
-	 * @return the result of behaving based on a cloneselect.
-	 */
-	T cloneselect(CloneSelectInput cloneSelect);
+    /**
+     * Behaves based on a {@link CloneSelectInput} select.
+     * 
+     * @param select
+     *            the select input.
+     * 
+     * @return the result of behaving based on a cloneselect.
+     */
+    T cloneselect(CloneSelectInput cloneSelect);
 
 }

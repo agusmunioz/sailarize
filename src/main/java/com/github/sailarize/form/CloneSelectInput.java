@@ -11,54 +11,54 @@ import java.util.Collection;
  */
 public class CloneSelectInput extends SelectInput {
 
-	private Integer min;
+    private Integer min;
 
-	private Integer max;
+    private Integer max;
 
-	private Integer start;
+    private Integer start;
 
-	private Collection<Object> selected;
+    private Collection<Object> selected;
 
-	public CloneSelectInput(String name) {
-		super(name);
-	}
+    public CloneSelectInput(String name) {
+        super(name);
+    }
 
-	@Override
-	public <T> T behave(SelectBehavioral<T> behavioural) {
+    @Override
+    public <T> T behave(SelectBehavioral<T> behavioural) {
 
-		return behavioural.cloneselect(this);
-	}
+        return behavioural.cloneselect(this);
+    }
 
-	public Integer getMin() {
-		return min;
-	}
+    public Integer getMin() {
+        return min;
+    }
 
-	public void setMin(Integer min) {
-		this.min = min;
-	}
+    public void setMin(Integer min) {
+        this.min = min;
+    }
 
-	public Integer getMax() {
-		return max;
-	}
+    public Integer getMax() {
+        return max;
+    }
 
-	public void setMax(Integer max) {
-		this.max = max;
-	}
+    public void setMax(Integer max) {
+        this.max = max;
+    }
 
-	public Integer getStart() {
-		return start;
-	}
+    public Integer getStart() {
+        return start;
+    }
 
-	public void setStart(Integer start) {
-		this.start = start;
-	}
+    public void setStart(Integer start) {
+        this.start = start;
+    }
 
-	public Collection<Object> getSelected() {
-		return selected;
-	}
+    public Collection<Object> getSelected() {
+        return selected;
+    }
 
-	public void setSelected(Collection<Object> selected) {
-		this.selected = selected;
-	}
+    public void setSelected(Collection<Object> selected) {
+        this.selected = selected;
+    }
 
 }

@@ -26,8 +26,7 @@ public class ExclusiveFacetOptionTest {
 
         ExclusiveFacetOption option = new ExclusiveFacetOption("facet", "value");
 
-        Collection<Filter> filters = option
-                .compatibles(new LinkedList<Filter>());
+        Collection<Filter> filters = option.compatibles(new LinkedList<Filter>());
 
         Assert.assertTrue("Unexpected amount of filters", filters.isEmpty());
     }
@@ -47,11 +46,9 @@ public class ExclusiveFacetOptionTest {
 
         Collection<Filter> compatibles = option.compatibles(applied);
 
-        Assert.assertEquals("Unexpected amount of filters.", applied.size(),
-                compatibles.size());
+        Assert.assertEquals("Unexpected amount of filters.", applied.size(), compatibles.size());
 
-        Assert.assertTrue("Compatible filter has been removed.",
-                compatibles.contains(filter));
+        Assert.assertTrue("Compatible filter has been removed.", compatibles.contains(filter));
 
     }
 
@@ -71,14 +68,11 @@ public class ExclusiveFacetOptionTest {
 
         Collection<Filter> compatibles = option.compatibles(applied);
 
-        Assert.assertEquals("Unexpected amount of filters.",
-                applied.size() - 1, compatibles.size());
+        Assert.assertEquals("Unexpected amount of filters.", applied.size() - 1, compatibles.size());
 
-        Assert.assertTrue("Compatible filters has been removed.",
-                compatibles.contains(compatible));
+        Assert.assertTrue("Compatible filters has been removed.", compatibles.contains(compatible));
 
-        Assert.assertFalse("Incompatible filter has not been removed.",
-                compatibles.contains(incompatible));
+        Assert.assertFalse("Incompatible filter has not been removed.", compatibles.contains(incompatible));
 
     }
 
@@ -95,10 +89,9 @@ public class ExclusiveFacetOptionTest {
 
         option.apply(filters);
 
-        Assert.assertEquals("Unexpected amount of filters after apply", 1,
-                filters.size());
+        Assert.assertEquals("Unexpected amount of filters after apply", 1, filters.size());
 
-        Assert.assertTrue("A filter for the option was not added.", filters
-                .contains(new Filter(option.getFacet(), option.getValue())));
+        Assert.assertTrue("A filter for the option was not added.",
+                filters.contains(new Filter(option.getFacet(), option.getValue())));
     }
 }

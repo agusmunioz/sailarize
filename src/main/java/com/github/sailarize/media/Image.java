@@ -97,11 +97,11 @@ public class Image {
     }
 
     @Override
-	public String toString() {
+    public String toString() {
 
-		return ToStringBuilder.toString(this);
-	}
-    
+        return ToStringBuilder.toString(this);
+    }
+
     /**
      * Gets the hypermedia link for this image.
      * 
@@ -109,8 +109,7 @@ public class Image {
      */
     public HypermediaLink getLink() {
 
-        LinkBuilder builder = new LinkBuilder(this.getUrl(), this.getRel())
-                .title(this.getTitle());
+        LinkBuilder builder = new LinkBuilder(this.getUrl(), this.getRel()).title(this.getTitle());
 
         if (this.getType() != null) {
             builder.type("image/" + this.getType());

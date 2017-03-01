@@ -12,80 +12,77 @@ import org.junit.Test;
 
 public class ToStringBuilderTest {
 
-	/**
-	 * Test the {@link ToStringBuilder#toString(Object)} method with an instance
-	 * of a class that extends Object.
-	 */
-	@Test
-	public void simpleClass() {
+    /**
+     * Test the {@link ToStringBuilder#toString(Object)} method with an instance
+     * of a class that extends Object.
+     */
+    @Test
+    public void simpleClass() {
 
-		MockOne one = new MockOne("1", 1);
+        MockOne one = new MockOne("1", 1);
 
-		String toString = ToStringBuilder.toString(one);
+        String toString = ToStringBuilder.toString(one);
 
-		String expected = "MockOne: [id: 1, number: 1]";
+        String expected = "MockOne: [id: 1, number: 1]";
 
-		Assert.assertEquals("Unexpected toString for simple class.", expected,
-				toString);
-	}
+        Assert.assertEquals("Unexpected toString for simple class.", expected, toString);
+    }
 
-	/**
-	 * Test the {@link ToStringBuilder#toString(Object)} method with an instance
-	 * of a class that belongs to a hierarchy.
-	 */
-	@Test
-	public void hierarchy() {
+    /**
+     * Test the {@link ToStringBuilder#toString(Object)} method with an instance
+     * of a class that belongs to a hierarchy.
+     */
+    @Test
+    public void hierarchy() {
 
-		MockTwo one = new MockTwo("1", 1, "Hola");
+        MockTwo one = new MockTwo("1", 1, "Hola");
 
-		String toString = ToStringBuilder.toString(one);
+        String toString = ToStringBuilder.toString(one);
 
-		String expected = "MockTwo: [text: Hola, id: 1, number: 1]";
+        String expected = "MockTwo: [text: Hola, id: 1, number: 1]";
 
-		Assert.assertEquals("Unexpected toString for a hierarchy.", expected,
-				toString);
-	}
+        Assert.assertEquals("Unexpected toString for a hierarchy.", expected, toString);
+    }
 
-	/**
-	 * Test the {@link ToStringBuilder#toString(Object)} method with an instance
-	 * of a class that has no fields.
-	 */
-	@Test
-	public void noFields() {
+    /**
+     * Test the {@link ToStringBuilder#toString(Object)} method with an instance
+     * of a class that has no fields.
+     */
+    @Test
+    public void noFields() {
 
-		String toString = ToStringBuilder.toString(new NoFields());
+        String toString = ToStringBuilder.toString(new NoFields());
 
-		String expected = "NoFields: []";
+        String expected = "NoFields: []";
 
-		Assert.assertEquals("Unexpected toString for a class with no fields.",
-				expected, toString);
-	}
+        Assert.assertEquals("Unexpected toString for a class with no fields.", expected, toString);
+    }
 }
 
 @SuppressWarnings("unused")
 class MockOne {
 
-	private String id;
+    private String id;
 
-	private Integer number;
+    private Integer number;
 
-	public MockOne(String id, Integer number) {
-		super();
-		this.id = id;
-		this.number = number;
-	}
+    public MockOne(String id, Integer number) {
+        super();
+        this.id = id;
+        this.number = number;
+    }
 
 }
 
 @SuppressWarnings("unused")
 class MockTwo extends MockOne {
 
-	private String text;
+    private String text;
 
-	public MockTwo(String id, Integer number, String text) {
-		super(id, number);
-		this.text = text;
-	}
+    public MockTwo(String id, Integer number, String text) {
+        super(id, number);
+        this.text = text;
+    }
 }
 
 class NoFields {

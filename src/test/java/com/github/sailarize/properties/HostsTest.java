@@ -11,25 +11,25 @@ import org.junit.Test;
  */
 public class HostsTest {
 
-	/**
-	 * Test the return of a host with an existing key.
-	 */
-	@Test
-	public void existing() {
+    /**
+     * Test the return of a host with an existing key.
+     */
+    @Test
+    public void existing() {
 
-		String host = Hosts.get("host.test");
+        String host = Hosts.get("host.test");
 
-		Assert.assertEquals("Unexpected host from properties file.", "cdn.test.com", host);
-	}
+        Assert.assertEquals("Unexpected host from properties file.", "cdn.test.com", host);
+    }
 
-	/**
-	 * Test a null is returned when a not existing key is used.
-	 */
-	@Test
-	public void notExisting() {
+    /**
+     * Test a null is returned when a not existing key is used.
+     */
+    @Test
+    public void notExisting() {
 
-		String host = Hosts.get("not.exist.key");
+        String host = Hosts.get("not.exist.key");
 
-		Assert.assertNull("A host ir returned with an unexistent key.", host);
-	}
+        Assert.assertNull("A host ir returned with an unexistent key.", host);
+    }
 }

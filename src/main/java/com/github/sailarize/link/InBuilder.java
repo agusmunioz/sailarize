@@ -5,45 +5,45 @@ import java.util.LinkedList;
 
 public class InBuilder {
 
-	private static final String DELIMITER = ",";
+    private static final String DELIMITER = ",";
 
-	private static final String EXPRESION = "(%s)";
+    private static final String EXPRESION = "(%s)";
 
-	private static final String OPERATION = "in";
+    private static final String OPERATION = "in";
 
-	private String field;
+    private String field;
 
-	private Object value;
+    private Object value;
 
-	public static InBuilder field(String name) {
+    public static InBuilder field(String name) {
 
-		InBuilder builder = new InBuilder();
-		builder.field = name;
+        InBuilder builder = new InBuilder();
+        builder.field = name;
 
-		return builder;
-	}
+        return builder;
+    }
 
-	public InBuilder strings(Collection<String> values) {
+    public InBuilder strings(Collection<String> values) {
 
-		Collection<String> strings = new LinkedList<String>();
+        Collection<String> strings = new LinkedList<String>();
 
-		for (String value : values) {
-			strings.add(new StringBuilder("'").append(value).append("'").toString());
-		}
+        for (String value : values) {
+            strings.add(new StringBuilder("'").append(value).append("'").toString());
+        }
 
-		this.value = String.format(EXPRESION, String.join(DELIMITER, strings));
+        this.value = String.format(EXPRESION, String.join(DELIMITER, strings));
 
-		return this;
-	}
+        return this;
+    }
 
-	public FieldPredicate build() {
+    public FieldPredicate build() {
 
-		FieldPredicate predicate = new FieldPredicate();
-		predicate.setField(this.field);
-		predicate.setOperation(OPERATION);
-		predicate.setValue(this.value);
+        FieldPredicate predicate = new FieldPredicate();
+        predicate.setField(this.field);
+        predicate.setOperation(OPERATION);
+        predicate.setValue(this.value);
 
-		return predicate;
-	}
+        return predicate;
+    }
 
 }

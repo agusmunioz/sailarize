@@ -30,170 +30,170 @@ import com.github.sailarize.url.PathHolder;
  */
 public class SailarizeFilter implements Filter {
 
-	private static final String RELATIVE = "relative";
+    private static final String RELATIVE = "relative";
 
-	private static final String SLASH = "/";
+    private static final String SLASH = "/";
 
-	private String path;
+    private String path;
 
-	private Boolean holdRequest = Boolean.TRUE;
+    private Boolean holdRequest = Boolean.TRUE;
 
-	private HostResolver hostResolver;
+    private HostResolver hostResolver;
 
-	/**
-	 * The list of headers that must be added in all links and forms except in
-	 * cross-domain cases.
-	 */
-	private Collection<String> headers;
+    /**
+     * The list of headers that must be added in all links and forms except in
+     * cross-domain cases.
+     */
+    private Collection<String> headers;
 
-	private String hypermedia;
+    private String hypermedia;
 
-	@Override
-	public void init(FilterConfig config) throws ServletException {
+    @Override
+    public void init(FilterConfig config) throws ServletException {
 
-		this.path = config.getInitParameter("path");
+        this.path = config.getInitParameter("path");
 
-		if (this.path == null) {
-			this.path = "";
-		}
+        if (this.path == null) {
+            this.path = "";
+        }
 
-		if (!this.path.isEmpty() && !this.path.startsWith(SLASH)) {
-			this.path = SLASH + this.path;
-		}
+        if (!this.path.isEmpty() && !this.path.startsWith(SLASH)) {
+            this.path = SLASH + this.path;
+        }
 
-		if (config.getInitParameter("holdRequest") != null) {
-			this.holdRequest = Boolean.valueOf(config.getInitParameter("holdRequest"));
-		}
+        if (config.getInitParameter("holdRequest") != null) {
+            this.holdRequest = Boolean.valueOf(config.getInitParameter("holdRequest"));
+        }
 
-		if (config.getInitParameter("headers") != null) {
-			this.headers = Arrays.asList(config.getInitParameter("headers").split(","));
-		}
+        if (config.getInitParameter("headers") != null) {
+            this.headers = Arrays.asList(config.getInitParameter("headers").split(","));
+        }
 
-		if (config.getInitParameter("hypermedia") != null) {
-			this.hypermedia = config.getInitParameter("hypermedia");
-		}
+        if (config.getInitParameter("hypermedia") != null) {
+            this.hypermedia = config.getInitParameter("hypermedia");
+        }
 
-		if (config.getInitParameter("encoding") != null) {
-			Titles.encoding(config.getInitParameter("encoding"));
-		}
-		
-		this.hostResolver = this.getHostResolver(config.getInitParameter("hostResolver"));
+        if (config.getInitParameter("encoding") != null) {
+            Titles.encoding(config.getInitParameter("encoding"));
+        }
 
-	}
+        this.hostResolver = this.getHostResolver(config.getInitParameter("hostResolver"));
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+    }
 
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
-		if (this.holdRequest) {
-			RequestHolder.set(httpRequest);
-		}
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-		PathHolder.set(this.getPath(httpRequest));
+        if (this.holdRequest) {
+            RequestHolder.set(httpRequest);
+        }
 
-		if (headers != null) {
-			HeaderHolder.set(this.headers(httpRequest));
-		}
+        PathHolder.set(this.getPath(httpRequest));
 
-		chain.doFilter(request, response);
+        if (headers != null) {
+            HeaderHolder.set(this.headers(httpRequest));
+        }
 
-		this.clean();
-	}
+        chain.doFilter(request, response);
 
-	/**
-	 * Gets the API path, that is to say, the scheme + the domain + the
-	 * contextPath.
-	 * 
-	 * @param request
-	 *            the current http request.
-	 * 
-	 * @return the path.
-	 */
-	private String getPath(HttpServletRequest request) {
+        this.clean();
+    }
 
-		StringBuilder builder = new StringBuilder();
+    /**
+     * Gets the API path, that is to say, the scheme + the domain + the
+     * contextPath.
+     * 
+     * @param request
+     *            the current http request.
+     * 
+     * @return the path.
+     */
+    private String getPath(HttpServletRequest request) {
 
-		if (!RELATIVE.equals(this.hypermedia)) {
-			builder.append(request.getScheme()).append("://").append(this.hostResolver.resolve(request));
-		}
+        StringBuilder builder = new StringBuilder();
 
-		return builder.append(request.getContextPath()).append(this.path).toString();
-	}
+        if (!RELATIVE.equals(this.hypermedia)) {
+            builder.append(request.getScheme()).append("://").append(this.hostResolver.resolve(request));
+        }
 
-	/**
-	 * Extracts the list of headers that must be added in all links and forms.
-	 * 
-	 * @param request
-	 *            the current http request.
-	 * 
-	 * @return the list of headers.
-	 */
-	private Collection<Header> headers(HttpServletRequest request) {
+        return builder.append(request.getContextPath()).append(this.path).toString();
+    }
 
-		Collection<Header> retain = new LinkedList<Header>();
+    /**
+     * Extracts the list of headers that must be added in all links and forms.
+     * 
+     * @param request
+     *            the current http request.
+     * 
+     * @return the list of headers.
+     */
+    private Collection<Header> headers(HttpServletRequest request) {
 
-		for (String header : this.headers) {
+        Collection<Header> retain = new LinkedList<Header>();
 
-			String value = request.getHeader(header);
+        for (String header : this.headers) {
 
-			if (value != null) {
-				retain.add(new Header(header, value));
-			}
-		}
+            String value = request.getHeader(header);
 
-		return retain;
-	}
+            if (value != null) {
+                retain.add(new Header(header, value));
+            }
+        }
 
-	/**
-	 * Builds the host resolver.
-	 * 
-	 * @param type
-	 *            a fully qualified class name that implements
-	 *            {@link HostResolver}.
-	 * 
-	 * @return the host resolver.
-	 * 
-	 * @throws ServletException
-	 *             if there was an error when instantiating the host resolver
-	 */
-	private HostResolver getHostResolver(String type) throws ServletException {
+        return retain;
+    }
 
-		if (type != null) {
+    /**
+     * Builds the host resolver.
+     * 
+     * @param type
+     *            a fully qualified class name that implements
+     *            {@link HostResolver}.
+     * 
+     * @return the host resolver.
+     * 
+     * @throws ServletException
+     *             if there was an error when instantiating the host resolver
+     */
+    private HostResolver getHostResolver(String type) throws ServletException {
 
-			try {
+        if (type != null) {
 
-				return (HostResolver) Class.forName(type).newInstance();
+            try {
 
-			} catch (Exception e) {
-				throw new ServletException(e);
-			}
+                return (HostResolver) Class.forName(type).newInstance();
 
-		}
+            } catch (Exception e) {
+                throw new ServletException(e);
+            }
 
-		return new HostHeaderResolver();
-	}
+        }
 
-	/**
-	 * Cleans all ThreadLocals
-	 */
-	private void clean() {
+        return new HostHeaderResolver();
+    }
 
-		PathHolder.clean();
+    /**
+     * Cleans all ThreadLocals
+     */
+    private void clean() {
 
-		if (this.headers != null) {
-			HeaderHolder.clean();
-		}
+        PathHolder.clean();
 
-		if (this.holdRequest) {
-			RequestHolder.clean();
-		}
-	}
+        if (this.headers != null) {
+            HeaderHolder.clean();
+        }
 
-	@Override
-	public void destroy() {
-		this.clean();
-	}
+        if (this.holdRequest) {
+            RequestHolder.clean();
+        }
+    }
+
+    @Override
+    public void destroy() {
+        this.clean();
+    }
 
 }

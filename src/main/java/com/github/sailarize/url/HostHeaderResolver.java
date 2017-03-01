@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class HostHeaderResolver implements HostResolver {
 
-	@Override
-	public String resolve(HttpServletRequest request) {
-		return request.getHeader("Host");
-	}
+    @Override
+    public String resolve(HttpServletRequest request) {
+        return request.getHeader("Host");
+    }
 
 }

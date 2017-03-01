@@ -8,19 +8,19 @@ package com.github.sailarize.form;
  */
 public class SingleSelectInput extends SelectInput {
 
-	/**
-	 * Creates an initialized {@link SingleSelectInput}.
-	 * 
-	 * @param name
-	 *            the input name.
-	 */
-	public SingleSelectInput(String name) {
-		super(name);
-	}
+    /**
+     * Creates an initialized {@link SingleSelectInput}.
+     * 
+     * @param name
+     *            the input name.
+     */
+    public SingleSelectInput(String name) {
+        super(name);
+    }
 
-	@Override
-	public <T> T behave(SelectBehavioral<T> behavioural) {
-		return behavioural.single(this);
-	}
+    @Override
+    public <T> T behave(SelectBehavioral<T> behavioural) {
+        return behavioural.single(this);
+    }
 
 }

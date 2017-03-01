@@ -12,8 +12,8 @@ import com.github.sailarize.resource.Path;
 @Path("/mocks")
 public class SailMockResource extends SailResource {
 
-	public SailMockResource(String id) {
-		super(id);
-	}
+    public SailMockResource(String id) {
+        super(id);
+    }
 
 }

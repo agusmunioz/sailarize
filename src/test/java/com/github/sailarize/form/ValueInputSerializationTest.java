@@ -13,100 +13,102 @@ import com.github.sailarize.asserts.AssertSerialization;
  */
 public abstract class ValueInputSerializationTest {
 
-	/**
-	 * Test for a form input with minimum information.
-	 */
-	@Test
-	public void base() {
+    /**
+     * Test for a form input with minimum information.
+     */
+    @Test
+    public void base() {
 
-		ValueInput input = new ValueInput("input.field");
+        ValueInput input = new ValueInput("input.field");
 
-		String resource = this.serialize(input);
+        String resource = this.serialize(input);
 
-		AssertSerialization.assertEquals("Unexpected serialization of a base form input.", "form_value_input-base", resource);
+        AssertSerialization.assertEquals("Unexpected serialization of a base form input.", "form_value_input-base",
+                resource);
 
-	}
+    }
 
-	/**
-	 * Test for a form input with id.
-	 */
-	@Test
-	public void id() {
+    /**
+     * Test for a form input with id.
+     */
+    @Test
+    public void id() {
 
-		ValueInput input = new ValueInput("input.field");
-		input.setId("field");
+        ValueInput input = new ValueInput("input.field");
+        input.setId("field");
 
-		String resource = this.serialize(input);
+        String resource = this.serialize(input);
 
-		AssertSerialization.assertEquals("Unexpected serialization of a form input with id.", "form_value_input-id",
-				resource);
-	}
+        AssertSerialization.assertEquals("Unexpected serialization of a form input with id.", "form_value_input-id",
+                resource);
+    }
 
-	/**
-	 * Test for a form input with a value set.
-	 */
-	@Test
-	public void value() {
+    /**
+     * Test for a form input with a value set.
+     */
+    @Test
+    public void value() {
 
-		ValueInput input = new ValueInput("input.field");
-		input.setValue(3);
+        ValueInput input = new ValueInput("input.field");
+        input.setValue(3);
 
-		String resource = this.serialize(input);
+        String resource = this.serialize(input);
 
-		AssertSerialization.assertEquals("Unexpected serialization of a form input with value.", "form_value_input-value",
-				resource);
+        AssertSerialization.assertEquals("Unexpected serialization of a form input with value.",
+                "form_value_input-value", resource);
 
-	}
+    }
 
-	/**
-	 * Test for a form input with a mask.
-	 */
-	@Test
-	public void mask() {
+    /**
+     * Test for a form input with a mask.
+     */
+    @Test
+    public void mask() {
 
-		ValueInput input = new ValueInput("input.field");
-		input.setMask("dd/MM/yyyy");
+        ValueInput input = new ValueInput("input.field");
+        input.setMask("dd/MM/yyyy");
 
-		String resource = this.serialize(input);
+        String resource = this.serialize(input);
 
-		AssertSerialization.assertEquals("Unexpected serialization of a form input with a mask.", "form_value_input-mask",
-				resource);
+        AssertSerialization.assertEquals("Unexpected serialization of a form input with a mask.",
+                "form_value_input-mask", resource);
 
-	}
+    }
 
-	/**
-	 * Test for a form input with a mask.
-	 */
-	@Test
-	public void title() {
+    /**
+     * Test for a form input with a mask.
+     */
+    @Test
+    public void title() {
 
-		ValueInput input = new ValueInput("input.field");
-		input.setTitle("Title");
+        ValueInput input = new ValueInput("input.field");
+        input.setTitle("Title");
 
-		String resource = this.serialize(input);
+        String resource = this.serialize(input);
 
-		AssertSerialization.assertEquals("Unexpected serialization of a form input with a mask.", "form_value_input-title",
-				resource);
+        AssertSerialization.assertEquals("Unexpected serialization of a form input with a mask.",
+                "form_value_input-title", resource);
 
-	}
+    }
 
-	/**
-	 * Test for a complete form input.
-	 */
-	@Test
-	public void full() {
+    /**
+     * Test for a complete form input.
+     */
+    @Test
+    public void full() {
 
-		ValueInput input = new ValueInput("input.field");
-		input.setId("field");
-		input.setValue(3);
-		input.setTitle("Title");
-		input.setMask("dd/MM/yyyy");
+        ValueInput input = new ValueInput("input.field");
+        input.setId("field");
+        input.setValue(3);
+        input.setTitle("Title");
+        input.setMask("dd/MM/yyyy");
 
-		String resource = this.serialize(input);
+        String resource = this.serialize(input);
 
-		AssertSerialization.assertEquals("Unexpected serialization of a full form input.", "form_value_input-full", resource);
+        AssertSerialization.assertEquals("Unexpected serialization of a full form input.", "form_value_input-full",
+                resource);
 
-	}
+    }
 
-	protected abstract String serialize(ValueInput input);
+    protected abstract String serialize(ValueInput input);
 }

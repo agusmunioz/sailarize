@@ -40,12 +40,9 @@ public class UrlBuilderTest {
 
         String expected = "/mocks/1/othermocks/2/somemocks";
 
-        String url = UrlBuilder.url(SailTemplateMockResource.class,
-                new Object[] { 1, 2 });
+        String url = UrlBuilder.url(SailTemplateMockResource.class, new Object[] { 1, 2 });
 
-        Assert.assertEquals(
-                "Unexpected url for resource class with tempalte URL",
-                expected, url);
+        Assert.assertEquals("Unexpected url for resource class with tempalte URL", expected, url);
 
     }
 
@@ -59,8 +56,7 @@ public class UrlBuilderTest {
 
         String url = UrlBuilder.url(new SailMockResource("1"));
 
-        Assert.assertEquals("Unexpected url for specific resource", expected,
-                url);
+        Assert.assertEquals("Unexpected url for specific resource", expected, url);
     }
 
     /**
@@ -71,12 +67,9 @@ public class UrlBuilderTest {
 
         String expected = "/mocks/1/othermocks/2/somemocks/3";
 
-        String url = UrlBuilder.url(new SailTemplateMockResource("3"),
-                new Object[] { 1, 2 });
+        String url = UrlBuilder.url(new SailTemplateMockResource("3"), new Object[] { 1, 2 });
 
-        Assert.assertEquals(
-                "Unexpected url for specific resource with a template URL",
-                expected, url);
+        Assert.assertEquals("Unexpected url for specific resource with a template URL", expected, url);
     }
 
     /**
@@ -87,11 +80,9 @@ public class UrlBuilderTest {
 
         String expected = "/mocks/1/anothers";
 
-        String url = UrlBuilder.url(new SailMockResource("1"),
-                AnotherMockResource.class);
+        String url = UrlBuilder.url(new SailMockResource("1"), AnotherMockResource.class);
 
-        Assert.assertEquals("Unexpected url for list resource relation",
-                expected, url);
+        Assert.assertEquals("Unexpected url for list resource relation", expected, url);
     }
 
     /**
@@ -102,11 +93,9 @@ public class UrlBuilderTest {
 
         String expected = "/mocks/1/anothers/3";
 
-        String url = UrlBuilder.url(new SailMockResource("1"),
-                new AnotherMockResource("3"));
+        String url = UrlBuilder.url(new SailMockResource("1"), new AnotherMockResource("3"));
 
-        Assert.assertEquals("Unexpected url for resource relation", expected,
-                url);
+        Assert.assertEquals("Unexpected url for resource relation", expected, url);
     }
 
     /**
@@ -144,34 +133,25 @@ public class UrlBuilderTest {
 
         String url = UrlBuilder.url(SailMockResource.class);
 
-        Assert.assertEquals(
-                "Unexpected url for resource class when using PathHolder",
-                expected, url);
+        Assert.assertEquals("Unexpected url for resource class when using PathHolder", expected, url);
 
         expected = path + "/mocks/1";
 
         url = UrlBuilder.url(new SailMockResource("1"));
 
-        Assert.assertEquals(
-                "Unexpected url for resource when using PathHolder", expected,
-                url);
+        Assert.assertEquals("Unexpected url for resource when using PathHolder", expected, url);
 
         expected = path + "/mocks/1/mocks/2";
 
-        url = UrlBuilder.url(new SailMockResource("1"), new SailMockResource(
-                "2"));
+        url = UrlBuilder.url(new SailMockResource("1"), new SailMockResource("2"));
 
-        Assert.assertEquals(
-                "Unexpected url for resources relation when using PathHolder",
-                expected, url);
+        Assert.assertEquals("Unexpected url for resources relation when using PathHolder", expected, url);
 
         expected = path + "/mocks/1/mocks";
 
         url = UrlBuilder.url(new SailMockResource("1"), SailMockResource.class);
 
-        Assert.assertEquals(
-                "Unexpected url for resources relation with a list when using PathHolder",
-                expected, url);
+        Assert.assertEquals("Unexpected url for resources relation with a list when using PathHolder", expected, url);
 
         PathHolder.clean();
     }
@@ -188,8 +168,7 @@ public class UrlBuilderTest {
 
         String expected = "http://new.host.com/api/resource/2";
 
-        Assert.assertEquals("Unexpected host replacement in URL.", expected,
-                UrlBuilder.host(url, host));
+        Assert.assertEquals("Unexpected host replacement in URL.", expected, UrlBuilder.host(url, host));
 
     }
 
@@ -205,8 +184,7 @@ public class UrlBuilderTest {
 
         String expected = "http://new.host.com/api/resource/2";
 
-        Assert.assertEquals("Unexpected host replacement in URL.", expected,
-                UrlBuilder.host(url, host));
+        Assert.assertEquals("Unexpected host replacement in URL.", expected, UrlBuilder.host(url, host));
 
     }
 
@@ -222,8 +200,7 @@ public class UrlBuilderTest {
 
         String expected = "new.host.com/api/resource/2";
 
-        Assert.assertEquals("Unexpected host append in URL path", expected,
-                UrlBuilder.host(url, host));
+        Assert.assertEquals("Unexpected host append in URL path", expected, UrlBuilder.host(url, host));
 
     }
 
@@ -239,8 +216,7 @@ public class UrlBuilderTest {
 
         String expected = "https://www.old.host.com/api/resource/2";
 
-        Assert.assertEquals("Unexpected protocol replacement.", expected,
-                UrlBuilder.protocol(url, protocol));
+        Assert.assertEquals("Unexpected protocol replacement.", expected, UrlBuilder.protocol(url, protocol));
     }
 
     /**
@@ -255,7 +231,6 @@ public class UrlBuilderTest {
 
         String expected = "https://www.api.sail/resource/2";
 
-        Assert.assertEquals("Unexpected protocol replacement.", expected,
-                UrlBuilder.protocol(url, protocol));
+        Assert.assertEquals("Unexpected protocol replacement.", expected, UrlBuilder.protocol(url, protocol));
     }
 }

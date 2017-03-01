@@ -15,77 +15,77 @@ import com.github.sailarize.properties.Titles;
  */
 public class TitlesTest {
 
-	/**
-	 * Test a title is obtained in a properties file with only the language.
-	 */
-	@Test
-	public void language() {
+    /**
+     * Test a title is obtained in a properties file with only the language.
+     */
+    @Test
+    public void language() {
 
-		String title = Titles.get("facets.test.ONE", new Locale("es", "AR"));
+        String title = Titles.get("facets.test.ONE", new Locale("es", "AR"));
 
-		Assert.assertEquals("Titulo uno", title);
-	}
+        Assert.assertEquals("Titulo uno", title);
+    }
 
-	/**
-	 * Test a title is obtain from the default properties file when no
-	 * {@link Locale} is specified.
-	 */
-	@Test
-	public void noLocale() {
+    /**
+     * Test a title is obtain from the default properties file when no
+     * {@link Locale} is specified.
+     */
+    @Test
+    public void noLocale() {
 
-		String title = Titles.get("facets.test.ONE");
+        String title = Titles.get("facets.test.ONE");
 
-		Assert.assertEquals("Default title", title);
-	}
+        Assert.assertEquals("Default title", title);
+    }
 
-	/**
-	 * Test a title is obtained from the default properties files when a not
-	 * supported/not found language and country is provided.
-	 */
-	@Test
-	public void defaulted() {
+    /**
+     * Test a title is obtained from the default properties files when a not
+     * supported/not found language and country is provided.
+     */
+    @Test
+    public void defaulted() {
 
-		String title = Titles.get("facets.test.ONE", new Locale("pt", "BR"));
+        String title = Titles.get("facets.test.ONE", new Locale("pt", "BR"));
 
-		Assert.assertEquals("Default title", title);
-	}
+        Assert.assertEquals("Default title", title);
+    }
 
-	/**
-	 * Test a title is obtained in a properties file with the language and
-	 * country.
-	 */
-	@Test
-	public void languageAndCountry() {
+    /**
+     * Test a title is obtained in a properties file with the language and
+     * country.
+     */
+    @Test
+    public void languageAndCountry() {
 
-		String title = Titles.get("facets.test.ONE", new Locale("en", "US"));
+        String title = Titles.get("facets.test.ONE", new Locale("en", "US"));
 
-		Assert.assertEquals("Title one", title);
-	}
+        Assert.assertEquals("Title one", title);
+    }
 
-	/**
-	 * Test a title is obtained from the most specific properties file. That is
-	 * to say, having an only language properties and a language_COUNTRY
-	 * properties both with the same language, the title is obtained from the
-	 * last one.
-	 */
-	@Test
-	public void specific() {
+    /**
+     * Test a title is obtained from the most specific properties file. That is
+     * to say, having an only language properties and a language_COUNTRY
+     * properties both with the same language, the title is obtained from the
+     * last one.
+     */
+    @Test
+    public void specific() {
 
-		String title = Titles.get("facets.test.ONE", new Locale("fr", "FR"));
+        String title = Titles.get("facets.test.ONE", new Locale("fr", "FR"));
 
-		Assert.assertEquals("France titre premier", title);
-	}
+        Assert.assertEquals("France titre premier", title);
+    }
 
-	/**
-	 * Test a title is obtained from the language default properties file when
-	 * there is no properties file specific to the country.
-	 */
-	@Test
-	public void unsuportedCountry() {
+    /**
+     * Test a title is obtained from the language default properties file when
+     * there is no properties file specific to the country.
+     */
+    @Test
+    public void unsuportedCountry() {
 
-		String title = Titles.get("facets.test.ONE", new Locale("fr", "BL"));
+        String title = Titles.get("facets.test.ONE", new Locale("fr", "BL"));
 
-		Assert.assertEquals("Titre premier", title);
-	}
+        Assert.assertEquals("Titre premier", title);
+    }
 
 }
