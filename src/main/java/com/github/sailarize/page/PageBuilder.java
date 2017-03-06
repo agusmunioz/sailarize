@@ -254,7 +254,7 @@ public class PageBuilder {
 
         Integer lastPage = new BigDecimal(this.total).divide(new BigDecimal(this.size), RoundingMode.UP).intValue();
 
-        if (this.page.compareTo(lastPage) < 1) {
+        if (this.page.compareTo(lastPage) < 0) {
 
             LinkBuilder builder = new LinkBuilder(list, PageConstants.NEXT_REL, values).title(this.getNext())
                     .filter(PageConstants.PAGE_PARAM, Integer.toString(this.page + 1))
