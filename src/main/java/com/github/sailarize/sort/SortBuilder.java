@@ -31,6 +31,10 @@ public class SortBuilder {
 
     private Locale locale;
 
+    private String currentBy;
+
+    private String currentDirection;
+
     /**
      * Creates an initialized {@link SortBuilder}. It uses {@link RequestHolder}
      * for navigation consistency in the links.
@@ -259,6 +263,24 @@ public class SortBuilder {
     }
 
     /**
+     * Configures the current sort in order to mark links with
+     * data-current:true|false for determining the current sort.
+     * 
+     * @param by
+     *            the sort by.
+     * 
+     * @param direction
+     *            the sort direction.
+     * 
+     * @return the builder.
+     */
+    public SortBuilder current(String by, String direction) {
+        this.currentBy = by;
+        this.currentDirection = direction;
+        return this;
+    }
+
+    /**
      * Builds the sort links and adds it to the list resource.
      * 
      * @param list
@@ -279,9 +301,14 @@ public class SortBuilder {
                             .filters(this.filters).filter(SortConstants.SORT_BY, option.getValue())
                             .title(this.getTitle(option, index));
 
+            boolean current = option.getValue().equals(this.currentBy);
+
             if (option.getDirection() != null && !option.getDirection().isEmpty()) {
                 builder.filter(SortConstants.SORT_DIRECTION, option.getDirection());
+                current = current && option.getDirection().equals(this.currentDirection);
             }
+
+            builder.data("current", Boolean.toString(current));
 
             list.add(builder.build(), SortConstants.GROUP);
 

@@ -269,7 +269,8 @@ public class PageBuilder {
 
                 LinkBuilder builder = new LinkBuilder(list, this.shortcutRel(page), values)
                         .title(this.shortcutTitle(page)).filter(PageConstants.PAGE_PARAM, page.toString())
-                        .filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters);
+                        .filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters)
+                        .data("current", Boolean.toString(page.equals(this.page)));
 
                 list.add(builder.build(), PageConstants.GROUP);
             }
