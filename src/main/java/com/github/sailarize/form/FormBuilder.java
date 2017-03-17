@@ -3,7 +3,10 @@ package com.github.sailarize.form;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.github.sailarize.http.Header;
 import com.github.sailarize.http.HeaderHolder;
@@ -48,6 +51,8 @@ public class FormBuilder {
     private Collection<Header> headers;
 
     private Object body;
+
+    private Map<String, Object> data;
 
     /**
      * Creates an initialized {@link FormBuilder}.
@@ -448,6 +453,17 @@ public class FormBuilder {
         return this;
     }
 
+    public FormBuilder data(String name, Object value) {
+
+        if (this.data == null) {
+            this.data = new HashMap<String, Object>();
+        }
+
+        this.data.put(name, value);
+
+        return this;
+    }
+
     /**
      * Builds the form with what it was configured previously
      * 
@@ -469,6 +485,14 @@ public class FormBuilder {
         form.setInputs(this.inputs);
         form.setHeaders(this.headers);
         form.setBody(this.body);
+
+        if (this.data != null) {
+
+            for (Entry<String, Object> data : this.data.entrySet()) {
+
+                form.addData(data.getKey(), data.getValue());
+            }
+        }
 
         if (!Domain.cross(form.getAction())) {
 

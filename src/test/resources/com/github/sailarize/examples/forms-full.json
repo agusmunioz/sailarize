@@ -25,5 +25,6 @@
             "name":"another.field",
             "value":null
         }
-    ]
+    ],
+    "data-value":2
 }

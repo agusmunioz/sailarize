@@ -1,7 +1,9 @@
 package com.github.sailarize.form;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import com.github.sailarize.http.Header;
 import com.github.sailarize.utils.ToStringBuilder;
@@ -21,6 +23,8 @@ public class Form {
     private String method;
 
     private String title;
+
+    private Map<String, Object> data;
 
     private Collection<Header> headers;
 
@@ -110,6 +114,32 @@ public class Form {
     public void setTitle(String title) {
 
         this.title = title;
+    }
+
+    /**
+     * Adds any extra data to the form.
+     * 
+     * @param name
+     *            the data name.
+     * 
+     * @param value
+     *            the data value.
+     */
+    public void addData(String name, Object value) {
+
+        if (this.data == null) {
+            this.data = new HashMap<String, Object>();
+        }
+
+        this.data.put("data-" + name, value);
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 
     /**

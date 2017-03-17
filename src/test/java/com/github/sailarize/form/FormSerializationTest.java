@@ -109,6 +109,24 @@ public abstract class FormSerializationTest {
     }
 
     /**
+     * Test the serialization of a form with data fields.
+     */
+    @Test
+    public void data() {
+
+        Form form = new Form();
+        form.setId("form");
+        form.setMethod(Http.GET);
+        form.setAction("www.sailarize.com/forms");
+        form.addData("value", 2);
+
+        String resource = this.serialize(form);
+
+        AssertSerialization.assertEquals("Unexpected serialization of a form with headers", "forms-data", resource);
+
+    }
+
+    /**
      * Test the serialization of a full form.
      */
     @Test
@@ -119,6 +137,7 @@ public abstract class FormSerializationTest {
         form.setMethod(Http.PATCH);
         form.setAction("www.sailarize.com/forms");
         form.setTitle("Title");
+        form.addData("value", 2);
         form.addHeader("one", "1");
         form.addHeader("two", "2");
         HashMap<String, String> body = new HashMap<String, String>();
@@ -126,7 +145,6 @@ public abstract class FormSerializationTest {
         form.setBody(body);
         form.add(new ValueInput("a.field"));
         form.add(new ValueInput("another.field"));
-
         String resource = this.serialize(form);
 
         AssertSerialization.assertEquals("Unexpected serialization of a full form", "forms-full", resource);
