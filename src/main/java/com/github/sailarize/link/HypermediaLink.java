@@ -24,6 +24,10 @@ public class HypermediaLink {
 
     private String type;
 
+    private String fusion;
+
+    private String residue;
+
     private Collection<Header> headers;
 
     private Map<String, String> data;
@@ -116,6 +120,44 @@ public class HypermediaLink {
     public void setType(String type) {
 
         this.type = type;
+    }
+
+    /**
+     * Name for fusion group.
+     * 
+     * @return the fusion group name or null if not fusionable.
+     */
+    public String getFusion() {
+        return fusion;
+    }
+
+    /**
+     * Sets the fusion group.
+     * 
+     * @param fusion
+     *            the fusion group name.
+     */
+    public void setFusion(String fusion) {
+        this.fusion = fusion;
+    }
+
+    /**
+     * Residue for link fusion.
+     * 
+     * @return the residue or null if no reside is involved.
+     */
+    public String getResidue() {
+        return residue;
+    }
+
+    /**
+     * Sets the residue for link fusion.
+     * 
+     * @param residue
+     *            the residue.
+     */
+    public void setResidue(String residue) {
+        this.residue = residue;
     }
 
     /**

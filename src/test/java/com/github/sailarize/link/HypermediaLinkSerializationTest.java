@@ -98,6 +98,38 @@ public abstract class HypermediaLinkSerializationTest {
     }
 
     /**
+     * Test the serialization of a link with a fusion group.
+     */
+    @Test
+    public void fusion() {
+
+        HypermediaLink link = new HypermediaLink();
+        link.setHref("www.sailarize.com/alink");
+        link.setRel("rel");
+        link.setFusion("fusion");
+
+        String resource = this.serialize(link);
+
+        AssertSerialization.assertEquals("Unexpected serialization of a link with fusion.", "links-fusion", resource);
+    }
+
+    /**
+     * Test the serialization of a link with a residue.
+     */
+    @Test
+    public void residue() {
+
+        HypermediaLink link = new HypermediaLink();
+        link.setHref("www.sailarize.com/alink");
+        link.setRel("rel");
+        link.setResidue("param=value");
+
+        String resource = this.serialize(link);
+
+        AssertSerialization.assertEquals("Unexpected serialization of a link with fusion.", "links-residue", resource);
+    }
+
+    /**
      * Test the serialization of a link with all fields and information set.
      */
     @Test

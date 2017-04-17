@@ -296,6 +296,19 @@ public class LinkBuilder {
     }
 
     /**
+     * Configure the fusion group of the link.
+     * 
+     * @param name
+     *            the fusion group name.
+     * 
+     * @return the {@link LinkBuilder} for continuing building.
+     */
+    public LinkBuilder fusion(String name) {
+        this.link.setFusion(name);
+        return this;
+    }
+
+    /**
      * Builds the configured link.
      * 
      * @return a configured {@link HypermediaLink}.
