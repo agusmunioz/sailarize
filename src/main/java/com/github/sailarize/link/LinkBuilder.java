@@ -309,6 +309,19 @@ public class LinkBuilder {
     }
 
     /**
+     * Configures the residue of the link.
+     * 
+     * @param residue
+     *            the residue.
+     * 
+     * @return the {@link LinkBuilder} for continuing building.
+     */
+    public LinkBuilder residue(String residue) {
+        this.link.setResidue(residue);
+        return this;
+    }
+
+    /**
      * Builds the configured link.
      * 
      * @return a configured {@link HypermediaLink}.

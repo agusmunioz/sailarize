@@ -277,14 +277,17 @@ public class FacetBuilder {
 
             String rel = this.getRel(option);
 
+            String residue = null;
+
             if (option.isApplied(this.filters)) {
                 rel = this.getCleanPrefix(option) + rel;
+                residue = option.getFacet() + "=" + option.getValue();
             } else {
                 option.apply(filters);
             }
 
             LinkBuilder builder = new LinkBuilder(list, rel, values).title(this.getTitle(option, index))
-                    .filters(filters);
+                    .residue(residue).filters(filters);
 
             this.addData(builder, option, index);
 
