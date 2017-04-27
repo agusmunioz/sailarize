@@ -396,7 +396,7 @@ public class FacetBuilder {
 
     }
 
-    protected void ungroup() {
+    public void ungroup() {
         this.grouped = false;
     }
 
