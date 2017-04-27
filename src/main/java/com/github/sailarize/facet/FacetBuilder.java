@@ -53,6 +53,8 @@ public class FacetBuilder {
 
     private String allTitle;
 
+    private boolean grouped = true;
+
     private FacetBuilder(String name) {
 
         this.name = name;
@@ -266,7 +268,12 @@ public class FacetBuilder {
             }
 
             LinkBuilder builder = new LinkBuilder(list, "all", values).title(this.allTitle).filters(allFilters);
-            list.add(builder.build(), GROUP, this.name);
+
+            if (grouped) {
+                list.add(builder.build(), GROUP, this.name);
+            } else {
+                list.add(builder.build());
+            }
         }
 
         int index = 0;
@@ -291,7 +298,11 @@ public class FacetBuilder {
 
             this.addData(builder, option, index);
 
-            list.add(builder.build(), GROUP, this.name);
+            if (grouped) {
+                list.add(builder.build(), GROUP, this.name);
+            } else {
+                list.add(builder.build());
+            }
 
             index++;
         }
@@ -383,6 +394,10 @@ public class FacetBuilder {
 
         return CLEAN;
 
+    }
+
+    protected void ungroup() {
+        this.grouped = false;
     }
 
     @Override
