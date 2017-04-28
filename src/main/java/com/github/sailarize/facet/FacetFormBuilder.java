@@ -24,219 +24,238 @@ import com.github.sailarize.utils.Collector;
  */
 public class FacetFormBuilder {
 
-    private String id;
+	private String id;
 
-    private Collection<Filter> filters;
+	private Collection<Filter> filters;
 
-    private Collection<Filter> applied;
+	private Collection<Filter> applied;
 
-    private Collection<FormInput> inputs;
+	private Collection<FormInput> inputs;
 
-    private String title;
+	private String title;
 
-    private FacetOption option;
+	private FacetOption option;
 
-    private String cleanTitle;
+	private String cleanTitle;
 
-    private String cleanRel;
+	private String cleanRel;
 
-    public FacetFormBuilder(FacetOption option) {
+	private boolean grouped = true;
 
-        this.option = option;
-        this.id = option.getFacet();
-        this.inputs = new LinkedList<FormInput>();
-        this.applied = new LinkedList<Filter>();
-        this.filters = new LinkedList<Filter>();
-        this.text(option.getFacet(), option.getValue());
+	public FacetFormBuilder(FacetOption option) {
 
-        if (RequestHolder.get() != null) {
-            this.filter(RequestHolder.get());
-        }
-    }
+		this.option = option;
+		this.id = option.getFacet();
+		this.inputs = new LinkedList<FormInput>();
+		this.applied = new LinkedList<Filter>();
+		this.filters = new LinkedList<Filter>();
+		this.text(option.getFacet(), option.getValue());
 
-    /**
-     * Creates an initialized {@link FacetFormBuilder}.
-     * 
-     * @param option
-     *            the option a form will be created for.
-     * 
-     * @return the builder.
-     */
-    public static FacetFormBuilder facet(FacetOption option) {
+		if (RequestHolder.get() != null) {
+			this.filter(RequestHolder.get());
+		}
+	}
 
-        return new FacetFormBuilder(option);
-    }
+	/**
+	 * Creates an initialized {@link FacetFormBuilder}.
+	 * 
+	 * @param option
+	 *            the option a form will be created for.
+	 * 
+	 * @return the builder.
+	 */
+	public static FacetFormBuilder facet(FacetOption option) {
 
-    /**
-     * Adds a number input in the final form.
-     * 
-     * @param name
-     *            the input name.
-     * 
-     * @return the builder for further build.
-     */
-    public FacetFormBuilder number(String name) {
+		return new FacetFormBuilder(option);
+	}
 
-        this.inputs.add(new ValueInput(name));
-        return this;
-    }
+	/**
+	 * Adds a number input in the final form.
+	 * 
+	 * @param name
+	 *            the input name.
+	 * 
+	 * @return the builder for further build.
+	 */
+	public FacetFormBuilder number(String name) {
 
-    /**
-     * Adds a text input in the final form.
-     * 
-     * @param name
-     *            the input name.
-     * 
-     * @return the builder for further build.
-     */
-    public FacetFormBuilder text(String name) {
+		this.inputs.add(new ValueInput(name));
+		return this;
+	}
 
-        this.inputs.add(new ValueInput(name));
-        return this;
-    }
+	/**
+	 * Adds a text input in the final form.
+	 * 
+	 * @param name
+	 *            the input name.
+	 * 
+	 * @return the builder for further build.
+	 */
+	public FacetFormBuilder text(String name) {
 
-    /**
-     * Adds a text input in the final form.
-     * 
-     * @param name
-     *            the input name.
-     * 
-     * @return the builder for further build.
-     */
-    public FacetFormBuilder text(String name, Object value) {
+		this.inputs.add(new ValueInput(name));
+		return this;
+	}
 
-        this.inputs.add(new ValueInput(name, value));
-        return this;
-    }
+	/**
+	 * Adds a text input in the final form.
+	 * 
+	 * @param name
+	 *            the input name.
+	 * 
+	 * @return the builder for further build.
+	 */
+	public FacetFormBuilder text(String name, Object value) {
 
-    /**
-     * Configures the form id.
-     * 
-     * @param id
-     *            the id.
-     * 
-     * @return the builder.
-     */
-    public FacetFormBuilder id(String id) {
-        this.id = id;
-        return this;
-    }
+		this.inputs.add(new ValueInput(name, value));
+		return this;
+	}
 
-    /**
-     * Configures the form title.
-     * 
-     * @param title
-     *            a title.
-     * 
-     * @return the builder for further build.
-     */
-    public FacetFormBuilder title(String title) {
+	/**
+	 * Configures the form id.
+	 * 
+	 * @param id
+	 *            the id.
+	 * 
+	 * @return the builder.
+	 */
+	public FacetFormBuilder id(String id) {
+		this.id = id;
+		return this;
+	}
 
-        this.title = title;
-        return this;
-    }
+	/**
+	 * Configures the form title.
+	 * 
+	 * @param title
+	 *            a title.
+	 * 
+	 * @return the builder for further build.
+	 */
+	public FacetFormBuilder title(String title) {
 
-    /**
-     * Configures an expression for building the clean links titles, if an
-     * option of the same facet is already applied.
-     * 
-     * @param expression
-     *            an expression that uses template variables.
-     * 
-     * @return the builder for further build.
-     */
-    public FacetFormBuilder cleanTitle(String expression) {
+		this.title = title;
+		return this;
+	}
 
-        this.cleanTitle = expression;
-        return this;
-    }
+	/**
+	 * Configures an expression for building the clean links titles, if an
+	 * option of the same facet is already applied.
+	 * 
+	 * @param expression
+	 *            an expression that uses template variables.
+	 * 
+	 * @return the builder for further build.
+	 */
+	public FacetFormBuilder cleanTitle(String expression) {
 
-    /**
-     * Configures an expression for building the clean links rel, if an option
-     * of the same facet is already applied.
-     * 
-     * @param expression
-     *            an expression that uses template variables.
-     * 
-     * @return the builder for further build.
-     */
-    public FacetFormBuilder cleanRel(String expression) {
+		this.cleanTitle = expression;
+		return this;
+	}
 
-        this.cleanRel = expression;
-        return this;
-    }
+	/**
+	 * Configures an expression for building the clean links rel, if an option
+	 * of the same facet is already applied.
+	 * 
+	 * @param expression
+	 *            an expression that uses template variables.
+	 * 
+	 * @return the builder for further build.
+	 */
+	public FacetFormBuilder cleanRel(String expression) {
 
-    /**
-     * Adds a filter to all facet forms.
-     * 
-     * @param name
-     *            the filter name.
-     * 
-     * @param value
-     *            the filter value.
-     * 
-     * @return the builder for further build.
-     */
-    public FacetFormBuilder filter(String name, Object value) {
+		this.cleanRel = expression;
+		return this;
+	}
 
-        Filter filter = new Filter(name, value.toString());
+	/**
+	 * Adds a filter to all facet forms.
+	 * 
+	 * @param name
+	 *            the filter name.
+	 * 
+	 * @param value
+	 *            the filter value.
+	 * 
+	 * @return the builder for further build.
+	 */
+	public FacetFormBuilder filter(String name, Object value) {
 
-        this.filters.add(filter);
+		Filter filter = new Filter(name, value.toString());
 
-        if (this.option.getFacet().equals(name)) {
-            this.applied.add(filter);
-        }
+		this.filters.add(filter);
 
-        return this;
-    }
+		if (this.option.getFacet().equals(name)) {
+			this.applied.add(filter);
+		}
 
-    /**
-     * Adds all the query parameters in the request as filters in all facet
-     * forms.
-     * 
-     * @param request
-     *            the HTTP request with the parameters.
-     * 
-     * @return the builder for further build.
-     */
-    public FacetFormBuilder filter(HttpServletRequest request) {
+		return this;
+	}
 
-        for (Entry<String, String[]> filter : request.getParameterMap().entrySet()) {
+	/**
+	 * Adds all the query parameters in the request as filters in all facet
+	 * forms.
+	 * 
+	 * @param request
+	 *            the HTTP request with the parameters.
+	 * 
+	 * @return the builder for further build.
+	 */
+	public FacetFormBuilder filter(HttpServletRequest request) {
 
-            for (String value : filter.getValue()) {
-                this.filter(filter.getKey(), value);
-            }
+		for (Entry<String, String[]> filter : request.getParameterMap().entrySet()) {
 
-        }
+			for (String value : filter.getValue()) {
+				this.filter(filter.getKey(), value);
+			}
 
-        return this;
-    }
+		}
 
-    /**
-     * Adds the form to the resource. If any other option from the same facet is
-     * already applied, then a clean link for that option is also created.
-     * 
-     * @param resource
-     *            the resource where to add the form, and eventually, clean
-     *            links.
-     */
-    public void build(SailResource resource) {
+		return this;
+	}
 
-        resource.add(FormBuilder.get(resource).id(this.id).title(this.title).inputs(this.inputs)
-                .filters(this.option.compatibles(this.filters)).build(), FacetBuilder.GROUP);
+	/**
+	 * Adds the form to the resource. If any other option from the same facet is
+	 * already applied, then a clean link for that option is also created.
+	 * 
+	 * @param resource
+	 *            the resource where to add the form, and eventually, clean
+	 *            links.
+	 */
+	public void build(SailResource resource) {
 
-        Template template = Template.template(this.option.getValue());
+		if (grouped) {
+			resource.add(FormBuilder.get(resource).id(this.id).title(this.title).inputs(this.inputs)
+					.filters(this.option.compatibles(this.filters)).build(), FacetBuilder.GROUP);
+		} else {
+			resource.add(FormBuilder.get(resource).id(this.id).title(this.title).inputs(this.inputs)
+					.filters(this.option.compatibles(this.filters)).build());
+		}
 
-        for (Filter clean : this.applied) {
+		Template template = Template.template(this.option.getValue());
 
-            String rel = FacetBuilder.CLEAN + template.eval(this.cleanRel, clean.getValue().replace(" ", "_"));
+		for (Filter clean : this.applied) {
 
-            String title = template.eval(this.cleanTitle, clean.getValue());
+			String rel = FacetBuilder.CLEAN + template.eval(this.cleanRel, clean.getValue().replace(" ", "_"));
 
-            resource.add(
-                    new LinkBuilder(resource, rel).filters(Collector.reject(this.filters, clean)).title(title).build(),
-                    FacetBuilder.GROUP, this.option.getFacet());
-        }
+			String title = template.eval(this.cleanTitle, clean.getValue());
 
-    }
+			if (grouped) {
+				resource.add(new LinkBuilder(resource, rel).filters(Collector.reject(this.filters, clean)).title(title)
+						.build(), FacetBuilder.GROUP, this.option.getFacet());
+			} else {
+				resource.add(new LinkBuilder(resource, rel).filters(Collector.reject(this.filters, clean)).title(title)
+						.build());
+			}
+		}
+
+	}
+
+	/**
+	 * Configures the builder in order not to group facet forms in a form group.
+	 */
+	public FacetFormBuilder ungroup() {
+		this.grouped = false;
+		return this;
+	}
 }
