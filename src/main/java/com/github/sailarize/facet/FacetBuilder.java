@@ -396,8 +396,12 @@ public class FacetBuilder {
 
     }
 
-    public void ungroup() {
+    /**
+     * Configures the builder in order not to group facet links in a link group.
+     */
+    public FacetBuilder ungroup() {
         this.grouped = false;
+        return this;
     }
 
     @Override
