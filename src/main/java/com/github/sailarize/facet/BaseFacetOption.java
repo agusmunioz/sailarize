@@ -1,5 +1,6 @@
 package com.github.sailarize.facet;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -169,7 +170,12 @@ public abstract class BaseFacetOption implements FacetOption {
             return false;
         }
 
-        return filters.contains(new Filter(this.getFacet(), this.getValue()));
+        for(Filter filter : filters){
+        	if(this.getFacet().equals(filter.getName())){
+        		return Arrays.asList(filter.getValue().split(",")).contains(this.getValue());
+        	}
+        }
+        return false;
     }
 
     @Override
