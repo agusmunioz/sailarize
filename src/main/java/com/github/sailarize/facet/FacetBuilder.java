@@ -1,5 +1,6 @@
 package com.github.sailarize.facet;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -44,6 +45,8 @@ public class FacetBuilder {
     private Collection<FacetOption> options;
 
     private Collection<Filter> filters;
+    
+    private Collection<String> excludedFilters;
 
     private String[] titles;
 
@@ -62,6 +65,7 @@ public class FacetBuilder {
         this.relPostfix = "";
         this.options = new LinkedList<FacetOption>();
         this.filters = new LinkedList<Filter>();
+        this.excludedFilters = new LinkedList<String>();
 
         if (RequestHolder.get() != null) {
             this.filter(RequestHolder.get());
@@ -193,6 +197,18 @@ public class FacetBuilder {
     }
 
     /**
+     * Excludes a filter
+     * 
+     * @param filtersName
+     *            the filters name to exclude
+     * @return the builder for further build.
+     */
+    public FacetBuilder exclude(String... filtersName) {
+        this.excludedFilters.addAll(Arrays.asList(filtersName));
+        return this;
+    }
+
+    /**
      * Adds all the query parameters in the request as filters in all facet
      * links.
      * 
@@ -249,6 +265,15 @@ public class FacetBuilder {
         return this;
     }
 
+    private Filter getFilter(String filterName) {
+        for (Filter filter : this.filters) {
+            if (filter.getName().equals(filterName)) {
+                return filter;
+            }
+        }
+        return null;
+    }
+
     /**
      * Builds the facet links for each options and add them to the resource.
      * 
@@ -256,6 +281,13 @@ public class FacetBuilder {
      *            the resource where to add all the facet links.
      */
     public void build(SailResource list, Object... values) {
+
+        for (String excludedFilterName : this.excludedFilters) {
+            Filter excludedFilter = this.getFilter(excludedFilterName);
+            if (excludedFilter != null) {
+                this.filters.remove(excludedFilter);
+            }
+        }
 
         if (this.all) {
 
