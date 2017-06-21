@@ -369,7 +369,8 @@ public class FormBuilder {
     }
 
     /**
-     * Adds a filter to all facet links.
+     * Adds a filter to all facet links if name and value are different than
+     * null.
      * 
      * @param name
      *            the filter name.
@@ -380,6 +381,10 @@ public class FormBuilder {
      * @return the builder for further build.
      */
     public FormBuilder filter(String name, Object value) {
+
+        if (name == null || value == null) {
+            return this;
+        }
 
         if (this.query == null) {
             this.query = new QueryString();

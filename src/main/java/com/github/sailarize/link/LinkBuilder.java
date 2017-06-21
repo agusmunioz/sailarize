@@ -166,7 +166,8 @@ public class LinkBuilder {
     }
 
     /**
-     * Adds a filter (query parameter) to the link.
+     * Adds a filter (query parameter) to the link if name and valuer are
+     * different than null.
      * 
      * @param name
      *            the filter name.
@@ -177,6 +178,10 @@ public class LinkBuilder {
      * @return the {@link LinkBuilder} for continuing building.
      */
     public LinkBuilder filter(String name, String value) {
+
+        if (name == null || value == null) {
+            return this;
+        }
 
         if (this.query == null) {
             this.query = new QueryString();
