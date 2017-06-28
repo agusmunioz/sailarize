@@ -314,15 +314,18 @@ public class FacetBuilder {
 
             String residue = null;
 
+            String dataRefined;
             if (option.isApplied(this.filters.values())) {
                 rel = this.getCleanPrefix(option) + rel;
                 residue = option.getFacet() + "=" + option.getValue();
+                dataRefined = "false";
             } else {
+                dataRefined = "true";
                 option.apply(filters);
             }
 
             LinkBuilder builder = new LinkBuilder(list, rel, values).title(this.getTitle(option, index))
-                    .residue(residue).filters(filters);
+                    .data("refines", dataRefined).residue(residue).filters(filters);
 
             this.addData(builder, option, index);
 
