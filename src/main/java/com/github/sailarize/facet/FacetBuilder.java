@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.github.sailarize.link.HypermediaLink;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.link.RelBuilder;
 import com.github.sailarize.page.PageConstants;
@@ -295,12 +296,13 @@ public class FacetBuilder {
                 }
             }
 
-            LinkBuilder builder = new LinkBuilder(list, "all", values).title(this.allTitle).filters(allFilters);
+            HypermediaLink link = new LinkBuilder(list, "all", values).title(this.allTitle).filters(allFilters)
+                                    .data("refines", "false").build();
 
             if (grouped) {
-                list.add(builder.build(), GROUP, this.name);
+                list.add(link, GROUP, this.name);
             } else {
-                list.add(builder.build());
+                list.add(link);
             }
         }
 

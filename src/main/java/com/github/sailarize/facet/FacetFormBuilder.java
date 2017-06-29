@@ -10,7 +10,6 @@ import com.github.sailarize.form.FormBuilder;
 import com.github.sailarize.form.FormInput;
 import com.github.sailarize.form.Template;
 import com.github.sailarize.form.ValueInput;
-import com.github.sailarize.link.HypermediaLink;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.resource.SailResource;
 import com.github.sailarize.servlet.RequestHolder;
@@ -241,12 +240,12 @@ public class FacetFormBuilder {
 
 			String title = template.eval(this.cleanTitle, clean.getValue());
 
-			HypermediaLink link = new LinkBuilder(resource, rel).filters(Collector.reject(this.filters, clean)).title(title)
-					.data("refines", "false").build();
 			if (grouped) {
-				resource.add(link, FacetBuilder.GROUP, this.option.getFacet());
+				resource.add(new LinkBuilder(resource, rel).filters(Collector.reject(this.filters, clean)).title(title)
+						.build(), FacetBuilder.GROUP, this.option.getFacet());
 			} else {
-				resource.add(link);
+				resource.add(new LinkBuilder(resource, rel).filters(Collector.reject(this.filters, clean)).title(title)
+						.build());
 			}
 		}
 
