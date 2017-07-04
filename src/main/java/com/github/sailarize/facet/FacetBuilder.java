@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.github.sailarize.http.Header;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.link.RelBuilder;
 import com.github.sailarize.properties.Titles;
@@ -45,7 +46,7 @@ public class FacetBuilder {
     private Collection<FacetOption> options;
 
     private Collection<Filter> filters;
-    
+
     private Collection<String> excludedFilters;
 
     private String[] titles;
@@ -57,6 +58,8 @@ public class FacetBuilder {
     private String allTitle;
 
     private boolean grouped = true;
+
+    private Collection<Header> headers;
 
     private FacetBuilder(String name) {
 
@@ -254,6 +257,41 @@ public class FacetBuilder {
     }
 
     /**
+     * Configures a header in the facet.
+     * 
+     * @param name
+     *            the header name.
+     * 
+     * @param value
+     *            the header vale.
+     * 
+     * @return the builder for further build.
+     */
+    public FacetBuilder header(String name, String value) {
+
+        return this.header(new Header(name, value));
+    }
+
+    /**
+     * Configures a header in the facet.
+     * 
+     * @param header
+     *            the header.
+     * 
+     * @return the builder for further building.
+     */
+    public FacetBuilder header(Header header) {
+
+        if (this.headers == null) {
+            this.headers = new LinkedList<Header>();
+        }
+
+        this.headers.add(header);
+
+        return this;
+    }
+
+    /**
      * Configures the all link to be built in the facet group link.
      * 
      * @param title
@@ -299,7 +337,8 @@ public class FacetBuilder {
                 }
             }
 
-            LinkBuilder builder = new LinkBuilder(list, "all", values).title(this.allTitle).filters(allFilters);
+            LinkBuilder builder = new LinkBuilder(list, "all", values).title(this.allTitle).filters(allFilters)
+                    .headers(this.headers);
 
             if (grouped) {
                 list.add(builder.build(), GROUP, this.name);
@@ -326,7 +365,7 @@ public class FacetBuilder {
             }
 
             LinkBuilder builder = new LinkBuilder(list, rel, values).title(this.getTitle(option, index))
-                    .residue(residue).filters(filters);
+                    .residue(residue).filters(filters).headers(this.headers);
 
             this.addData(builder, option, index);
 

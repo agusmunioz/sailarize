@@ -1,6 +1,7 @@
 package com.github.sailarize.link;
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 import com.github.sailarize.http.Header;
 import com.github.sailarize.http.HeaderHolder;
@@ -268,6 +269,30 @@ public class LinkBuilder {
     public LinkBuilder header(String name, Object value) {
 
         this.link.addHeader(name, value);
+        return this;
+    }
+
+    /**
+     * Configures a list of headers if it is not null. If headers has been
+     * previously configured, the the list is added.
+     * 
+     * @param headers
+     *            the list of headers.
+     * 
+     * @return the builder.
+     */
+    public LinkBuilder headers(Collection<Header> headers) {
+
+        if (headers == null) {
+            return this;
+        }
+
+        if (this.link.getHeaders() == null) {
+            this.link.setHeaders(new LinkedList<Header>());
+        }
+
+        this.link.getHeaders().addAll(headers);
+
         return this;
     }
 

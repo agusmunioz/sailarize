@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.github.sailarize.http.Header;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.link.RelBuilder;
 import com.github.sailarize.properties.Titles;
@@ -34,6 +35,8 @@ public class SortBuilder {
     private String currentBy;
 
     private String currentDirection;
+
+    private Collection<Header> headers;
 
     /**
      * Creates an initialized {@link SortBuilder}. It uses {@link RequestHolder}
@@ -281,6 +284,41 @@ public class SortBuilder {
     }
 
     /**
+     * Configures a header in the sorting.
+     * 
+     * @param name
+     *            the header name.
+     * 
+     * @param value
+     *            the header vale.
+     * 
+     * @return the builder for further build.
+     */
+    public SortBuilder header(String name, String value) {
+
+        return this.header(new Header(name, value));
+    }
+
+    /**
+     * Configures a header in the sorting.
+     * 
+     * @param header
+     *            the header.
+     * 
+     * @return the builder for further build.
+     */
+    public SortBuilder header(Header header) {
+
+        if (this.headers == null) {
+            this.headers = new LinkedList<Header>();
+        }
+
+        this.headers.add(header);
+
+        return this;
+    }
+
+    /**
      * Builds the sort links and adds it to the list resource.
      * 
      * @param list
@@ -299,7 +337,7 @@ public class SortBuilder {
             LinkBuilder builder = new LinkBuilder(list,
                     RelBuilder.rel(SortConstants.REL, option.getValue(), option.getDirection()), values)
                             .filters(this.filters).filter(SortConstants.SORT_BY, option.getValue())
-                            .title(this.getTitle(option, index));
+                            .title(this.getTitle(option, index)).headers(this.headers);
 
             boolean current = option.getValue().equals(this.currentBy);
 
