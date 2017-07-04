@@ -425,13 +425,31 @@ public class FormBuilder {
      */
     public FormBuilder header(String name, Object value) {
 
+        return this.header(new Header(name, value.toString()));
+    }
+
+    /**
+     * Configures a header if the header is not null.
+     * 
+     * @param header
+     *            the header.
+     * 
+     * @return the builder for further build.
+     */
+    public FormBuilder header(Header header) {
+
+        if (header == null) {
+            return this;
+        }
+
         if (this.headers == null) {
             this.headers = new LinkedList<Header>();
         }
 
-        this.headers.add(new Header(name, value.toString()));
+        this.headers.add(header);
 
         return this;
+
     }
 
     public FormBuilder noHeaders() {
