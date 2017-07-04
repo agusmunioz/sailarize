@@ -268,7 +268,23 @@ public class LinkBuilder {
      */
     public LinkBuilder header(String name, Object value) {
 
-        this.link.addHeader(name, value);
+        return this.header(new Header(name, value.toString()));
+    }
+
+    /**
+     * Configures a header if the header is not null.
+     * 
+     * @param header
+     *            the header.
+     * 
+     * @return the builder for further build.
+     */
+    public LinkBuilder header(Header header) {
+
+        if (header != null) {
+            this.link.add(header);
+        }
+
         return this;
     }
 

@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.github.sailarize.http.Header;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.link.RelBuilder;
 import com.github.sailarize.page.PageConstants;
@@ -27,12 +28,8 @@ import com.github.sailarize.utils.ToStringBuilder;
  */
 public class SortBuilder {
 
-    private final static Collection<String> filterBlacklist = Arrays.asList(
-            SortConstants.SORT_BY,
-            SortConstants.SORT_DIRECTION,
-            PageConstants.PAGE_PARAM,
-            PageConstants.SIZE_PARAM
-    );
+    private final static Collection<String> filterBlacklist = Arrays.asList(SortConstants.SORT_BY,
+            SortConstants.SORT_DIRECTION, PageConstants.PAGE_PARAM, PageConstants.SIZE_PARAM);
 
     private Collection<SortOption> options;
 
