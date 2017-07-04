@@ -1,15 +1,18 @@
 package com.github.sailarize.sort;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.github.sailarize.http.Header;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.link.RelBuilder;
+import com.github.sailarize.page.PageConstants;
 import com.github.sailarize.properties.Titles;
 import com.github.sailarize.resource.SailResource;
 import com.github.sailarize.servlet.RequestHolder;
@@ -24,9 +27,16 @@ import com.github.sailarize.utils.ToStringBuilder;
  */
 public class SortBuilder {
 
+    private final static Collection<String> filterBlacklist = Arrays.asList(
+            SortConstants.SORT_BY,
+            SortConstants.SORT_DIRECTION,
+            PageConstants.PAGE_PARAM,
+            PageConstants.SIZE_PARAM
+    );
+
     private Collection<SortOption> options;
 
-    private Collection<Filter> filters;
+    private Map<String, Filter> filters;
 
     private String[] titles;
 
@@ -35,6 +45,8 @@ public class SortBuilder {
     private String currentBy;
 
     private String currentDirection;
+
+    private Collection<String> excludedFilters;
 
     private Collection<Header> headers;
 
@@ -45,7 +57,8 @@ public class SortBuilder {
     private SortBuilder() {
 
         this.options = new LinkedList<SortOption>();
-        this.filters = new LinkedList<Filter>();
+        this.filters = new HashMap<String, Filter>();
+        this.excludedFilters = new LinkedList<String>();
 
         if (RequestHolder.get() != null) {
             this.filter(RequestHolder.get());
@@ -220,9 +233,8 @@ public class SortBuilder {
      * @return the builder for further build.
      */
     public SortBuilder filter(String name, Object value) {
-
-        if (!SortConstants.SORT_BY.equals(name) && !SortConstants.SORT_DIRECTION.equals(name)) {
-            this.filters.add(new Filter(name, value.toString()));
+        if (name != null && !filterBlacklist.contains(name)) {
+            this.filters.put(name, new Filter(name, value.toString()));
         }
 
         return this;
@@ -319,6 +331,18 @@ public class SortBuilder {
     }
 
     /**
+     * Excludes a filter
+     *
+     * @param filtersName
+     *            the filters name to exclude
+     * @return the builder for further build.
+     */
+    public SortBuilder exclude(String... filtersName) {
+        this.excludedFilters.addAll(Arrays.asList(filtersName));
+        return this;
+    }
+
+    /**
      * Builds the sort links and adds it to the list resource.
      * 
      * @param list
@@ -330,13 +354,17 @@ public class SortBuilder {
      */
     public void build(SailResource list, Object... values) {
 
+        for (String excludedFilterName : this.excludedFilters) {
+            this.filters.remove(excludedFilterName);
+        }
+
         int index = 0;
 
         for (SortOption option : this.options) {
 
             LinkBuilder builder = new LinkBuilder(list,
                     RelBuilder.rel(SortConstants.REL, option.getValue(), option.getDirection()), values)
-                            .filters(this.filters).filter(SortConstants.SORT_BY, option.getValue())
+                            .filters(this.filters.values()).filter(SortConstants.SORT_BY, option.getValue())
                             .title(this.getTitle(option, index)).headers(this.headers);
 
             boolean current = option.getValue().equals(this.currentBy);

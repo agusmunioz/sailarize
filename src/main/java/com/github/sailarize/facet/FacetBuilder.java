@@ -10,8 +10,10 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 
 import com.github.sailarize.http.Header;
+import com.github.sailarize.link.HypermediaLink;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.link.RelBuilder;
+import com.github.sailarize.page.PageConstants;
 import com.github.sailarize.properties.Titles;
 import com.github.sailarize.resource.SailResource;
 import com.github.sailarize.resource.SailTags;
@@ -37,6 +39,11 @@ public class FacetBuilder {
      */
     public static final String CLEAN = "clean" + SailTags.KEY;
 
+    private final static Collection<String> filterBlacklist = Arrays.asList(
+            PageConstants.PAGE_PARAM,
+            PageConstants.SIZE_PARAM
+    );
+
     private String name;
 
     private String relPrefix;
@@ -45,8 +52,8 @@ public class FacetBuilder {
 
     private Collection<FacetOption> options;
 
-    private Collection<Filter> filters;
-
+    private Map<String, Filter> filters;
+    
     private Collection<String> excludedFilters;
 
     private String[] titles;
@@ -67,7 +74,7 @@ public class FacetBuilder {
         this.relPrefix = name;
         this.relPostfix = "";
         this.options = new LinkedList<FacetOption>();
-        this.filters = new LinkedList<Filter>();
+        this.filters = new HashMap<String, Filter>();
         this.excludedFilters = new LinkedList<String>();
 
         if (RequestHolder.get() != null) {
@@ -194,8 +201,10 @@ public class FacetBuilder {
      * @return the builder for further build.
      */
     public FacetBuilder filter(String name, Object value) {
+        if (name != null && !filterBlacklist.contains(name)) {
+            this.filters.put(name, new Filter(name, value.toString()));
+        }
 
-        this.filters.add(new Filter(name, value.toString()));
         return this;
     }
 
@@ -303,15 +312,6 @@ public class FacetBuilder {
         return this;
     }
 
-    private Filter getFilter(String filterName) {
-        for (Filter filter : this.filters) {
-            if (filter.getName().equals(filterName)) {
-                return filter;
-            }
-        }
-        return null;
-    }
-
     /**
      * Builds the facet links for each options and add them to the resource.
      * 
@@ -321,29 +321,26 @@ public class FacetBuilder {
     public void build(SailResource list, Object... values) {
 
         for (String excludedFilterName : this.excludedFilters) {
-            Filter excludedFilter = this.getFilter(excludedFilterName);
-            if (excludedFilter != null) {
-                this.filters.remove(excludedFilter);
-            }
+            this.filters.remove(excludedFilterName);
         }
 
         if (this.all) {
 
             Collection<Filter> allFilters = new LinkedList<Filter>();
 
-            for (Filter filter : this.filters) {
+            for (Filter filter : this.filters.values()) {
                 if (!filter.getName().equals(this.name)) {
                     allFilters.add(filter);
                 }
             }
 
-            LinkBuilder builder = new LinkBuilder(list, "all", values).title(this.allTitle).filters(allFilters)
-                    .headers(this.headers);
+            HypermediaLink link = new LinkBuilder(list, "all", values).title(this.allTitle).filters(allFilters)
+                                    .data("refines", "false").headers(this.headers).build();
 
             if (grouped) {
-                list.add(builder.build(), GROUP, this.name);
+                list.add(link, GROUP, this.name);
             } else {
-                list.add(builder.build());
+                list.add(link);
             }
         }
 
@@ -351,21 +348,24 @@ public class FacetBuilder {
 
         for (FacetOption option : this.options) {
 
-            Collection<Filter> filters = option.compatibles(this.filters);
+            Collection<Filter> filters = option.compatibles(this.filters.values());
 
             String rel = this.getRel(option);
 
             String residue = null;
 
-            if (option.isApplied(this.filters)) {
+            String dataRefined;
+            if (option.isApplied(this.filters.values())) {
                 rel = this.getCleanPrefix(option) + rel;
                 residue = option.getFacet() + "=" + option.getValue();
+                dataRefined = "false";
             } else {
+                dataRefined = "true";
                 option.apply(filters);
             }
 
             LinkBuilder builder = new LinkBuilder(list, rel, values).title(this.getTitle(option, index))
-                    .residue(residue).filters(filters).headers(this.headers);
+                    .data("refines", dataRefined).residue(residue).filters(filters).headers(this.headers);
 
             this.addData(builder, option, index);
 
