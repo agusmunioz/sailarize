@@ -39,10 +39,8 @@ public class FacetBuilder {
      */
     public static final String CLEAN = "clean" + SailTags.KEY;
 
-    private final static Collection<String> filterBlacklist = Arrays.asList(
-            PageConstants.PAGE_PARAM,
-            PageConstants.SIZE_PARAM
-    );
+    private final static Collection<String> filterBlacklist = Arrays.asList(PageConstants.PAGE_PARAM,
+            PageConstants.SIZE_PARAM);
 
     private String name;
 
@@ -53,7 +51,7 @@ public class FacetBuilder {
     private Collection<FacetOption> options;
 
     private Map<String, Filter> filters;
-    
+
     private Collection<String> excludedFilters;
 
     private String[] titles;
@@ -301,6 +299,27 @@ public class FacetBuilder {
     }
 
     /**
+     * Configures a list of headers if the list is not null.
+     * 
+     * @param headers
+     *            the list of headers.
+     * 
+     * @return the builder for further building.
+     */
+    public FacetBuilder headers(Collection<Header> headers) {
+
+        if (headers == null) {
+            return this;
+        }
+
+        for (Header header : headers) {
+            this.header(header);
+        }
+
+        return this;
+    }
+
+    /**
      * Configures the all link to be built in the facet group link.
      * 
      * @param title
@@ -335,7 +354,7 @@ public class FacetBuilder {
             }
 
             HypermediaLink link = new LinkBuilder(list, "all", values).title(this.allTitle).filters(allFilters)
-                                    .data("refines", "false").headers(this.headers).build();
+                    .data("refines", "false").headers(this.headers).build();
 
             if (grouped) {
                 list.add(link, GROUP, this.name);
