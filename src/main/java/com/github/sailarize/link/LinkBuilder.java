@@ -243,6 +243,32 @@ public class LinkBuilder {
     }
 
     /**
+     * Sets the link host. If the link already have a host, it changes the
+     * original.
+     *
+     * @param key
+     *             the key in sail/hosts.properties
+     * @param defaults
+     *            the default value or key if the given host is not found.
+     *
+     * @return the {@link LinkBuilder} for continuing building.
+     */
+    public LinkBuilder host(String key, String defaults) {
+
+        String host = Hosts.get(key);
+        if (host == null) {
+            host = Hosts.get(defaults);
+            if (host == null) {
+                host = defaults;
+            }
+        }
+
+        this.link.setHref(UrlBuilder.host(link.getHref(), host));
+
+        return this;
+    }
+
+    /**
      * Changes the URL protocol to HTTPS.
      * 
      * 
