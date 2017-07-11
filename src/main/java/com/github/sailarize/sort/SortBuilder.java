@@ -309,7 +309,7 @@ public class SortBuilder {
     }
 
     /**
-     * Configures a header in the sorting.
+     * Configures a header in the sorting if the header is not null.
      * 
      * @param header
      *            the header.
@@ -317,6 +317,10 @@ public class SortBuilder {
      * @return the builder for further build.
      */
     public SortBuilder header(Header header) {
+
+        if (header == null) {
+            return this;
+        }
 
         if (this.headers == null) {
             this.headers = new LinkedList<Header>();

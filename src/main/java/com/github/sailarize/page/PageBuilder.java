@@ -252,7 +252,7 @@ public class PageBuilder {
     }
 
     /**
-     * Configures a header in the page links.
+     * Configures a header in the page links if the header is not null.
      * 
      * @param header
      *            the header.
@@ -260,6 +260,10 @@ public class PageBuilder {
      * @return the builder for further build.
      */
     public PageBuilder header(Header header) {
+
+        if (header == null) {
+            return this;
+        }
 
         if (this.headers == null) {
             this.headers = new LinkedList<Header>();
