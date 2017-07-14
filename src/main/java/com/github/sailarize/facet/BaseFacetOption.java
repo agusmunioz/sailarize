@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import com.github.sailarize.http.Header;
 import com.github.sailarize.url.Filter;
 import com.github.sailarize.utils.ToStringBuilder;
 
@@ -27,6 +28,8 @@ public abstract class BaseFacetOption implements FacetOption {
     private String title;
 
     private Map<String, Object> data;
+
+    private Collection<Header> headers;
 
     /**
      * Creates an initialized {@link BaseFacetOption}.
@@ -170,10 +173,10 @@ public abstract class BaseFacetOption implements FacetOption {
             return false;
         }
 
-        for(Filter filter : filters){
-        	if(this.getFacet().equals(filter.getName())){
-        		return Arrays.asList(filter.getValue().split(",")).contains(this.getValue());
-        	}
+        for (Filter filter : filters) {
+            if (this.getFacet().equals(filter.getName())) {
+                return Arrays.asList(filter.getValue().split(",")).contains(this.getValue());
+            }
         }
         return false;
     }
@@ -196,6 +199,15 @@ public abstract class BaseFacetOption implements FacetOption {
     public void apply(Collection<Filter> filters) {
 
         filters.add(new Filter(this.getFacet(), this.getValue()));
+    }
+
+    @Override
+    public Collection<Header> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(Collection<Header> headers) {
+        this.headers = headers;
     }
 
     /**

@@ -488,6 +488,29 @@ public class FormBuilder {
     }
 
     /**
+     * Configures a list of headers it not null.
+     * 
+     * @param headers
+     *            the list of headers.
+     * 
+     * @return the builder.
+     */
+    public FormBuilder headers(Collection<Header> headers) {
+
+        if (headers == null) {
+            return this;
+        }
+
+        if (this.headers == null) {
+            this.headers = headers;
+        } else {
+            this.headers.addAll(headers);
+        }
+
+        return this;
+    }
+
+    /**
      * Builds the form with what it was configured previously
      * 
      * @return the form.

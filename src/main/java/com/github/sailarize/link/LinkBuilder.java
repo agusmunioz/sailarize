@@ -247,7 +247,7 @@ public class LinkBuilder {
      * original.
      *
      * @param key
-     *             the key in sail/hosts.properties
+     *            the key in sail/hosts.properties
      * @param defaults
      *            the default value or key if the given host is not found.
      *
@@ -316,7 +316,7 @@ public class LinkBuilder {
 
     /**
      * Configures a list of headers if it is not null. If headers has been
-     * previously configured, the the list is added.
+     * previously configured, the list is added.
      * 
      * @param headers
      *            the list of headers.

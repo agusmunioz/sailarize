@@ -29,6 +29,8 @@ import com.github.sailarize.utils.ToStringBuilder;
  */
 public class FacetBuilder {
 
+    private static final String REFINES = "refines";
+
     /**
      * Link group name for facets.
      */
@@ -280,7 +282,7 @@ public class FacetBuilder {
     }
 
     /**
-     * Configures a header in the facet.
+     * Configures a header in the facet if the header is not null.
      * 
      * @param header
      *            the header.
@@ -288,6 +290,10 @@ public class FacetBuilder {
      * @return the builder for further building.
      */
     public FacetBuilder header(Header header) {
+
+        if (header == null) {
+            return this;
+        }
 
         if (this.headers == null) {
             this.headers = new LinkedList<Header>();
@@ -299,7 +305,7 @@ public class FacetBuilder {
     }
 
     /**
-     * Configures a list of headers if the list is not null.
+     * Configures a list of headers for all the options if the list is not null.
      * 
      * @param headers
      *            the list of headers.
@@ -354,7 +360,7 @@ public class FacetBuilder {
             }
 
             HypermediaLink link = new LinkBuilder(list, "all", values).title(this.allTitle).filters(allFilters)
-                    .data("refines", "false").headers(this.headers).build();
+                    .data(REFINES, "false").headers(this.headers).build();
 
             if (grouped) {
                 list.add(link, GROUP, this.name);
@@ -373,18 +379,19 @@ public class FacetBuilder {
 
             String residue = null;
 
-            String dataRefined;
+            String refines = "true";
+
             if (option.isApplied(this.filters.values())) {
                 rel = this.getCleanPrefix(option) + rel;
                 residue = option.getFacet() + "=" + option.getValue();
-                dataRefined = "false";
+                refines = "false";
             } else {
-                dataRefined = "true";
                 option.apply(filters);
             }
 
             LinkBuilder builder = new LinkBuilder(list, rel, values).title(this.getTitle(option, index))
-                    .data("refines", dataRefined).residue(residue).filters(filters).headers(this.headers);
+                    .data(REFINES, refines).residue(residue).filters(filters).headers(this.headers)
+                    .headers(option.getHeaders());
 
             this.addData(builder, option, index);
 

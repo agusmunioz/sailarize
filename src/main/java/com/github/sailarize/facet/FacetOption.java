@@ -3,6 +3,7 @@ package com.github.sailarize.facet;
 import java.util.Collection;
 import java.util.Map;
 
+import com.github.sailarize.http.Header;
 import com.github.sailarize.url.Filter;
 
 /**
@@ -77,4 +78,11 @@ public interface FacetOption {
      *            the filter list where to add the new filters.
      */
     void apply(Collection<Filter> filters);
+
+    /**
+     * Gets the headers configured specifically for the option.
+     * 
+     * @return the headers or null if not configured.
+     */
+    Collection<Header> getHeaders();
 }
