@@ -173,12 +173,14 @@ public abstract class BaseFacetOption implements FacetOption {
             return false;
         }
 
+        Boolean result = Boolean.FALSE;
+
         for (Filter filter : filters) {
             if (this.getFacet().equals(filter.getName())) {
-                return Arrays.asList(filter.getValue().split(",")).contains(this.getValue());
+                result |= filter.getValue().equals(this.getValue());
             }
         }
-        return false;
+        return result;
     }
 
     @Override

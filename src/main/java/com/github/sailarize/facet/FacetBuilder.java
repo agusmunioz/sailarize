@@ -1,5 +1,6 @@
 package com.github.sailarize.facet;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -52,7 +53,7 @@ public class FacetBuilder {
 
     private Collection<FacetOption> options;
 
-    private Map<String, Filter> filters;
+    private Map<String, Collection<Filter>> filtersByName;
 
     private Collection<String> excludedFilters;
 
@@ -74,7 +75,7 @@ public class FacetBuilder {
         this.relPrefix = name;
         this.relPostfix = "";
         this.options = new LinkedList<FacetOption>();
-        this.filters = new HashMap<String, Filter>();
+        this.filtersByName = new HashMap<String, Collection<Filter>>();
         this.excludedFilters = new LinkedList<String>();
 
         if (RequestHolder.get() != null) {
@@ -83,7 +84,7 @@ public class FacetBuilder {
     }
 
     /**
-     * Creates an initialized {@link RawFacetBuilder}.
+     * Creates an initialized {@link FacetBuilder}.
      * 
      * @param name
      *            the facet name.
@@ -163,7 +164,7 @@ public class FacetBuilder {
     /**
      * Configures the builder with a rel postfix.
      * 
-     * @param postfix
+     * @param postFix
      *            the postfix to be added in all facet links rel.
      * 
      * @return the builder for further build.
@@ -202,7 +203,12 @@ public class FacetBuilder {
      */
     public FacetBuilder filter(String name, Object value) {
         if (name != null && !filterBlacklist.contains(name)) {
-            this.filters.put(name, new Filter(name, value.toString()));
+            Collection<Filter> filters = this.filtersByName.get(name);
+            if (filters == null) {
+                filters = new ArrayList<Filter>();
+            }
+            filters.add(new Filter(name, value.toString()));
+            this.filtersByName.put(name, filters);
         }
 
         return this;
@@ -346,14 +352,19 @@ public class FacetBuilder {
     public void build(SailResource list, Object... values) {
 
         for (String excludedFilterName : this.excludedFilters) {
-            this.filters.remove(excludedFilterName);
+            this.filtersByName.remove(excludedFilterName);
+        }
+
+        Collection<Filter> filters = new ArrayList<Filter>();
+        for (Collection<Filter> filterCollection : this.filtersByName.values()) {
+            filters.addAll(filterCollection);
         }
 
         if (this.all) {
 
             Collection<Filter> allFilters = new LinkedList<Filter>();
 
-            for (Filter filter : this.filters.values()) {
+            for (Filter filter : filters) {
                 if (!filter.getName().equals(this.name)) {
                     allFilters.add(filter);
                 }
@@ -373,7 +384,7 @@ public class FacetBuilder {
 
         for (FacetOption option : this.options) {
 
-            Collection<Filter> filters = option.compatibles(this.filters.values());
+            Collection<Filter> compatibleFilters = option.compatibles(filters);
 
             String rel = this.getRel(option);
 
@@ -381,16 +392,16 @@ public class FacetBuilder {
 
             String refines = "true";
 
-            if (option.isApplied(this.filters.values())) {
+            if (option.isApplied(filters)) {
                 rel = this.getCleanPrefix(option) + rel;
                 residue = option.getFacet() + "=" + option.getValue();
                 refines = "false";
             } else {
-                option.apply(filters);
+                option.apply(compatibleFilters);
             }
 
             LinkBuilder builder = new LinkBuilder(list, rel, values).title(this.getTitle(option, index))
-                    .data(REFINES, refines).residue(residue).filters(filters).headers(this.headers)
+                    .data(REFINES, refines).residue(residue).filters(compatibleFilters).headers(this.headers)
                     .headers(option.getHeaders());
 
             this.addData(builder, option, index);
