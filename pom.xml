@@ -4,7 +4,7 @@
 
 	<groupId>com.github.sail-api</groupId>
 	<artifactId>sailarize</artifactId>
-	<version>1.0.B45</version>
+	<version>1.0.B46</version>
 	<packaging>jar</packaging>
 	<name>sailarize</name>
 	<description>A Java library for building Sail resources</description>
