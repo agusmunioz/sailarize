@@ -110,11 +110,32 @@ public abstract class SailResource {
         if (link == null) {
             return;
         }
+
         if (this.links == null) {
             this.links = new LinkedHashMap<String, Collection<HypermediaLink>>();
         }
 
         this.group(this.links, link, SailTags.LINKS, groups);
+    }
+
+    /**
+     * Configures an empty list of links in the specified groups.
+     * 
+     * @param groups
+     *            the groups names
+     */
+    public void emptyLinks(String... groups) {
+
+        if (groups == null) {
+            return;
+        }
+
+        if (this.links == null) {
+            this.links = new LinkedHashMap<String, Collection<HypermediaLink>>();
+        }
+
+        this.group(this.links, null, SailTags.LINKS, groups);
+
     }
 
     /**
@@ -287,7 +308,9 @@ public abstract class SailResource {
             groups.put(key, new LinkedList<T>());
         }
 
-        groups.get(key).add(object);
+        if (object != null) {
+            groups.get(key).add(object);
+        }
     }
 
     @Override

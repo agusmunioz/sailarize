@@ -285,6 +285,8 @@ public class PageBuilder {
      */
     public void build(SailResource list, Object... values) {
 
+        list.emptyLinks(PageConstants.GROUP);
+
         if (this.page > 1) {
 
             LinkBuilder builder = new LinkBuilder(list, PageConstants.PREVIOUS_REL, values).title(this.getPrevious())
