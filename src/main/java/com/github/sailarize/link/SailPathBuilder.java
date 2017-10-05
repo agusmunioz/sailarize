@@ -65,6 +65,22 @@ public class SailPathBuilder {
     }
 
     /**
+     * Adds an array field to the expresion
+     * 
+     * @param arrayField
+     *            the array field name
+     * @param index
+     *            the index of the element
+     * 
+     * @return the builder
+     */
+    public SailPathBuilder element(String arrayField, Integer index) {
+        this.fields.add(arrayField + "[" + index + "]");
+
+        return this;
+    }
+
+    /**
      * Adds the parent reference to the expression.
      * 
      * @return the builder.
