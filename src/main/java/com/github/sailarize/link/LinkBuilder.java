@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import com.github.sailarize.http.Header;
 import com.github.sailarize.http.HeaderHolder;
 import com.github.sailarize.http.Http;
+import com.github.sailarize.http.ParameterHolder;
 import com.github.sailarize.mediatype.MediaTypeBuilder;
 import com.github.sailarize.properties.Hosts;
 import com.github.sailarize.resource.SailResource;
@@ -400,10 +401,6 @@ public class LinkBuilder {
      */
     public HypermediaLink build() {
 
-        if (this.query != null) {
-            this.link.setHref(this.link.getHref() + this.query);
-        }
-
         if (!Domain.cross(link.getHref())) {
 
             Collection<Header> headers = HeaderHolder.get();
@@ -412,6 +409,15 @@ public class LinkBuilder {
                 link.add(header);
             }
 
+            if (this.query == null) {
+                this.query = ParameterHolder.get();
+            } else {
+                this.query.append(ParameterHolder.get());
+            }
+        }
+
+        if (this.query != null) {
+            this.link.setHref(this.link.getHref() + this.query);
         }
 
         return this.link;

@@ -11,7 +11,7 @@ import java.net.URLEncoder;
  */
 public class QueryString {
 
-    private static final String QUERY = "?";
+    protected static final String QUERY = "?";
 
     private static final String AND = "&";
 
@@ -64,10 +64,26 @@ public class QueryString {
 
     }
 
+    /**
+     * Appends a query string to this query. That means, it incorporates all the
+     * parameters.
+     * 
+     * @param query
+     *            the query to append.
+     */
+    public void append(QueryString query) {
+
+        if (this.query == null) {
+            this.query = new StringBuilder(query.toString());
+        } else {
+            this.query.append(query.toString().replaceFirst("\\" + QUERY, AND));
+        }
+    }
+
     @Override
     public String toString() {
 
-        return this.query.toString();
+        return (this.query != null) ? query.toString() : "";
     }
 
 }

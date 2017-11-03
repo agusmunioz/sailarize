@@ -20,6 +20,7 @@ import com.github.sailarize.properties.Titles;
 import com.github.sailarize.url.HostHeaderResolver;
 import com.github.sailarize.url.HostResolver;
 import com.github.sailarize.url.PathHolder;
+import com.github.sailarize.url.QueryString;
 
 /**
  * A {@link Filter} that initializes sailarize components. It sets the current
@@ -110,8 +111,23 @@ public class SailarizeFilter implements Filter {
 
         if (this.parameters != null) {
 
-            ParameterHolder.set("");
+            // TODO:refactor.
+
+            QueryString query = new QueryString();
+
+            for (String parameter : this.parameters) {
+
+                String value = httpRequest.getParameter(parameter);
+
+                if (value != null) {
+                    query.add(parameter, value);
+                }
+
+            }
+
+            ParameterHolder.set(query);
         }
+
         chain.doFilter(request, response);
 
         this.clean();

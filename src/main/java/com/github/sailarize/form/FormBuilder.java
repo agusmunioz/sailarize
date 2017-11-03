@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import com.github.sailarize.http.Header;
 import com.github.sailarize.http.HeaderHolder;
 import com.github.sailarize.http.Http;
+import com.github.sailarize.http.ParameterHolder;
 import com.github.sailarize.resource.SailResource;
 import com.github.sailarize.url.Domain;
 import com.github.sailarize.url.Filter;
@@ -517,15 +518,8 @@ public class FormBuilder {
      */
     public Form build() {
 
-        StringBuilder action = new StringBuilder(this.action);
-
-        if (this.query != null) {
-            action.append(query);
-        }
-
         Form form = new Form();
         form.setId(this.id);
-        form.setAction(action.toString());
         form.setMethod(this.method);
         form.setTitle(this.title);
         form.setInputs(this.inputs);
@@ -540,14 +534,28 @@ public class FormBuilder {
             }
         }
 
-        if (!Domain.cross(form.getAction())) {
+        if (!Domain.cross(this.action)) {
 
             Collection<Header> headers = HeaderHolder.get();
 
             for (Header header : headers) {
                 form.add(header);
             }
+
+            if (this.query == null) {
+                this.query = ParameterHolder.get();
+            } else {
+                this.query.append(ParameterHolder.get());
+            }
         }
+
+        StringBuilder action = new StringBuilder(this.action);
+
+        if (this.query != null) {
+            action.append(query);
+        }
+
+        form.setAction(action.toString());
 
         return form;
     }

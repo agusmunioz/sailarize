@@ -1,8 +1,10 @@
 package com.github.sailarize.http;
 
+import com.github.sailarize.url.QueryString;
+
 public class ParameterHolder {
 
-    private static ThreadLocal<String> PARAMETERS = new ThreadLocal<String>();
+    private static ThreadLocal<QueryString> PARAMETERS = new ThreadLocal<QueryString>();
 
     /**
      * Sets the parameters that must be added in all links and forms.
@@ -10,7 +12,7 @@ public class ParameterHolder {
      * @param headers
      *            this list of headers.
      */
-    public static void set(String parameters) {
+    public static void set(QueryString parameters) {
 
         PARAMETERS.set(parameters);
     }
@@ -21,10 +23,10 @@ public class ParameterHolder {
      * 
      * @return this list of parameters.
      */
-    public static String get() {
+    public static QueryString get() {
 
         if (PARAMETERS.get() == null) {
-            set("");
+            set(new QueryString());
         }
 
         return PARAMETERS.get();
