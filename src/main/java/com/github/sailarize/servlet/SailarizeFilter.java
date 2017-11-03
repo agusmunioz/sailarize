@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.github.sailarize.http.Header;
 import com.github.sailarize.http.HeaderHolder;
+import com.github.sailarize.http.ParameterHolder;
 import com.github.sailarize.properties.Titles;
 import com.github.sailarize.url.HostHeaderResolver;
 import com.github.sailarize.url.HostResolver;
@@ -48,6 +49,12 @@ public class SailarizeFilter implements Filter {
 
     private String hypermedia;
 
+    /**
+     * The list of parameters that must be added in all links and forms except
+     * in cross-domain cases.
+     */
+    private Collection<String> parameters;
+
     @Override
     public void init(FilterConfig config) throws ServletException {
 
@@ -77,6 +84,10 @@ public class SailarizeFilter implements Filter {
             Titles.encoding(config.getInitParameter("encoding"));
         }
 
+        if (config.getInitParameter("parameters") != null) {
+            this.parameters = Arrays.asList(config.getInitParameter("parameters").split(","));
+        }
+
         this.hostResolver = this.getHostResolver(config.getInitParameter("hostResolver"));
 
     }
@@ -97,6 +108,10 @@ public class SailarizeFilter implements Filter {
             HeaderHolder.set(this.headers(httpRequest));
         }
 
+        if (this.parameters != null) {
+
+            ParameterHolder.set("");
+        }
         chain.doFilter(request, response);
 
         this.clean();
@@ -188,6 +203,10 @@ public class SailarizeFilter implements Filter {
 
         if (this.holdRequest) {
             RequestHolder.clean();
+        }
+
+        if (this.parameters != null) {
+            ParameterHolder.clean();
         }
     }
 
