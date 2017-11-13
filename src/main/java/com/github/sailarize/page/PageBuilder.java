@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 
 import com.github.sailarize.http.Header;
+import com.github.sailarize.http.ParameterHolder;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.properties.Titles;
 import com.github.sailarize.resource.SailResource;
@@ -227,7 +228,10 @@ public class PageBuilder {
         for (Entry<String, String[]> filter : request.getParameterMap().entrySet()) {
 
             for (String value : filter.getValue()) {
-                this.filter(filter.getKey(), value);
+
+                if (!ParameterHolder.get().contains(filter.getKey())) {
+                    this.filter(filter.getKey(), value);
+                }
             }
 
         }
@@ -291,7 +295,9 @@ public class PageBuilder {
 
             LinkBuilder builder = new LinkBuilder(list, PageConstants.PREVIOUS_REL, values).title(this.getPrevious())
                     .filter(PageConstants.PAGE_PARAM, Integer.toString(this.page - 1))
-                    .filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters).headers(this.headers);
+                    .filter(PageConstants.SIZE_PARAM, this.size.toString())
+                    .filters(this.filters)
+                    .headers(this.headers);
 
             list.add(builder.build(), PageConstants.GROUP);
         }
@@ -302,7 +308,9 @@ public class PageBuilder {
 
             LinkBuilder builder = new LinkBuilder(list, PageConstants.NEXT_REL, values).title(this.getNext())
                     .filter(PageConstants.PAGE_PARAM, Integer.toString(this.page + 1))
-                    .filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters).headers(this.headers);
+                    .filter(PageConstants.SIZE_PARAM, this.size.toString())
+                    .filters(this.filters)
+                    .headers(this.headers);
 
             list.add(builder.build(), PageConstants.GROUP);
         }
@@ -312,9 +320,12 @@ public class PageBuilder {
             for (Integer page : this.shortcuts) {
 
                 LinkBuilder builder = new LinkBuilder(list, this.shortcutRel(page), values)
-                        .title(this.shortcutTitle(page)).filter(PageConstants.PAGE_PARAM, page.toString())
-                        .filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters)
-                        .headers(this.headers).data("current", Boolean.toString(page.equals(this.page)));
+                        .title(this.shortcutTitle(page))
+                        .filter(PageConstants.PAGE_PARAM, page.toString())
+                        .filter(PageConstants.SIZE_PARAM, this.size.toString())
+                        .filters(this.filters)
+                        .headers(this.headers)
+                        .data("current", Boolean.toString(page.equals(this.page)));
 
                 list.add(builder.build(), PageConstants.GROUP);
             }
@@ -324,7 +335,9 @@ public class PageBuilder {
 
             LinkBuilder builder = new LinkBuilder(list, PageConstants.FIRST_REL, values).title("")
                     .filter(PageConstants.PAGE_PARAM, Integer.toString(1))
-                    .filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters).headers(this.headers);
+                    .filter(PageConstants.SIZE_PARAM, this.size.toString())
+                    .filters(this.filters)
+                    .headers(this.headers);
 
             list.add(builder.build(), PageConstants.GROUP);
         }
@@ -333,7 +346,9 @@ public class PageBuilder {
 
             LinkBuilder builder = new LinkBuilder(list, PageConstants.LAST_REL, values).title("")
                     .filter(PageConstants.PAGE_PARAM, Integer.toString(lastPage))
-                    .filter(PageConstants.SIZE_PARAM, this.size.toString()).filters(this.filters).headers(this.headers);
+                    .filter(PageConstants.SIZE_PARAM, this.size.toString())
+                    .filters(this.filters)
+                    .headers(this.headers);
 
             list.add(builder.build(), PageConstants.GROUP);
         }

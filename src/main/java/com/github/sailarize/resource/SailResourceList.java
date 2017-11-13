@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.github.sailarize.http.ParameterHolder;
 import com.github.sailarize.link.HypermediaLink;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.mediatype.MediaTypeBuilder;
@@ -53,7 +54,9 @@ public class SailResourceList<T extends SailResource> extends SailResource {
 
             for (Entry<String, String[]> parameter : request.getParameterMap().entrySet()) {
                 for (String value : parameter.getValue()) {
-                    builder.filter(parameter.getKey(), value);
+                    if (!ParameterHolder.get().contains(parameter.getKey())) {
+                        builder.filter(parameter.getKey(), value);
+                    }
                 }
             }
 
