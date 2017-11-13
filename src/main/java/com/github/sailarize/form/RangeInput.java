@@ -2,9 +2,7 @@ package com.github.sailarize.form;
 
 public class RangeInput extends ValueInput {
 
-    private String start;
-    private String end;
-    private String step;
+    private Range range;
 
     public RangeInput(String name) {
         super(name);
@@ -22,41 +20,20 @@ public class RangeInput extends ValueInput {
      * @param value
      *            the input value.
      * 
-     * @param start
-     *            the input initial range limit.
-     * 
-     * @param end
-     *            the input final range limit.
+     * @param range
+     *            the range limit.
      */
-    public RangeInput(String id, String name, Object value, String start, String end, String step) {
+    public RangeInput(String id, String name, Object value, Range range) {
         super(id, name, value);
-        this.start = start;
-        this.end = end;
-        this.step = step;
+        this.range = range;
     }
 
-    public Object getStart() {
-        return start;
+    public Range getRange() {
+        return range;
     }
 
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public Object getEnd() {
-        return end;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
-    }
-
-    public String getStep() {
-        return step;
-    }
-
-    public void setStep(String step) {
-        this.step = step;
+    public void setRange(Range range) {
+        this.range = range;
     }
 
 }

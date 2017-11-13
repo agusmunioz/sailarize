@@ -61,9 +61,8 @@ public class RangeInputBuilder {
         input.setTitle(this.title);
         input.setMask(this.mask);
         input.setValue(this.value);
-        input.setStart(start);
-        input.setEnd(end);
-        input.setStep(step);
+        Range range = new Range(start, end, step);
+        input.setRange(range);
         return input;
     }
 
