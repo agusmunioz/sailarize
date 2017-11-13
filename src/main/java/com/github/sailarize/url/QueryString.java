@@ -96,7 +96,7 @@ public class QueryString {
      */
     public boolean contains(String name) {
 
-        return this.query.indexOf(name) > 0;
+        return this.query != null && this.query.indexOf(name) > 0;
     }
 
 }
