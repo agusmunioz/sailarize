@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 
 import com.github.sailarize.http.Header;
+import com.github.sailarize.http.ParameterHolder;
 import com.github.sailarize.link.HypermediaLink;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.link.RelBuilder;
@@ -240,7 +241,10 @@ public class FacetBuilder {
         for (Entry<String, String[]> filter : request.getParameterMap().entrySet()) {
 
             for (String value : filter.getValue()) {
-                this.filter(filter.getKey(), value);
+
+                if (!ParameterHolder.get().contains(filter.getKey())) {
+                    this.filter(filter.getKey(), value);
+                }
             }
 
         }
@@ -370,8 +374,11 @@ public class FacetBuilder {
                 }
             }
 
-            HypermediaLink link = new LinkBuilder(list, "all", values).title(this.allTitle).filters(allFilters)
-                    .data(REFINES, "false").headers(this.headers).build();
+            HypermediaLink link = new LinkBuilder(list, "all", values).title(this.allTitle)
+                    .filters(allFilters)
+                    .data(REFINES, "false")
+                    .headers(this.headers)
+                    .build();
 
             if (grouped) {
                 list.add(link, GROUP, this.name);
@@ -401,7 +408,10 @@ public class FacetBuilder {
             }
 
             LinkBuilder builder = new LinkBuilder(list, rel, values).title(this.getTitle(option, index))
-                    .data(REFINES, refines).residue(residue).filters(compatibleFilters).headers(this.headers)
+                    .data(REFINES, refines)
+                    .residue(residue)
+                    .filters(compatibleFilters)
+                    .headers(this.headers)
                     .headers(option.getHeaders());
 
             this.addData(builder, option, index);

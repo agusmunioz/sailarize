@@ -11,6 +11,7 @@ import com.github.sailarize.form.FormInput;
 import com.github.sailarize.form.Template;
 import com.github.sailarize.form.ValueInput;
 import com.github.sailarize.http.Header;
+import com.github.sailarize.http.ParameterHolder;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.resource.SailResource;
 import com.github.sailarize.servlet.RequestHolder;
@@ -213,7 +214,10 @@ public class FacetFormBuilder {
         for (Entry<String, String[]> filter : request.getParameterMap().entrySet()) {
 
             for (String value : filter.getValue()) {
-                this.filter(filter.getKey(), value);
+
+                if (!ParameterHolder.get().contains(filter.getKey())) {
+                    this.filter(filter.getKey(), value);
+                }
             }
 
         }
@@ -316,12 +320,22 @@ public class FacetFormBuilder {
     public void build(SailResource resource) {
 
         if (grouped) {
-            resource.add(FormBuilder.get(resource).id(this.id).title(this.title).inputs(this.inputs)
-                    .filters(this.option.compatibles(this.filters)).headers(this.headers).headers(this.headersApply)
+            resource.add(FormBuilder.get(resource)
+                    .id(this.id)
+                    .title(this.title)
+                    .inputs(this.inputs)
+                    .filters(this.option.compatibles(this.filters))
+                    .headers(this.headers)
+                    .headers(this.headersApply)
                     .build(), FacetBuilder.GROUP);
         } else {
-            resource.add(FormBuilder.get(resource).id(this.id).title(this.title).inputs(this.inputs)
-                    .filters(this.option.compatibles(this.filters)).headers(this.headers).headers(this.headersApply)
+            resource.add(FormBuilder.get(resource)
+                    .id(this.id)
+                    .title(this.title)
+                    .inputs(this.inputs)
+                    .filters(this.option.compatibles(this.filters))
+                    .headers(this.headers)
+                    .headers(this.headersApply)
                     .build());
         }
 
@@ -336,13 +350,19 @@ public class FacetFormBuilder {
             String residue = clean.getName() + "=" + clean.getValue();
 
             if (grouped) {
-                resource.add(
-                        new LinkBuilder(resource, rel).filters(Collector.reject(this.filters, clean)).title(title)
-                                .headers(this.headers).headers(this.headersClean).residue(residue).build(),
-                        FacetBuilder.GROUP, this.option.getFacet());
+                resource.add(new LinkBuilder(resource, rel).filters(Collector.reject(this.filters, clean))
+                        .title(title)
+                        .headers(this.headers)
+                        .headers(this.headersClean)
+                        .residue(residue)
+                        .build(), FacetBuilder.GROUP, this.option.getFacet());
             } else {
                 resource.add(new LinkBuilder(resource, rel).filters(Collector.reject(this.filters, clean))
-                        .headers(this.headers).headers(this.headersClean).residue(residue).title(title).build());
+                        .headers(this.headers)
+                        .headers(this.headersClean)
+                        .residue(residue)
+                        .title(title)
+                        .build());
             }
         }
 

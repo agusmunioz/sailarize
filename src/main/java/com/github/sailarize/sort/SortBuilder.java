@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 
 import com.github.sailarize.http.Header;
+import com.github.sailarize.http.ParameterHolder;
 import com.github.sailarize.link.LinkBuilder;
 import com.github.sailarize.link.RelBuilder;
 import com.github.sailarize.page.PageConstants;
@@ -252,7 +253,10 @@ public class SortBuilder {
         for (Entry<String, String[]> filter : request.getParameterMap().entrySet()) {
 
             for (String value : filter.getValue()) {
-                this.filter(filter.getKey(), value);
+
+                if (!ParameterHolder.get().contains(filter.getKey())) {
+                    this.filter(filter.getKey(), value);
+                }
             }
 
         }
@@ -365,8 +369,10 @@ public class SortBuilder {
 
             LinkBuilder builder = new LinkBuilder(list,
                     RelBuilder.rel(SortConstants.REL, option.getValue(), option.getDirection()), values)
-                            .filters(this.filters.values()).filter(SortConstants.SORT_BY, option.getValue())
-                            .title(this.getTitle(option, index)).headers(this.headers);
+                            .filters(this.filters.values())
+                            .filter(SortConstants.SORT_BY, option.getValue())
+                            .title(this.getTitle(option, index))
+                            .headers(this.headers);
 
             boolean current = option.getValue().equals(this.currentBy);
 

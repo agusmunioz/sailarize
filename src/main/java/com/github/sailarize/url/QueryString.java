@@ -86,4 +86,17 @@ public class QueryString {
         return (this.query != null) ? query.toString() : "";
     }
 
+    /**
+     * Determines if the specified parameter is included in this query string.
+     * 
+     * @param name
+     *            the parameter name.
+     * 
+     * @return true if it is included, false otherwise.
+     */
+    public boolean contains(String name) {
+
+        return this.query != null && this.query.indexOf(name) > 0;
+    }
+
 }

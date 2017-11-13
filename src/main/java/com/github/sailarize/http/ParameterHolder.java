@@ -2,6 +2,12 @@ package com.github.sailarize.http;
 
 import com.github.sailarize.url.QueryString;
 
+/**
+ * Holder for URL parameters used for parameter propagation.
+ * 
+ * @author agustinmunoz
+ *
+ */
 public class ParameterHolder {
 
     private static ThreadLocal<QueryString> PARAMETERS = new ThreadLocal<QueryString>();
