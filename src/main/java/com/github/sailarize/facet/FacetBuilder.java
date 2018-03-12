@@ -43,8 +43,7 @@ public class FacetBuilder {
      */
     public static final String CLEAN = "clean" + SailTags.KEY;
 
-    private final static Collection<String> filterBlacklist = Arrays.asList(PageConstants.PAGE_PARAM,
-            PageConstants.SIZE_PARAM);
+    private final static Collection<String> filterBlacklist = Arrays.asList(PageConstants.PAGE_PARAM);
 
     private String name;
 
